@@ -77,6 +77,16 @@ Vector2D & Vector2D::operator*(const int & i)
 	return *this;
 }
 
+bool Vector2D::operator==(const Vector2D& other)
+{
+	return (x == other.x && y == other.y);
+}
+
+bool Vector2D::operator!=(const Vector2D& other)
+{
+	return !operator==(other);
+}
+
 Vector2D & Vector2D::zero(void)
 {
 	this->x = 0.0f;

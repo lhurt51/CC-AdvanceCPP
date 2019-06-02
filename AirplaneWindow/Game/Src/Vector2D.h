@@ -27,6 +27,9 @@ public:
 	Vector2D& operator/=(const Vector2D& vec);
 	Vector2D& operator*(const int& i);
 
+	bool operator==(const Vector2D& other);
+	bool operator!=(const Vector2D& other);
+
 	Vector2D& zero(void);
 
 	friend std::ostream& operator<<(std::ostream& stream, const Vector2D& vec);

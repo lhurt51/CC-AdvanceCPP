@@ -65,13 +65,16 @@ void Game::init(const char * title, int xPos, int yPos, int width, int height, b
 	assets->AddTexture("terrain", "assets/terrain_ss.png");
 	assets->AddTexture("player", "assets/player_anims.png");
 	assets->AddTexture("projectile", "assets/circle.png");
+	assets->AddTexture("plane", "assets/airplane.png");
 
 	scene = new Scene("terrain", 3, 32);
 
 	scene->loadScene("assets/map.map", 25, 20);
 	
-	player.addComponent<TransformComponent>(1800, 640, 32, 32, 4.0f);
-	player.addComponent<ColliderComponent>("player");
+	player.addComponent<TransformComponent>(500, 300, 600, 1000, 0.75f);
+	player.addComponent<SpriteComponent>("plane", false);
+	player.addComponent<KeyboardController>();
+	player.addComponent<ColliderComponent>("plane");
 	player.addGroup(groupPlayers);
 }
 
@@ -109,16 +112,8 @@ void Game::update()
 		}
 	}
 
-	float tmpx, tmpy;
-	if (!player.hasComponent<SpriteComponent>())
-	{
-			player.addComponent<SpriteComponent>("player", true);
-			player.addComponent<KeyboardController>();
-	}
-	tmpx = player.getComponent<TransformComponent>().position.x - 540;
-	tmpy = player.getComponent<TransformComponent>().position.y - 340;
-	camera.x = tmpx;
-	camera.y = tmpy;
+	camera.x = player.getComponent<TransformComponent>().position.x - 275;
+	camera.y = player.getComponent<TransformComponent>().position.y - 175;
 
 	if (camera.x < 0) camera.x = 0;
 	if (camera.y < 0) camera.y = 0;

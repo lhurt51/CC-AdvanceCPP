@@ -28,7 +28,6 @@ public:
 	{
 		groupMap,
 		groupPlayers,
-		groupAI,
 		groupColliders,
 		groupProjectiles
 	};
