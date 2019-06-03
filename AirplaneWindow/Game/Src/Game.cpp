@@ -19,6 +19,7 @@ SDL_Event Game::event;
 AssetManager* Game::assets = new AssetManager(&manager);
 
 auto& player(manager.addEntity());
+auto& background(manager.addEntity());
 
 Game::Game()
 {
@@ -63,24 +64,23 @@ void Game::init(const char * title, int xPos, int yPos, int width, int height, b
 	}
 
 	assets->AddTexture("terrain", "assets/terrain_ss.png");
-	assets->AddTexture("player", "assets/player_anims.png");
 	assets->AddTexture("projectile", "assets/circle.png");
 	assets->AddTexture("plane", "assets/airplane.png");
-
-	scene = new Scene("terrain", 3, 32);
-
-	scene->loadScene("assets/map.map", 25, 20);
+	assets->AddTexture("background", "assets/clouds.png");
 	
 	player.addComponent<TransformComponent>(500, 300, 600, 1000, 0.75f);
-	player.addComponent<SpriteComponent>("plane", false);
+	player.addComponent<SpriteComponent>("plane", SDL_FLIP_HORIZONTAL);
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("plane");
 	player.addGroup(groupPlayers);
+
+	background.addComponent<TransformComponent>(0, 0, 2160, 4096, 0.9f);
+	background.addComponent<SpriteComponent>("background");
+	background.addGroup(groupBackground);
 }
 
-auto& tiles(manager.getGroup(Game::groupMap));
+auto& backgrounds(manager.getGroup(Game::groupBackground));
 auto& players(manager.getGroup(Game::groupPlayers));
-auto& colliders(manager.getGroup(Game::groupColliders));
 
 void Game::handleEvents()
 {
@@ -96,12 +96,13 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	SDL_Rect playerCol = player.getComponent<ColliderComponent>().collider;
-	Vector2D playerPos = player.getComponent<TransformComponent>().position;
+	//SDL_Rect playerCol = player.getComponent<ColliderComponent>().collider;
+	//Vector2D playerPos = player.getComponent<TransformComponent>().position;
 
 	manager.refresh();
 	manager.update();
 
+	/*
 	for (auto& c : colliders)
 	{
 		SDL_Rect cCol = c->getComponent<ColliderComponent>().collider;
@@ -111,6 +112,7 @@ void Game::update()
 			player.getComponent<TransformComponent>().position = playerPos;
 		}
 	}
+	*/
 
 	camera.x = player.getComponent<TransformComponent>().position.x - 275;
 	camera.y = player.getComponent<TransformComponent>().position.y - 175;
@@ -124,9 +126,9 @@ void Game::update()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	for (auto& t : tiles)
+	for (auto& b : backgrounds)
 	{
-		t->draw();
+		b->draw();
 	}
 	for (auto& p : players)
 	{

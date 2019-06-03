@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Components.h"
+
 struct Animation
 {
 	int index;
@@ -13,4 +15,9 @@ struct Animation
 		frames = f;
 		speed = s;
 	}
+};
+
+class AnimationCompnent : public Component
+{
+
 };

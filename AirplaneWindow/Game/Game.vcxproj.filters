@@ -98,5 +98,8 @@
     <ClInclude Include="Src\ECS\PlaneComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\ECS\BackgroundComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
