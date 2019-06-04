@@ -96,23 +96,10 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	//SDL_Rect playerCol = player.getComponent<ColliderComponent>().collider;
-	//Vector2D playerPos = player.getComponent<TransformComponent>().position;
 
 	manager.refresh();
 	manager.update();
 
-	/*
-	for (auto& c : colliders)
-	{
-		SDL_Rect cCol = c->getComponent<ColliderComponent>().collider;
-
-		if (Collision::AABB(cCol, playerCol))
-		{
-			player.getComponent<TransformComponent>().position = playerPos;
-		}
-	}
-	*/
 
 	camera.x = player.getComponent<TransformComponent>().position.x - 275;
 	camera.y = player.getComponent<TransformComponent>().position.y - 175;
