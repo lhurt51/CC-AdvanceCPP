@@ -4,6 +4,6 @@
 #include "SpriteComponent.h"
 #include "KeyboardController.h"
 #include "ColliderComponent.h"
+#include "PlaneComponent.h"
 #include "TileComponent.h"
 #include "ProjectileComponent.h"
-#include "AIRaceComponent.h"

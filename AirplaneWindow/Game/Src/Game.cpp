@@ -1,17 +1,32 @@
+/*******************************************************************************\
+* Programmer Name:																*
+* Liam Hurt																		*
+*																				*
+* Date:																			*
+* 06/04/2019																	*
+*																				*
+* Assignment Requirement:														*
+* 		Create a program using class or classes to simulate the flying of an	*
+*		ASCII airplane across and ASCII frame with clouds.						*
+*																				*
+*		- Submit the source code and executable.								*
+*																				*
+\*******************************************************************************/
+
 #include "Game.hpp"
 #include "TextureManager.h"
-#include "Scene.h"
 #include "ECS/Components.h"
 #include "Vector2D.h"
-#include "Collision.h"
 #include "AssetManager.h"
 
+#include <cstdlib>
+#include <ctime>
+
 Manager		manager;
-Scene*		scene;
 
 bool Game::isRunning = false;
 
-SDL_Rect Game::camera = { 0, 0, 1100, 1200 };
+SDL_Rect Game::camera = { 0, 0, 2048, 1080 };
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
@@ -33,6 +48,8 @@ Game::~Game()
 void Game::init(const char * title, int xPos, int yPos, int width, int height, bool fullscreen)
 {
 	int flags = 0;
+
+	srand(time(NULL));
 
 	if (fullscreen)
 	{
@@ -63,18 +80,15 @@ void Game::init(const char * title, int xPos, int yPos, int width, int height, b
 		isRunning = false;
 	}
 
-	assets->AddTexture("terrain", "assets/terrain_ss.png");
-	assets->AddTexture("projectile", "assets/circle.png");
 	assets->AddTexture("plane", "assets/airplane.png");
 	assets->AddTexture("background", "assets/clouds.png");
 	
-	player.addComponent<TransformComponent>(500, 300, 600, 1000, 0.75f);
+	player.addComponent<TransformComponent>(300, (rand() % (2160 - 1000)), 600, 1000, 0.75f);
 	player.addComponent<SpriteComponent>("plane", SDL_FLIP_HORIZONTAL);
-	player.addComponent<KeyboardController>();
-	player.addComponent<ColliderComponent>("plane");
+	player.addComponent<PlaneComponent>();
 	player.addGroup(groupPlayers);
 
-	background.addComponent<TransformComponent>(0, 0, 2160, 4096, 0.9f);
+	background.addComponent<TransformComponent>(0, 0, 2160, 4096, 1.0f);
 	background.addComponent<SpriteComponent>("background");
 	background.addGroup(groupBackground);
 }
@@ -96,10 +110,8 @@ void Game::handleEvents()
 
 void Game::update()
 {
-
 	manager.refresh();
 	manager.update();
-
 
 	camera.x = player.getComponent<TransformComponent>().position.x - 275;
 	camera.y = player.getComponent<TransformComponent>().position.y - 175;
@@ -108,6 +120,9 @@ void Game::update()
 	if (camera.y < 0) camera.y = 0;
 	if (camera.x > camera.w) camera.x = camera.w;
 	if (camera.y > camera.h) camera.y = camera.h;
+
+	if (player.getComponent<TransformComponent>().position.x > 2048 + 1200)
+		isRunning = false;
 }
 
 void Game::render()
