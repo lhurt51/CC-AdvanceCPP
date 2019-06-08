@@ -1,0 +1,5 @@
+mkdir src
+xcopy ..\src src /s /e
+
+# In Clean
+xcopy build\src\ src /s /e
