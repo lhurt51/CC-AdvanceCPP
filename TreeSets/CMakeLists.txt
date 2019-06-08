@@ -67,6 +67,7 @@ file(GLOB_RECURSE SRCS CONFIGURE_DEPENDS
 		${TreeSets_SOURCE_DIR}/src/*.c
 )
 
+# Only adding the test subdirectory if the build type is debug
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 	add_subdirectory(tests EXCLUDE_FROM_ALL)
 endif()

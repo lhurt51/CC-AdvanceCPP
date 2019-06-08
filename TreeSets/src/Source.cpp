@@ -1,36 +1,11 @@
-#include "Game\Game.hpp"
+#include "TreeSet/TreeSet.hpp"
 
-#include <SDL.h>
-#include <GL/glew.h>
-
-#include <iostream>
-#include <chrono>
-#include <thread>
-
-#ifdef main
-	#undef main
-#endif
+#include <vector>
 
 int main(int argc, char** argv)
 {
-	Game game;
 
-	SDL_Init(SDL_INIT_EVERYTHING);
-
-	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
-
-	SDL_Window* m_window = SDL_CreateWindow("Temp Renderer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920, 1080, SDL_WINDOW_OPENGL);
-	SDL_GLContext m_glContext = SDL_GL_CreateContext(m_window);
+	std::cout << "Program Initilized" << std::endl;
 
 #ifdef TESTCODE
 	std::cout << "Test" << std::endl;
@@ -41,12 +16,36 @@ int main(int argc, char** argv)
 	argv = nullptr;
 #endif
 
-	std::cout << "Window Initilized" << std::endl;
-	std::this_thread::sleep_for(std::chrono::milliseconds(10000));
+	TreeSet<float> treeSet(5);
+	treeSet[0] = 3.5f;
+	treeSet[1] = 7.5f;
+	treeSet[2] = 1.45f;
+	treeSet[3] = 45.12f;
+	treeSet[4] = 32.0f;
 
-	SDL_GL_DeleteContext(m_glContext);
-	SDL_DestroyWindow(m_window);
-	SDL_Quit();
+	for (TreeSet<float>::const_iterator i = treeSet.cbegin(); i != treeSet.cend(); i++)
+	{
+		std::cout << *i << " ";
+	}
+	std::cout << std::endl;
+
+	for (TreeSet<float>::iterator i = treeSet.begin(); i != treeSet.end(); i++)
+	{
+		*i += 10.0f;
+		std::cout << *i << " ";
+	}
+	std::cout << std::endl;
+
+	std::vector<float> set;
+	std::copy(treeSet.cbegin(), treeSet.cend(), std::back_inserter(set));
+
+	for (std::vector<float>::const_iterator i = set.begin(); i != set.end(); i++)
+	{
+		std::cout << *i << " ";
+	}
+	std::cout << std::endl;
+
+	std::cout << "Program Destroyed" << std::endl;
 
 	return 0;
 }
