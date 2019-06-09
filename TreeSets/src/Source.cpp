@@ -16,12 +16,13 @@ int main(int argc, char** argv)
 	argv = nullptr;
 #endif
 
-	TreeSet<float> treeSet(5);
+	TreeSet<float> treeSet(6);
 	treeSet[0] = 3.5f;
 	treeSet[1] = 7.5f;
 	treeSet[2] = 1.45f;
 	treeSet[3] = 45.12f;
 	treeSet[4] = 32.0f;
+	treeSet[5] = 13.456f;
 
 	for (TreeSet<float>::const_iterator i = treeSet.cbegin(); i != treeSet.cend(); i++)
 	{
@@ -29,12 +30,16 @@ int main(int argc, char** argv)
 	}
 	std::cout << std::endl;
 
+	treeSet.resize(7);
+
 	for (TreeSet<float>::iterator i = treeSet.begin(); i != treeSet.end(); i++)
 	{
 		*i += 10.0f;
 		std::cout << *i << " ";
 	}
 	std::cout << std::endl;
+
+	treeSet.resize(5);
 
 	std::vector<float> set;
 	std::copy(treeSet.cbegin(), treeSet.cend(), std::back_inserter(set));
