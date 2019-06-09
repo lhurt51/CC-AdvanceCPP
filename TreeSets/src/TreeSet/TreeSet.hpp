@@ -4,8 +4,45 @@
 #include <memory>
 #include <iterator>
 #include <cassert>
+#include <cstdarg>
+#include <initializer_list>
 
-static auto deleter = [](auto p) { delete[] p; };
+/*
+// Cannot seem to make the unique pointer use my custom deleter
+auto deleter = [](auto p) { delete[] p; };
+
+// Issues aliasing the iterators
+template<typename T>
+using iterator = TreeSetIter<T>;
+
+template<typename T>
+class TreeSetIter
+{
+public:
+
+	typedef iterator self_type;
+	typedef T value_type;
+	typedef T& reference;
+	typedef T* pointer;
+	typedef std::forward_iterator_tag iterator_category;
+	typedef int difference_type;
+
+private:
+
+	pointer ptr_;
+
+public:
+
+	iterator(pointer ptr) : ptr_(ptr) {}
+	self_type operator++() { ptr_++; return *this; }
+	self_type operator++(int junk) { self_type i = *this; ptr_++; return i; }
+	reference operator*() { return *ptr_; }
+	pointer operator->() { return ptr_; }
+	bool operator==(const self_type& rhs) { return ptr_ == rhs.ptr_; }
+	bool operator!=(const self_type& rhs) { return !operator==(rhs); }
+
+};
+*/
 
 template <typename T>
 class TreeSet
@@ -13,7 +50,7 @@ class TreeSet
 
 public:
 
-	typedef int size_type;
+	typedef size_t size_type;
 
 	class iterator
 	{
@@ -76,9 +113,21 @@ private:
 
 public:
 
-	TreeSet(size_type size) : size_(size), m_set(nullptr)
+	TreeSet() = default;
+
+	TreeSet(size_type size) : size_(size)
 	{
 		m_set = std::make_unique<T[]>(size_);
+	}
+
+	TreeSet(std::initializer_list<T> list) : size_(list.size())
+	{
+		size_type i = 0;
+		m_set = std::make_unique<T[]>(size_);
+		for (auto it = list.begin(); it != list.end(); it++)
+		{
+			m_set[i++] = *it;
+		}
 	}
 
 	~TreeSet()
@@ -99,6 +148,8 @@ public:
 		assert(index < size_);
 		return m_set.get()[index];
 	}
+
+
 
 	// Resize is broken right now
 	T& resize(size_type size)
