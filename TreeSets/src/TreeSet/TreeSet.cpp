@@ -43,3 +43,69 @@
 \*******************************************************************************/
 
 #include "TreeSet.hpp"
+
+template<typename T>
+TreeSet<T>::TreeSet(size_type size) : size_(size)
+{
+	m_set = std::make_unique<T[]>(size_);
+}
+
+template<typename T>
+TreeSet<T>::TreeSet(std::initializer_list<T> list) : size_(list.size())
+{
+	size_type i = 0;
+	m_set = std::make_unique<T[]>(size_);
+	for (auto it = list.begin(); it != list.end(); it++)
+	{
+		m_set[i++] = *it;
+	}
+	Qsort<T>(m_set.get(), size_ - 1, 0);
+}
+
+template<typename T>
+TreeSet<T>::~TreeSet()
+{
+	//m_set.reset(nullptr);
+}
+
+template<typename T>
+T& TreeSet<T>::Resize(size_type size)
+{
+	std::unique_ptr<T[]> tmp = std::make_unique<T[]>(size);
+	tmp.swap(m_set);
+	for (int j = 0; j < size_; j++)
+		std::swap(m_set[j], tmp[j]);
+	size_ = size;
+	Qsort<T>(m_set.get(), size_ - 1, 0);
+	//tmp.reset(nullptr);
+	return *m_set.get();
+}
+
+template<typename T>
+void Qsort(T* tmp, size_t len, size_t start)
+{
+	size_t piv;
+	size_t i;
+	size_t j;
+
+	if (start < len)
+	{
+		piv = start;
+		i = start;
+		j = len;
+		while (i < j)
+		{
+			while (tmp[i] <= tmp[piv] && i <= len)
+				i++;
+			while (tmp[j] > tmp[piv])
+				j--;
+			if (i < j)
+			{
+				std::swap(tmp[i], tmp[j]);
+			}
+		}
+		std::swap(tmp[piv], tmp[j]);
+		Qsort<T>(tmp, j - 1, start);
+		Qsort<T>(tmp, len, j + 1);
+	}
+}

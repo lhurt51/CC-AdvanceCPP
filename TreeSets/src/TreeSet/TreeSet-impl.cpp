@@ -42,95 +42,14 @@
 *																				*
 \*******************************************************************************/
 
-#include "TreeSet/TreeSet.hpp"
+#include "TreeSet.cpp"
 
-#include <vector>
+template class TreeSet<int>;
+template class TreeSet<unsigned int>;
+template class TreeSet<float>;
+template class TreeSet<double>;
 
-// template<typename T> void Qsort(T& tmp, size_t len, size_t start);
-
-/*
-template<typename T>
-void Qsort(T& tmp, size_t len, size_t start)
-{
-	size_t piv;
-	size_t i;
-	size_t j;
-
-	if (start < len)
-	{
-		piv = start;
-		i = start;
-		j = len;
-		while (i < j)
-		{
-			while (tmp[i] <= tmp[piv] && i <= len)
-				i++;
-			while (tmp[j] > tmp[piv])
-				j--;
-			if (i < j)
-			{
-				std::swap(tmp[i], tmp[j]);
-			}
-		}
-		std::swap(tmp[piv], tmp[j]);
-		Qsort<T>(tmp, j - 1, start);
-		Qsort<T>(tmp, len, j + 1);
-	}
-}
-*/
-
-int main(int argc, char** argv)
-{
-
-	std::cout << "Program Initilized" << std::endl;
-
-#ifdef TESTCODE
-	std::cout << "Test" << std::endl;
-	for (int i = 1; i < argc; ++i) 
-		std::cout << argv[i] << std::endl;
-#else
-	argc = 0;
-	argv = nullptr;
-#endif
-
-	TreeSet<float> treeSet = { 3.5f, 7.5f, 1.45f, 45.12f, 32.0f };
-	/*
-	treeSet[0] = 3.5f;
-	treeSet[1] = 7.5f;
-	treeSet[2] = 1.45f;
-	treeSet[3] = 45.12f;
-	treeSet[4] = 32.0f;
-	treeSet[5] = 13.456f;
-	*/
-
-	for (TreeSet<float>::const_iterator i = treeSet.cbegin(); i != treeSet.cend(); i++)
-	{
-		std::cout << *i << " ";
-	}
-	std::cout << std::endl;
-
-	treeSet.Resize(7);
-
-	for (TreeSet<float>::iterator i = treeSet.begin(); i != treeSet.end(); i++)
-	{
-		*i += 10.0f;
-		std::cout << *i << " ";
-	}
-	std::cout << std::endl;
-
-	// Expanding array works but compressing array does not work
-	// treeSet.Resize(5);
-
-	std::vector<float> set;
-	std::copy(treeSet.cbegin(), treeSet.cend(), std::back_inserter(set));
-
-	for (std::vector<float>::const_iterator i = set.begin(); i != set.end(); i++)
-	{
-		std::cout << *i << " ";
-	}
-	std::cout << std::endl;
-
-	std::cout << "Program Destroyed" << std::endl;
-
-	return 0;
-}
+template void Qsort(int* tmp, size_t len, size_t start);
+template void Qsort(unsigned int* tmp, size_t len, size_t start);
+template void Qsort(float* tmp, size_t len, size_t start);
+template void Qsort(double* tmp, size_t len, size_t start);
