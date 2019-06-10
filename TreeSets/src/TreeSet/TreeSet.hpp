@@ -44,6 +44,8 @@ public:
 };
 */
 
+template<typename T> void Qsort(T& tmp, size_t len, size_t start);
+
 template <typename T>
 class TreeSet
 {
@@ -78,6 +80,7 @@ public:
 		bool operator!=(const self_type& rhs) { return !operator==(rhs); }
 
 	};
+	//using iterator = TreeSetIter;
 
 	class const_iterator
 	{
@@ -105,6 +108,7 @@ public:
 		bool operator!=(const self_type& rhs) { return !operator==(rhs); }
 
 	};
+	//using const_iterator = ConstTreeSetIter
 
 private:
 
@@ -128,6 +132,7 @@ public:
 		{
 			m_set[i++] = *it;
 		}
+		Qsort<T>(m_set.get(), size_ - 1, 0);
 	}
 
 	~TreeSet()
@@ -157,10 +162,9 @@ public:
 		std::unique_ptr<T[]> tmp = std::make_unique<T[]>(size);
 		tmp.swap(m_set);
 		for (int j = 0; j < size_; j++)
-		{
-			m_set[j] = tmp[j];
-		}
+			std::swap(m_set[j], tmp[j]);
 		size_ = size;
+		Qsort<T>(m_set.get(), size_ - 1, 0);
 		//tmp.reset(nullptr);
 		return *m_set.get();
 	}
@@ -186,3 +190,32 @@ public:
 	}
 
 };
+
+template<typename T>
+void Qsort(T* tmp, size_t len, size_t start)
+{
+	size_t piv;
+	size_t i;
+	size_t j;
+
+	if (start < len)
+	{
+		piv = start;
+		i = start;
+		j = len;
+		while (i < j)
+		{
+			while (tmp[i] <= tmp[piv] && i <= len)
+				i++;
+			while (tmp[j] > tmp[piv])
+				j--;
+			if (i < j)
+			{
+				std::swap(tmp[i], tmp[j]);
+			}
+		}
+		std::swap(tmp[piv], tmp[j]);
+		Qsort<T>(tmp, j - 1, start);
+		Qsort<T>(tmp, len, j + 1);
+	}
+}
