@@ -46,44 +46,11 @@
 
 #include <vector>
 
-// template<typename T> void Qsort(T& tmp, size_t len, size_t start);
-
-/*
-template<typename T>
-void Qsort(T& tmp, size_t len, size_t start)
-{
-	size_t piv;
-	size_t i;
-	size_t j;
-
-	if (start < len)
-	{
-		piv = start;
-		i = start;
-		j = len;
-		while (i < j)
-		{
-			while (tmp[i] <= tmp[piv] && i <= len)
-				i++;
-			while (tmp[j] > tmp[piv])
-				j--;
-			if (i < j)
-			{
-				std::swap(tmp[i], tmp[j]);
-			}
-		}
-		std::swap(tmp[piv], tmp[j]);
-		Qsort<T>(tmp, j - 1, start);
-		Qsort<T>(tmp, len, j + 1);
-	}
-}
-*/
-
 int main(int argc, char** argv)
 {
-
 	std::cout << "Program Initilized" << std::endl;
 
+	// Temp code to make testing with your own args easier
 #ifdef TESTCODE
 	std::cout << "Test" << std::endl;
 	for (int i = 1; i < argc; ++i) 
@@ -93,8 +60,11 @@ int main(int argc, char** argv)
 	argv = nullptr;
 #endif
 
+	// Initializing the tree set with an initializer list
 	TreeSet<float> treeSet = { 3.5f, 7.5f, 1.45f, 45.12f, 32.0f };
 	/*
+	Alternatively you can assign each index and construct with size
+	TreeSet<float> treeSet(6);
 	treeSet[0] = 3.5f;
 	treeSet[1] = 7.5f;
 	treeSet[2] = 1.45f;
@@ -103,14 +73,17 @@ int main(int argc, char** argv)
 	treeSet[5] = 13.456f;
 	*/
 
+	// Printing out the array with const iterators
 	for (TreeSet<float>::const_iterator i = treeSet.cbegin(); i != treeSet.cend(); i++)
 	{
 		std::cout << *i << " ";
 	}
 	std::cout << std::endl;
 
+	// Resizing the array to add two 0 values to the array
 	treeSet.Resize(7);
 
+	// Looping through using itterators to add 10 to each value
 	for (TreeSet<float>::iterator i = treeSet.begin(); i != treeSet.end(); i++)
 	{
 		*i += 10.0f;
@@ -121,9 +94,11 @@ int main(int argc, char** argv)
 	// Expanding array works but compressing array does not work
 	// treeSet.Resize(5);
 
+	// Copying the array to an std::vector called set
 	std::vector<float> set;
 	std::copy(treeSet.cbegin(), treeSet.cend(), std::back_inserter(set));
 
+	// Printing out the vector just to make sure the conversion is correct
 	for (std::vector<float>::const_iterator i = set.begin(); i != set.end(); i++)
 	{
 		std::cout << *i << " ";

@@ -44,6 +44,8 @@
 
 #include "TreeSet.cpp"
 
+// Implementing all the data types I want the Tree Set to use
+// I can add more types here but this seems like over kill already
 template class TreeSet<int>;
 template class TreeSet<unsigned int>;
 template class TreeSet<float>;
