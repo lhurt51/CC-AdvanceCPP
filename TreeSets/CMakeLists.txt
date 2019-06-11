@@ -14,11 +14,11 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # Be nice and export compile commands by default
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-if (WIN32)
-	if(CMAKE_CL_64)
-        set_property(GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS ON)
-    endif()
-endif()
+#if (WIN32)
+#	if(CMAKE_CL_64)
+#        set_property(GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS ON)
+#    endif()
+#endif()
 
 # Helpful option enable build profiling to identify slowly compiling files
 #option(MEASURE_ALL "When enabled all commands will be passed through time command" OFF)

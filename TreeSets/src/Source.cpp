@@ -81,7 +81,7 @@ int main(int argc, char** argv)
 	std::cout << std::endl;
 
 	// Resizing the array to add two 0 values to the array
-	treeSet.Resize(7);
+	// treeSet.Resize(7);
 
 	// Looping through using itterators to add 10 to each value
 	for (TreeSet<float>::iterator i = treeSet.begin(); i != treeSet.end(); i++)
@@ -104,6 +104,10 @@ int main(int argc, char** argv)
 		std::cout << *i << " ";
 	}
 	std::cout << std::endl;
+
+	TreeSet<float> my_set = { 11.45f, 55.12f, 13.5f, 42.0f, 17.5f };
+
+	std::cout << "Set and Tree set are " << ((treeSet == my_set) ? "the same" : "different") << std::endl;
 
 	std::cout << "Program Destroyed" << std::endl;
 

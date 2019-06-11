@@ -137,6 +137,23 @@ public:
 		return m_set.get()[index];
 	}
 
+	inline bool operator==(const TreeSet& rhs) const
+	{
+		if (size_ != rhs.size())
+			return false;
+		for (int i = 0; i < size_; i++)
+		{
+			if (this[i] != rhs[i])
+				return false;
+		}
+		return true;
+	}
+
+	inline bool operator!=(const TreeSet& rhs) const
+	{
+		return !operator==(rhs);
+	}
+
 	// Resize is broken right now
 	T& Resize(size_type size);
 
