@@ -6,6 +6,7 @@
 #include <cassert>
 #include <cstdarg>
 #include <initializer_list>
+#include <vector>
 
 /*
 // Cannot seem to make the unique pointer use my custom deleter
@@ -70,8 +71,15 @@ public:
 	public:
 
 		iterator(pointer ptr) : ptr_(ptr) {}
-		inline self_type operator++() { ptr_++; return *this; }
-		inline self_type operator++(int junk) { self_type i = *this; ptr_++; return i; }
+		/*
+		iterator(const iterator& src)
+		{
+			*this = src;
+		}
+		inline iterator& operator=(const iterator& rhs) { if (this != &rhs) { ptr_ = rhs; } return *this; }
+		*/
+		inline self_type& operator++() { ptr_++; return *this; }
+		inline self_type operator++(int) { self_type i = *this; ptr_++; return i; }
 		inline reference operator*() { return *ptr_; }
 		inline pointer operator->() { return ptr_; }
 		inline bool operator==(const self_type& rhs) { return ptr_ == rhs.ptr_; }
@@ -98,8 +106,15 @@ public:
 	public:
 
 		const_iterator(pointer ptr) : ptr_(ptr) {}
-		inline self_type operator++() { ptr_++; return *this; }
-		inline self_type operator++(int junk) { self_type i = *this; ptr_++; return i; }
+		/*
+		const_iterator(const const_iterator& src)
+		{
+			*this = src;
+		}
+		inline const_iterator& operator=(const const_iterator& rhs) { if (this != &rhs) { ptr_ = rhs; } return *this; }
+		*/
+		inline self_type& operator++() { ptr_++; return *this; }
+		inline self_type operator++(int) { self_type i = *this; ptr_++; return i; }
 		inline const reference operator*() { return *ptr_; }
 		inline const pointer operator->() { return ptr_; }
 		inline bool operator==(const self_type& rhs) { return ptr_ == rhs.ptr_; }
@@ -121,6 +136,8 @@ public:
 
 	TreeSet(std::initializer_list<T> list);
 
+	TreeSet(const TreeSet& src);
+
 	~TreeSet();
 
 	inline size_type size() const { return size_; }
@@ -137,13 +154,28 @@ public:
 		return m_set.get()[index];
 	}
 
+	inline TreeSet& operator=(const TreeSet& rhs)
+	{
+		if (this != &rhs)
+		{
+			size_ = rhs.size();
+			m_set.reset(nullptr);
+			m_set = std::make_unique<T[]>(size_);
+			for (int i = 0; i < size_; i++)
+			{
+				m_set[i] = rhs[i]; 
+			}
+		}
+		return *this;
+	}
+
 	inline bool operator==(const TreeSet& rhs) const
 	{
 		if (size_ != rhs.size())
 			return false;
 		for (int i = 0; i < size_; i++)
 		{
-			if (this[i] != rhs[i])
+			if (m_set[i] != rhs[i])
 				return false;
 		}
 		return true;
@@ -154,6 +186,14 @@ public:
 		return !operator==(rhs);
 	}
 
+	bool CheckForDup(T val, const std::vector<T>& intersects) const;
+
+	TreeSet<T> Intersects(const TreeSet& s) const;
+
+	TreeSet<T> Plus(const TreeSet& s) const;
+
+	TreeSet<T> Minus(const TreeSet& s) const;
+
 	// Resize is broken right now
 	T& Resize(size_type size);
 
@@ -162,6 +202,8 @@ public:
 
 	inline const_iterator cbegin() const { return const_iterator(std::next(m_set.get(), 0)); }
 	inline const_iterator cend() const { return const_iterator(std::next(m_set.get(), size_)); }
+
+	friend std::ostream& operator<<(std::ostream& o, const TreeSet& set) { o << "["; for (int i = 0; i < set.size(); i++) { o << set.m_set[i] << ((i + 1 >= set.size()) ? "" : ", "); } return o << "]"; }
 
 };
 

@@ -44,6 +44,8 @@
 
 #include "TreeSet.hpp"
 
+#include <algorithm>
+
 template<typename T>
 TreeSet<T>::TreeSet(size_type size) : size_(size)
 {
@@ -53,19 +55,103 @@ TreeSet<T>::TreeSet(size_type size) : size_(size)
 template<typename T>
 TreeSet<T>::TreeSet(std::initializer_list<T> list) : size_(list.size())
 {
-	size_type i = 0;
+	size_type k = 0;
 	m_set = std::make_unique<T[]>(size_);
 	for (auto it = list.begin(); it != list.end(); it++)
 	{
-		m_set[i++] = *it;
+		m_set[k++] = *it;
 	}
 	Qsort<T>(m_set.get(), size_ - 1, 0);
+}
+
+template<typename T>
+TreeSet<T>::TreeSet(const TreeSet& src)
+{
+	*this = src;
 }
 
 template<typename T>
 TreeSet<T>::~TreeSet()
 {
 	//m_set.reset(nullptr);
+}
+
+template<typename T>
+bool TreeSet<T>::CheckForDup(T val, const std::vector<T>& intersects) const
+{
+	for (int l = 0; l < intersects.size(); l++)
+	{
+		if (intersects[l] == val)
+			return true;
+	}
+	return false;
+}
+
+template<typename T>
+TreeSet<T> TreeSet<T>::Intersects(const TreeSet& s) const
+{
+	std::vector<T> intersects;
+	for (int i = 0; i < size_; i++)
+	{
+		for (int j = 0; j < s.size(); j++)
+		{
+			if (m_set[i] == s[j] && !CheckForDup(s[j], intersects))
+			{
+				intersects.push_back(s[j]);
+			}
+		}
+	}
+	TreeSet<T> rtn(intersects.size());
+	for (int i = 0; i < intersects.size(); i++)
+	{
+		rtn[i] = intersects[i];
+	}
+	Qsort<T>(rtn.m_set.get(), rtn.size() - 1, 0);
+	return rtn;
+}
+
+template<typename T>
+TreeSet<T> TreeSet<T>::Plus(const TreeSet& s) const
+{
+	std::vector<T> plus;
+	for (int i = 0; i < std::max(size_, s.size()); i++)
+	{
+		if (i < size_ && i < s.size())
+			plus.push_back(m_set[i] + s[i]);
+		else if (i < size_ && i >= s.size())
+			plus.push_back(m_set[i]);
+		else if (i >= size_ && i < s.size())
+			plus.push_back(s[i]);
+	}
+	TreeSet<T> rtn(plus.size());
+	for (int i = 0; i < plus.size(); i++)
+	{
+		rtn[i] = plus[i];
+	}
+	Qsort<T>(rtn.m_set.get(), rtn.size() - 1, 0);
+	return rtn;
+}
+
+template<typename T>
+TreeSet<T> TreeSet<T>::Minus(const TreeSet& s) const
+{
+	std::vector<T> minus;
+	for (int i = 0; i < std::max(size_, s.size()); i++)
+	{
+		if (i < size_ && i < s.size())
+			minus.push_back(m_set[i] - s[i]);
+		else if (i < size_ && i >= s.size())
+			minus.push_back(m_set[i] - T(0));
+		else if (i >= size_ && i < s.size())
+			minus.push_back(T(0) - s[i]);
+	}
+	TreeSet<T> rtn(minus.size());
+	for (int i = 0; i < minus.size(); i++)
+	{
+		rtn[i] = minus[i];
+	}
+	Qsort<T>(rtn.m_set.get(), rtn.size() - 1, 0);
+	return rtn;
 }
 
 template<typename T>
@@ -77,7 +163,6 @@ T& TreeSet<T>::Resize(size_type size)
 		std::swap(m_set[j], tmp[j]);
 	size_ = size;
 	Qsort<T>(m_set.get(), size_ - 1, 0);
-	//tmp.reset(nullptr);
 	return *m_set.get();
 }
 
@@ -97,7 +182,7 @@ void Qsort(T* tmp, size_t len, size_t start)
 		{
 			while (tmp[i] <= tmp[piv] && i <= len)
 				i++;
-			while (tmp[j] > tmp[piv])
+			while (tmp[j] > tmp[piv] && j > 0)
 				j--;
 			if (i < j)
 			{
@@ -105,7 +190,7 @@ void Qsort(T* tmp, size_t len, size_t start)
 			}
 		}
 		std::swap(tmp[piv], tmp[j]);
-		Qsort<T>(tmp, j - 1, start);
+		Qsort<T>(tmp, (((int)(j - 1) < 0) ? 0 : j - 1), start);
 		Qsort<T>(tmp, len, j + 1);
 	}
 }

@@ -71,12 +71,13 @@ int main(int argc, char** argv)
 	treeSet[3] = 45.12f;
 	treeSet[4] = 32.0f;
 	treeSet[5] = 13.456f;
+	But there is an issue with sorting
 	*/
 
 	// Printing out the array with const iterators
-	for (TreeSet<float>::const_iterator i = treeSet.cbegin(); i != treeSet.cend(); i++)
+	for (TreeSet<float>::const_iterator it = treeSet.cbegin(); it != treeSet.cend(); it++)
 	{
-		std::cout << *i << " ";
+		std::cout << *it << " ";
 	}
 	std::cout << std::endl;
 
@@ -84,10 +85,10 @@ int main(int argc, char** argv)
 	// treeSet.Resize(7);
 
 	// Looping through using itterators to add 10 to each value
-	for (TreeSet<float>::iterator i = treeSet.begin(); i != treeSet.end(); i++)
+	for (TreeSet<float>::iterator it = treeSet.begin(); it != treeSet.end(); it++)
 	{
-		*i += 10.0f;
-		std::cout << *i << " ";
+		*it += 10.0f;
+		std::cout << *it << " ";
 	}
 	std::cout << std::endl;
 
@@ -99,17 +100,27 @@ int main(int argc, char** argv)
 	std::copy(treeSet.cbegin(), treeSet.cend(), std::back_inserter(set));
 
 	// Printing out the vector just to make sure the conversion is correct
-	for (std::vector<float>::const_iterator i = set.begin(); i != set.end(); i++)
+	for (std::vector<float>::const_iterator it = set.begin(); it != set.end(); it++)
 	{
-		std::cout << *i << " ";
+		std::cout << *it << " ";
 	}
 	std::cout << std::endl;
 
-	TreeSet<float> my_set = { 11.45f, 55.12f, 13.5f, 42.0f, 17.5f };
+	TreeSet<float> my_set = { 5.45f, 55.12f, 13.5f, 42.0f, 17.5f };
+	std::cout << my_set << std::endl;
+
+	TreeSet<float> plus = treeSet.Plus(my_set);
+	std::cout << plus << std::endl;
+
+	TreeSet<float> minus = treeSet.Minus(my_set);
+	std::cout << minus << std::endl;
+
+	TreeSet<float> intersects = treeSet.Intersects(my_set);
+	std::cout << intersects << std::endl;
 
 	std::cout << "Set and Tree set are " << ((treeSet == my_set) ? "the same" : "different") << std::endl;
 
 	std::cout << "Program Destroyed" << std::endl;
 
 	return 0;
-}
+ }
