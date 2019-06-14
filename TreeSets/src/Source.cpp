@@ -46,19 +46,10 @@
 
 #include <vector>
 
-int main(int argc, char** argv)
+int main()
 {
+	// Printing program initialization
 	std::cout << "Program Initilized" << std::endl;
-
-	// Temp code to make testing with your own args easier
-#ifdef TESTCODE
-	std::cout << "Test" << std::endl;
-	for (int i = 1; i < argc; ++i) 
-		std::cout << argv[i] << std::endl;
-#else
-	argc = 0;
-	argv = nullptr;
-#endif
 
 	// Initializing the tree set with an initializer list
 	TreeSet<float> treeSet = { 3.5f, 7.5f, 1.45f, 45.12f, 32.0f };
@@ -75,6 +66,7 @@ int main(int argc, char** argv)
 	*/
 
 	// Printing out the array with const iterators
+	std::cout << "tree set: ";
 	for (TreeSet<float>::const_iterator it = treeSet.cbegin(); it != treeSet.cend(); it++)
 	{
 		std::cout << *it << " ";
@@ -85,6 +77,7 @@ int main(int argc, char** argv)
 	// treeSet.Resize(7);
 
 	// Looping through using itterators to add 10 to each value
+	std::cout << "modifying tree set: ";
 	for (TreeSet<float>::iterator it = treeSet.begin(); it != treeSet.end(); it++)
 	{
 		*it += 10.0f;
@@ -100,26 +93,33 @@ int main(int argc, char** argv)
 	std::copy(treeSet.cbegin(), treeSet.cend(), std::back_inserter(set));
 
 	// Printing out the vector just to make sure the conversion is correct
+	std::cout << "set copying to vector: ";
 	for (std::vector<float>::const_iterator it = set.begin(); it != set.end(); it++)
 	{
 		std::cout << *it << " ";
 	}
 	std::cout << std::endl;
 
+	// Creating a new set close but not identical
 	TreeSet<float> my_set = { 5.45f, 55.12f, 13.5f, 42.0f, 17.5f };
-	std::cout << my_set << std::endl;
+	std::cout << "my_set: " << my_set << std::endl;
 
+	// Adding the set and my tree
 	TreeSet<float> plus = treeSet.Plus(my_set);
-	std::cout << plus << std::endl;
+	std::cout << "tree set + my set: " << plus << std::endl;
 
+	// subtracting the set and my tree
 	TreeSet<float> minus = treeSet.Minus(my_set);
-	std::cout << minus << std::endl;
+	std::cout << "tree set - my set: " << minus << std::endl;
 
+	// Finding the common values between each set
 	TreeSet<float> intersects = treeSet.Intersects(my_set);
-	std::cout << intersects << std::endl;
+	std::cout << "tree set & my set(intersects): " << intersects << std::endl;
 
+	// Checking if tree set and my set is equal
 	std::cout << "Set and Tree set are " << ((treeSet == my_set) ? "the same" : "different") << std::endl;
 
+	// Printing program destruction
 	std::cout << "Program Destroyed" << std::endl;
 
 	return 0;

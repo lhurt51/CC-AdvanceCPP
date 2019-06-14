@@ -68,9 +68,9 @@ file(GLOB_RECURSE SRCS CONFIGURE_DEPENDS
 )
 
 # Only adding the test subdirectory if the build type is debug
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-	add_subdirectory(tests EXCLUDE_FROM_ALL)
-endif()
+#if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+#	add_subdirectory(tests EXCLUDE_FROM_ALL)
+#endif()
 
 # Define the executable
 add_executable(TreeSets ${HDRS} ${SRCS})

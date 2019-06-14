@@ -49,18 +49,21 @@
 template<typename T>
 TreeSet<T>::TreeSet(size_type size) : size_(size)
 {
+	// Creating space for the array
 	m_set = std::make_unique<T[]>(size_);
 }
 
 template<typename T>
 TreeSet<T>::TreeSet(std::initializer_list<T> list) : size_(list.size())
 {
+	// Using the list to fill out m_set
 	size_type k = 0;
 	m_set = std::make_unique<T[]>(size_);
 	for (auto it = list.begin(); it != list.end(); it++)
 	{
 		m_set[k++] = *it;
 	}
+	// Sorting the set
 	Qsort<T>(m_set.get(), size_ - 1, 0);
 }
 
