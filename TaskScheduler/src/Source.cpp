@@ -28,39 +28,35 @@
 \*******************************************************************************/
 
 #include <iostream>
-#include <string>
-#include <thread>
 #include <chrono>
-#include <future>
-
 #include <mutex>
-std::mutex mu;
+#include <iomanip>
+
+#include "Scheduler/Scheduler.hpp"
+
+std::mutex logMu;
+
 void shared_print(std::string msg)
 {
-	std::lock_guard<std::mutex> guard(mu); // Guard function from exceptions
-	std::cout << msg.c_str() << std::endl;
-}
-
-void fun1()
-{
-	shared_print("Thread: Function sleeping for 1 second");
-	std::this_thread::sleep_for(std::chrono::seconds(1));
-	shared_print("Thread: Function returning");
+	std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+	logMu.lock(); // Guard function from exceptions
+	std::cout << std::put_time(std::localtime(&now), "%Y-%m-%d %X - ") << msg.c_str() << std::endl;
+	logMu.unlock();
 }
 
 int main()
 {
+	// For Scheduler { Task(shared_print), Task(shared_print), Task(shared_print) }
+	Scheduler s({ Task(shared_print), Task(shared_print), Task(shared_print) });
 	// Printing program initialization
 	std::cout << "Program Initilized" << std::endl;
-
-	std::cout << "# of threads: " << std::thread::hardware_concurrency() << std::endl;
-	auto fut = std::async(fun1);
-	auto count = 1;
-	while (fut.wait_for(std::chrono::milliseconds(250)) != std::future_status::ready)
-		shared_print(std::string("Main: ") + std::to_string(count++));
-	shared_print(std::string("Main: Finished with a count of: ") + std::to_string(count));
+	std::cout << "Concurrent Threads #" << std::thread::hardware_concurrency() << std::endl;
+	
+	// Run the scheduler
+	s.Run();
 
 	// Printing program destruction
+	std::cout << "Main: THE END" << std::endl;
 	std::cout << "Program Destroyed" << std::endl;
 
 	return 0;
