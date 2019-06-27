@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Scheduler">
+      <UniqueIdentifier>{84CA7F4C-F034-34C3-3973-E568A51C1218}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Scheduler\Scheduler.hpp">
+      <Filter>Scheduler</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scheduler\Task.hpp">
+      <Filter>Scheduler</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Scheduler\Scheduler.cpp">
+      <Filter>Scheduler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scheduler\Task.cpp">
+      <Filter>Scheduler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Source.cpp" />
+  </ItemGroup>
+</Project>

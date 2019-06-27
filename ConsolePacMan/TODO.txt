@@ -1,0 +1,61 @@
+This homework will be a very simple scheduler.
+
+The scheduler shall create three threads
+Each thread shall compute a random millisecond delay between 0 and 4 seconds
+The main function shall run through the scheduler 5 times
+Each time of the scheduler shall delay for 2 seconds
+At the end of 2 seconds, the scheduler shall kill any threads still running
+The scheduler shall delay for an additional 1 second before restarting the process
+At each time of the scheduler, the scheduler shall restart the threads
+The scheduler shall display the current time and a message that the schedule started
+Each thread shall display the current time with a message that it had started
+Each thread shall display the current time with a message of when it had finished or interrupt to end by the scheduler
+
+HW_03.jpg
+
+ 
+
+for example:
+
+2019-06-13 23:20:41 - Main:
+2019-06-13 23:20:41 - thread1 function sleeping for (milliseconds): - 420
+2019-06-13 23:20:41 - thread2 function sleeping for (milliseconds): - 420
+2019-06-13 23:20:41 - thread3 function sleeping for (milliseconds): - 420
+2019-06-13 23:20:41 - thread1 function finished - 0
+2019-06-13 23:20:41 - thread2 function finished - 0
+2019-06-13 23:20:41 - thread3 function finished - 0
+2019-06-13 23:20:44 - Main:
+2019-06-13 23:20:44 - Main:
+2019-06-13 23:20:44 - thread1 function sleeping for (milliseconds): - 4680
+2019-06-13 23:20:44 - thread2 function sleeping for (milliseconds): - 4680
+2019-06-13 23:20:44 - thread3 function sleeping for (milliseconds): - 420
+2019-06-13 23:20:44 - thread3 function finished - 0
+2019-06-13 23:20:46 - thread1 function interrupted - 2820
+2019-06-13 23:20:46 - thread2 function interrupted - 2840
+2019-06-13 23:20:47 - Main:
+2019-06-13 23:20:47 - Main:
+2019-06-13 23:20:47 - thread1 function sleeping for (milliseconds): - 3350
+2019-06-13 23:20:47 - thread2 function sleeping for (milliseconds): - 3350
+2019-06-13 23:20:47 - thread3 function sleeping for (milliseconds): - 4680
+2019-06-13 23:20:49 - thread1 function interrupted - 1500
+2019-06-13 23:20:49 - thread2 function interrupted - 1510
+2019-06-13 23:20:49 - thread3 function interrupted - 2860
+2019-06-13 23:20:50 - Main:
+2019-06-13 23:20:50 - Main:
+2019-06-13 23:20:50 - thread1 function sleeping for (milliseconds): - 3350
+2019-06-13 23:20:50 - thread2 function sleeping for (milliseconds): - 5010
+2019-06-13 23:20:50 - thread3 function sleeping for (milliseconds): - 420
+2019-06-13 23:20:50 - thread3 function finished - 0
+2019-06-13 23:20:52 - thread2 function interrupted - 3190
+2019-06-13 23:20:52 - thread1 function interrupted - 1510
+2019-06-13 23:20:53 - Main:
+2019-06-13 23:20:53 - Main:
+2019-06-13 23:20:53 - thread1 function sleeping for (milliseconds): - 1700
+2019-06-13 23:20:53 - thread2 function sleeping for (milliseconds): - 5010
+2019-06-13 23:20:53 - thread3 function sleeping for (milliseconds): - 4680
+2019-06-13 23:20:54 - thread1 function finished - 0
+2019-06-13 23:20:55 - thread2 function interrupted - 3170
+2019-06-13 23:20:55 - thread3 function interrupted - 2850
+2019-06-13 23:20:56 - Main:
+2019-06-13 23:20:59 - Main: THE END
+Press any key to continue . . .
