@@ -35,7 +35,7 @@ class Demo : public GameEngine::ConsoleGameEngine
 {
 public:
 
-	Demo() = default;
+	Demo() { m_AppName = L"PacMan Remake"; }
 
 protected:
 
@@ -58,7 +58,9 @@ protected:
 			m_fPlayerY += 15.0f * fElapsedTime;
 
 		Fill(0, 0, m_ScreenWidth, m_ScreenHeight, L' ', 0);
-		Fill((int)m_fPlayerX, (int)m_fPlayerY, (int)m_fPlayerX + 5, (int)m_fPlayerY + 5);
+		FillTriangle(20, 0, 0, 25, 40, 25);
+		FillCircle(75, 75, 10);
+		Fill((int)m_fPlayerX, (int)m_fPlayerY, (int)m_fPlayerX + 5, (int)m_fPlayerY + 5, L' ', GameEngine::BG_DARK_GREY);
 
 		return true;
 	}
