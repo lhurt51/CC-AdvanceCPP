@@ -32,7 +32,7 @@
 int main()
 {
 	PacManGame game;
-	game.ConstructConsole(160, 100, 8, 8);
+	game.ConstructConsole(GameEngine::Vector2D<int>{160, 100}, GameEngine::Vector2D<int>(8, 8));
 	game.Start();
 
 	return 0;

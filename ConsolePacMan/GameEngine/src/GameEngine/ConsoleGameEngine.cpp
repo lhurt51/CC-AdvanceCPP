@@ -1,14 +1,14 @@
 #include "gepch.h"
 #include "ConsoleGameEngine.h"
 
+#include "Math/Vector.h"
+
 namespace GameEngine
 {
 
 	std::atomic<bool> ConsoleGameEngine::m_bAtomicActive(false);
 	std::condition_variable ConsoleGameEngine::m_GameFinished;
 	std::mutex ConsoleGameEngine::m_GameMu;
-
-
 
 	ConsoleGameEngine::ConsoleGameEngine()
 	{
@@ -35,13 +35,13 @@ namespace GameEngine
 		delete[] m_bufScreen;
 	}
 
-	int ConsoleGameEngine::ConstructConsole(int width, int height, int fontw, int fonth)
+	int ConsoleGameEngine::ConstructConsole(const Vector2D<int>& winDem, const Vector2D<int>& fontSize)
 	{
 		if (m_Console == INVALID_HANDLE_VALUE)
 			return Error(L"Bad Handle");
 
-		m_ScreenWidth = width;
-		m_ScreenHeight = height;
+		m_ScreenWidth = winDem.x;
+		m_ScreenHeight = winDem.y;
 
 		// Interesting work around for the console set screen buffer size thanks to Jx9 and OneLoneCoder
 		m_WindowRect = { 0, 0, 1, 1 };
@@ -60,8 +60,8 @@ namespace GameEngine
 		CONSOLE_FONT_INFOEX cfi;
 		cfi.cbSize = sizeof(cfi);
 		cfi.nFont = 0;
-		cfi.dwFontSize.X = fontw;
-		cfi.dwFontSize.Y = fonth;
+		cfi.dwFontSize.X = fontSize.x;
+		cfi.dwFontSize.Y = fontSize.y;
 		cfi.FontFamily = FF_DONTCARE;
 		cfi.FontWeight = FW_NORMAL;
 

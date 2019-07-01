@@ -4,11 +4,17 @@
     <Filter Include="GameEngine">
       <UniqueIdentifier>{D54F7917-C107-BB64-2A0F-94C016E65555}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\Math">
+      <UniqueIdentifier>{CEE1FBE6-3A6D-69AB-437E-EC9FAF88C5AB}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\GameEngine\ConsoleGameEngine.h">
       <Filter>GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Math\Vector.h">
+      <Filter>GameEngine\Math</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Sprite.h">
       <Filter>GameEngine</Filter>
@@ -18,6 +24,12 @@
   <ItemGroup>
     <ClCompile Include="src\GameEngine\ConsoleGameEngine.cpp">
       <Filter>GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Math\Vector.cpp">
+      <Filter>GameEngine\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Math\Vector2D-impl.cpp">
+      <Filter>GameEngine\Math</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Sprite.cpp">
       <Filter>GameEngine</Filter>

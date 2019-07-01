@@ -5,6 +5,9 @@
 
 namespace GameEngine
 {
+	// Forward declaring classes and types
+	template<typename T> class		Vector2D;
+
 	class ConsoleGameEngine
 	{
 	public:
@@ -15,7 +18,7 @@ namespace GameEngine
 
 		inline void EnableSound() { m_bEnableSound = true; }
 
-		int ConstructConsole(int width, int height, int fontw, int fonth);
+		int ConstructConsole(const Vector2D<int>& winDem, const Vector2D<int>& fontSize);
 
 		virtual void Draw(int x, int y, short c = 0x2588, short col = 0x000F);
 
@@ -33,9 +36,9 @@ namespace GameEngine
 
 		void FillTriangle(int x1, int y1, int x2, int y2, int x3, int y3, short c = 0x2588, short col = 0x000F);
 
-		void DrawCircle(int xIn, int yIn, int r, short c = 0x2588, short col = 0x000F);
+		void DrawCircle(int x, int y, int r, short c = 0x2588, short col = 0x000F);
 
-		void FillCircle(int xIn, int yIn, int r, short c = 0x2588, short col = 0x000F);
+		void FillCircle(int x, int y, int r, short c = 0x2588, short col = 0x000F);
 
 		void DrawSprite(int x, int y, Sprite* sprite);
 
@@ -73,8 +76,7 @@ namespace GameEngine
 			bool bHeld;
 		} m_Keys[256], m_Mouse[5];
 
-		int m_MousePosX;
-		int m_MousePosY;
+		int m_MousePosX, m_MousePosY;
 
 	public:
 
