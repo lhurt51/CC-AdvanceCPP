@@ -3,6 +3,8 @@
 
 #include "Math/Vector.h"
 
+#include <stdlib.h>
+
 namespace GameEngine
 {
 
@@ -31,6 +33,7 @@ namespace GameEngine
 
 	ConsoleGameEngine::~ConsoleGameEngine()
 	{
+		system("CLS");
 		SetConsoleActiveScreenBuffer(m_OriginalConsole);
 		delete[] m_bufScreen;
 	}
