@@ -117,6 +117,7 @@ project "PacManRemake"
 	{
 		--"GameEngine/vendor/spdlog/include",
 		"GameEngine/src",
+		"%{prj.name}/res/"
 		--"GameEngine/vendor",
 		--"%{IncludeDir.Glm}"
 	}
