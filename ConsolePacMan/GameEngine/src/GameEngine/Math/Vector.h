@@ -25,6 +25,8 @@ namespace GameEngine
 		Vector2D(std::initializer_list<T> list);
 		// Copy constructor
 		Vector2D(const Vector2D& src);
+		// Default deconstructor
+		virtual ~Vector2D() = default;
 
 		// Overload operators --
 		Vector2D&		operator=(const Vector2D& v);

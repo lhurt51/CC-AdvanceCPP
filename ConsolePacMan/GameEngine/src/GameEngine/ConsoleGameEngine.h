@@ -20,29 +20,29 @@ namespace GameEngine
 
 		int ConstructConsole(const Vector2D<int>& winDem, const Vector2D<int>& fontSize);
 
-		virtual void Draw(int x, int y, short c = 0x2588, short col = 0x000F);
+		virtual void Draw(const Vector2D<int>& pos, short c = 0x2588, short col = 0x000F);
 
-		void Fill(int x1, int y1, int x2, int y2, short c = 0x2588, short col = 0x000F);
+		void Fill(const Vector2D<int>& pos1, const Vector2D<int>& pos2, short c = 0x2588, short col = 0x000F);
 
-		void DrawString(int x, int y, std::wstring c, short col = 0x000F);
+		void DrawString(const Vector2D<int>& pos, std::wstring c, short col = 0x000F);
 
-		void DrawStringAlpha(int x, int y, std::wstring c, short col = 0x000F);
+		void DrawStringAlpha(const Vector2D<int>& pos, std::wstring c, short col = 0x000F);
 
-		void Clip(int& x, int& y);
+		void Clip(Vector2D<int>& pos);
 
-		void DrawLine(int x1, int y1, int x2, int y2, short c = 0x2588, short col = 0x000F);
+		void DrawLine(const Vector2D<int>& pos1, const Vector2D<int>& pos2, short c = 0x2588, short col = 0x000F);
 
-		void DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, short c = 0x2588, short col = 0x000F);
+		void DrawTriangle(const Vector2D<int>& pos1, const Vector2D<int>& pos2, const Vector2D<int>& pos3, short c = 0x2588, short col = 0x000F);
 
 		void FillTriangle(int x1, int y1, int x2, int y2, int x3, int y3, short c = 0x2588, short col = 0x000F);
 
-		void DrawCircle(int x, int y, int r, short c = 0x2588, short col = 0x000F);
+		void DrawCircle(const Vector2D<int>& pos, int r, short c = 0x2588, short col = 0x000F);
 
-		void FillCircle(int x, int y, int r, short c = 0x2588, short col = 0x000F);
+		void FillCircle(const Vector2D<int>& pos, int r, short c = 0x2588, short col = 0x000F);
 
-		void DrawSprite(int x, int y, Sprite* sprite);
+		void DrawSprite(const Vector2D<int>& pos, Sprite* sprite);
 
-		void DrawPartialSprite(int x, int y, Sprite* sprite, int ox, int oy, int w, int h);
+		void DrawPartialSprite(const Vector2D<int>& pos, Sprite* sprite, const Vector2D<int>& opos, const Vector2D<int>& size);
 
 		void DrawWireFrameModel(const std::vector<std::pair<float, float>>& vecModelCoordinates, float x, float y, float r = 0.0f, float s = 1.0f, short col = FG_WHITE, short c = PIXEL_SOLID);
 

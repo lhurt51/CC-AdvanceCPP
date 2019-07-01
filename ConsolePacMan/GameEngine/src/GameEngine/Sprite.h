@@ -58,6 +58,7 @@ namespace GameEngine
 		Sprite() = default;
 		Sprite(int w, int h) { Create(w, h); }
 		Sprite(std::wstring sFile) { if (!Load(sFile)) Create(8, 8); }
+		~Sprite();
 
 		void SetGlyph(int x, int y, short c);
 		void SetColor(int x, int y, short c);

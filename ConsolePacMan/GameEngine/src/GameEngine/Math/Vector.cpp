@@ -29,12 +29,16 @@ namespace GameEngine
 	template<typename T>
 	Vector2D<T>::Vector2D(std::initializer_list<T> list)
 	{
-		size_t size = 0;
+		int size = 0;
 		for (auto it = list.begin(); it != list.end(); it++)
 			if (size < 2)
 				((size++ == 0) ? x : y) = *it;
 			else
 				break;
+		if (size < 1)
+			x = 0;
+		if (size < 2)
+			y = 0;
 		return;
 	}
 

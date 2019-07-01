@@ -97,59 +97,61 @@ namespace GameEngine
 		return 1;
 	}
 
-	void ConsoleGameEngine::Draw(int x, int y, short c, short col)
+	void ConsoleGameEngine::Draw(const Vector2D<int>& pos, short c, short col)
 	{
-		if (x >= 0 && x < m_ScreenWidth && y >= 0 && y < m_ScreenHeight)
+		if (pos.x >= 0 && pos.x < m_ScreenWidth && pos.y >= 0 && pos.y < m_ScreenHeight)
 		{
-			m_bufScreen[y * m_ScreenWidth + x].Char.UnicodeChar = c;
-			m_bufScreen[y * m_ScreenWidth + x].Attributes = col;
+			m_bufScreen[pos.y * m_ScreenWidth + pos.x].Char.UnicodeChar = c;
+			m_bufScreen[pos.y * m_ScreenWidth + pos.x].Attributes = col;
 		}
 	}
 
-	void ConsoleGameEngine::Fill(int x1, int y1, int x2, int y2, short c, short col)
+	void ConsoleGameEngine::Fill(const Vector2D<int>& pos1, const Vector2D<int>& pos2, short c, short col)
 	{
-		Clip(x1, y1);
-		Clip(x2, y2);
-		for (int x = x1; x < x2; x++)
-			for (int y = y1; y < y2; y++)
-				Draw(x, y, c, col);
+		Vector2D<int> tmp1 = pos1;
+		Vector2D<int> tmp2 = pos2;
+		Clip(tmp1);
+		Clip(tmp2);
+		for (int x = tmp1.x; x < tmp2.x; x++)
+			for (int y = tmp1.y; y < tmp2.y; y++)
+				Draw({x, y}, c, col);
 	}
 
-	void ConsoleGameEngine::DrawString(int x, int y, std::wstring c, short col)
+	void ConsoleGameEngine::DrawString(const Vector2D<int>& pos, std::wstring c, short col)
 	{
 		for (size_t i = 0; i < c.size(); i++)
 		{
-			m_bufScreen[y * m_ScreenWidth + x + (int)i].Char.UnicodeChar = c[i];
-			m_bufScreen[y * m_ScreenWidth + x + (int)i].Attributes = col;
+			m_bufScreen[pos.y * m_ScreenWidth + pos.x + (int)i].Char.UnicodeChar = c[i];
+			m_bufScreen[pos.y * m_ScreenWidth + pos.x + (int)i].Attributes = col;
 		}
 	}
 
-	void ConsoleGameEngine::DrawStringAlpha(int x, int y, std::wstring c, short col)
+	void ConsoleGameEngine::DrawStringAlpha(const Vector2D<int>& pos, std::wstring c, short col)
 	{
 		for (size_t i = 0; i < c.size(); i++)
 		{
 			if (c[i] != L' ')
 			{
-				m_bufScreen[y * m_ScreenWidth + x + (int)i].Char.UnicodeChar = c[i];
-				m_bufScreen[y * m_ScreenWidth + x + (int)i].Attributes = col;
+				m_bufScreen[pos.y * m_ScreenWidth + pos.x + (int)i].Char.UnicodeChar = c[i];
+				m_bufScreen[pos.y * m_ScreenWidth + pos.x + (int)i].Attributes = col;
 			}
 		}
 	}
 
-	void ConsoleGameEngine::Clip(int& x, int& y)
+	void ConsoleGameEngine::Clip(Vector2D<int>& pos)
 	{
-		if (x < 0) x = 0;
-		if (x > m_ScreenWidth) x = m_ScreenWidth;
-		if (y < 0) y = 0;
-		if (y > m_ScreenHeight) y = m_ScreenHeight;
+		if (pos.x < 0) pos.x = 0;
+		if (pos.x > m_ScreenWidth) pos.x = m_ScreenWidth;
+		if (pos.y < 0) pos.y = 0;
+		if (pos.y > m_ScreenHeight) pos.y = m_ScreenHeight;
 	}
 
-	void ConsoleGameEngine::DrawLine(int x1, int y1, int x2, int y2, short c, short col)
+	void ConsoleGameEngine::DrawLine(const Vector2D<int>& pos1, const Vector2D<int>& pos2, short c, short col)
 	{
 		int x, y, dx, dy, dx1, dy1, px, py, xe, ye, i;
 
-		dx = x2 - x1;
-		dy = y2 - y1;
+		dx = pos2.x - pos1.x;
+		dy = pos2.y - pos1.y;
 		dx1 = abs(dx);
 		dy1 = abs(dy);
 		px = 2 * dy1 - dx1;
@@ -159,18 +161,18 @@ namespace GameEngine
 		{
 			if (dx >= 0)
 			{
-				x = x1;
-				y = y1;
-				xe = x2;
+				x = pos1.x;
+				y = pos1.y;
+				xe = pos2.x;
 			}
 			else
 			{
-				x = x2;
-				y = y2;
-				xe = x1;
+				x = pos2.x;
+				y = pos2.y;
+				xe = pos1.x;
 			}
 
-			Draw(x, y, c, col);
+			Draw({x, y}, c, col);
 
 			for (i = 0; x < xe; i++)
 			{
@@ -185,24 +187,24 @@ namespace GameEngine
 						y = y - 1;
 					px = px + 2 * (dy1 - dx1);
 				}
-				Draw(x, y, c, col);
+				Draw({x, y}, c, col);
 			}
 		}
 		else
 		{
 			if (dy >= 0)
 			{
-				x = x1;
-				y = y1;
-				ye = y2;
+				x = pos1.x;
+				y = pos1.y;
+				ye = pos2.y;
 			}
 			else
 			{
-				x = x2;
-				y = y2;
-				ye = y1;
+				x = pos2.x;
+				y = pos2.y;
+				ye = pos1.y;
 			}
-			Draw(x, y, c, col);
+			Draw({x, y}, c, col);
 
 			for (i = 0; y < ye; i++)
 			{
@@ -217,23 +219,23 @@ namespace GameEngine
 						x = x - 1;
 					py = py + 2 * (dx1 - dy1);
 				}
-				Draw(x, y, c, col);
+				Draw({ x, y }, c, col);
 			}
 		}
 	}
 
-	void ConsoleGameEngine::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, short c, short col)
+	void ConsoleGameEngine::DrawTriangle(const Vector2D<int>& pos1, const Vector2D<int>& pos2, const Vector2D<int>& pos3, short c, short col)
 	{
-		DrawLine(x1, y1, x2, y2, c, col);
-		DrawLine(x2, y2, x3, y3, c, col);
-		DrawLine(x3, y3, x1, y1, c, col);
+		DrawLine(pos1, pos2, c, col);
+		DrawLine(pos2, pos3, c, col);
+		DrawLine(pos3, pos1, c, col);
 	}
 
 	// https://www.avrfreaks.net/sites/default/files/triangles.c
 	void ConsoleGameEngine::FillTriangle(int x1, int y1, int x2, int y2, int x3, int y3, short c, short col)
 	{
 		auto SWAP = [](int& x, int& y) { int t = x; x = y; y = t; };
-		auto drawline = [&](int sx, int ex, int ny) { for (int i = sx; i <= ex; i++) Draw(i, ny, c, col); };
+		auto drawline = [&](int sx, int ex, int ny) { for (int i = sx; i <= ex; i++) Draw({ i, ny }, c, col); };
 
 		int t1x, t2x, y, minx, maxx, t1xp, t2xp;
 		bool changed1 = false;
@@ -367,7 +369,7 @@ namespace GameEngine
 		}
 	}
 
-	void ConsoleGameEngine::DrawCircle(int xIn, int yIn, int r, short c, short col)
+	void ConsoleGameEngine::DrawCircle(const Vector2D<int>& pos, int r, short c, short col)
 	{
 		int x = 0;
 		int y = r;
@@ -376,20 +378,20 @@ namespace GameEngine
 		if (!r) return;
 		while (y >= x)
 		{
-			Draw(xIn - x, yIn - y, c, col); // Upper left left
-			Draw(xIn - y, yIn - x, c, col); // Upper upper left
-			Draw(xIn + y, yIn - x, c, col); // Upper upper right
-			Draw(xIn + x, yIn - y, c, col); // Upper right right
-			Draw(xIn - x, yIn + y, c, col); // Lower left left
-			Draw(xIn - y, yIn + x, c, col); // Lower lower left
-			Draw(xIn + y, yIn + x, c, col); // Lower lower right
-			Draw(xIn + x, yIn + y, c, col); // Lower right right
+			Draw({ pos.x - x, pos.y - y }, c, col); // Upper left left
+			Draw({ pos.x - y, pos.y - x }, c, col); // Upper upper left
+			Draw({ pos.x + y, pos.y - x }, c, col); // Upper upper right
+			Draw({ pos.x + x, pos.y - y }, c, col); // Upper right right
+			Draw({ pos.x - x, pos.y + y }, c, col); // Lower left left
+			Draw({ pos.x - y, pos.y + x }, c, col); // Lower lower left
+			Draw({ pos.x + y, pos.y + x }, c, col); // Lower lower right
+			Draw({ pos.x + x, pos.y + y }, c, col); // Lower right right
 			if (p < 0) p += 4 * x++ + 6;
 			else p += 4 * (x++ - y--) + 10;
 		}
 	}
 
-	void ConsoleGameEngine::FillCircle(int xIn, int yIn, int r, short c, short col)
+	void ConsoleGameEngine::FillCircle(const Vector2D<int>& pos, int r, short c, short col)
 	{
 		int x = 0;
 		int y = r;
@@ -399,22 +401,22 @@ namespace GameEngine
 		auto drawline = [&](int sx, int ex, int ny)
 		{
 			for (int i = sx; i <= ex; i++)
-				Draw(i, ny, c, col);
+				Draw({ i, ny }, c, col);
 		};
 
 		// Draws by using scan-lines
 		while (y >= x)
 		{
-			drawline(xIn - x, xIn + x, yIn - y);
-			drawline(xIn - y, xIn + y, yIn - x);
-			drawline(xIn - x, xIn + x, yIn + y);
-			drawline(xIn - y, xIn + y, yIn + x);
+			drawline(pos.x - x, pos.x + x, pos.y - y);
+			drawline(pos.x - y, pos.x + y, pos.y - x);
+			drawline(pos.x - x, pos.x + x, pos.y + y);
+			drawline(pos.x - y, pos.x + y, pos.y + x);
 			if (p < 0) p += 4 * x++ + 6;
 			else p += 4 * (x++ - y--) + 10;
 		}
 	}
 
-	void ConsoleGameEngine::DrawSprite(int x, int y, Sprite* sprite)
+	void ConsoleGameEngine::DrawSprite(const Vector2D<int>& pos, Sprite* sprite)
 	{
 		if (sprite == nullptr)
 			return;
@@ -424,22 +426,22 @@ namespace GameEngine
 			for (int j = 0; j < sprite->nHeight; j++)
 			{
 				if (sprite->GetGlyph(i, j) != L' ')
-					Draw(x + i, y + j, sprite->GetGlyph(i, j), sprite->GetColor(i, j));
+					Draw({ pos.x + i, pos.y + j }, sprite->GetGlyph(i, j), sprite->GetColor(i, j));
 			}
 		}
 	}
 
-	void ConsoleGameEngine::DrawPartialSprite(int x, int y, Sprite* sprite, int ox, int oy, int w, int h)
+	void ConsoleGameEngine::DrawPartialSprite(const Vector2D<int>& pos, Sprite* sprite, const Vector2D<int>& opos, const Vector2D<int>& size)
 	{
 		if (sprite == nullptr)
 			return;
 
-		for (int i = 0; i < w; i++)
+		for (int i = 0; i < size.x; i++)
 		{
-			for (int j = 0; j < h; j++)
+			for (int j = 0; j < size.y; j++)
 			{
-				if (sprite->GetGlyph(i + ox, j + oy) != L' ')
-					Draw(x + i, y + j, sprite->GetGlyph(i + ox, j + oy), sprite->GetColor(i + ox, j + oy));
+				if (sprite->GetGlyph(i + opos.x, j + opos.y) != L' ')
+					Draw({ pos.x + i, pos.y + j }, sprite->GetGlyph(i + opos.x, j + opos.y), sprite->GetColor(i + opos.x, j + opos.y));
 			}
 		}
 	}
@@ -476,7 +478,7 @@ namespace GameEngine
 		for (int i = 0; i < verts + 1; i++)
 		{
 			int j = (i + 1);
-			DrawLine((int)vecTransformedCoordinates[i % verts].first, (int)vecTransformedCoordinates[i % verts].second, (int)vecTransformedCoordinates[j % verts].first, (int)vecTransformedCoordinates[j % verts].second, c, col);
+			DrawLine({ (int)vecTransformedCoordinates[i % verts].first, (int)vecTransformedCoordinates[i % verts].second }, { (int)vecTransformedCoordinates[j % verts].first, (int)vecTransformedCoordinates[j % verts].second }, c, col);
 		}
 	}
 

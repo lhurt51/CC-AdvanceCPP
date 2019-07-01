@@ -3,6 +3,12 @@
 
 namespace GameEngine
 {
+	Sprite::~Sprite()
+	{
+		if (m_Glyphs) delete[] m_Glyphs;
+		if (m_Colors) delete[] m_Colors;
+	}
+
 	void Sprite::SetGlyph(int x, int y, short c)
 	{
 		if (x < 0 || x >= nWidth || y < 0 || y >= nHeight)
