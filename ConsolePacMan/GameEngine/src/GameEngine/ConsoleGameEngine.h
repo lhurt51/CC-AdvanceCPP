@@ -99,6 +99,7 @@ namespace GameEngine
 		std::wstring m_AppName;
 		HANDLE m_OriginalConsole;
 		CONSOLE_SCREEN_BUFFER_INFO m_OriginalConsoleInfo;
+		CONSOLE_FONT_INFOEX m_OriginalFontInfo;
 		HANDLE m_Console;
 		HANDLE m_ConsoleIn;
 		SMALL_RECT m_WindowRect;

@@ -4,6 +4,7 @@
 #include "Math/Vector.h"
 
 #include <stdlib.h>
+#include <windows.h>
 
 namespace GameEngine
 {
@@ -17,6 +18,9 @@ namespace GameEngine
 		m_ScreenWidth = 80;
 		m_ScreenHeight = 30;
 
+		m_OriginalConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		GetConsoleScreenBufferInfo(m_OriginalConsole, &m_OriginalConsoleInfo);
+		GetCurrentConsoleFontEx(m_OriginalConsole, false, &m_OriginalFontInfo);
 		m_Console = GetStdHandle(STD_OUTPUT_HANDLE);
 		m_ConsoleIn = GetStdHandle(STD_INPUT_HANDLE);
 
@@ -33,7 +37,7 @@ namespace GameEngine
 
 	ConsoleGameEngine::~ConsoleGameEngine()
 	{
-		system("CLS");
+		system("cls");
 		SetConsoleActiveScreenBuffer(m_OriginalConsole);
 		delete[] m_bufScreen;
 	}
@@ -96,7 +100,7 @@ namespace GameEngine
 		m_bufScreen = new CHAR_INFO[size];
 		memset(m_bufScreen, 0, sizeof(CHAR_INFO) * size);
 
-		SetConsoleCtrlHandler((PHANDLER_ROUTINE)CloseHandler, TRUE);
+		SetConsoleCtrlHandler(CloseHandler, TRUE);
 		return 1;
 	}
 
@@ -505,6 +509,56 @@ namespace GameEngine
 		return m_ScreenHeight;
 	}
 
+	// https://docs.microsoft.com/en-us/windows/console/clearing-the-screen
+	void cls(HANDLE hConsole)
+	{
+		COORD coordScreen = { 0, 0 };    // home for the cursor 
+		DWORD cCharsWritten;
+		CONSOLE_SCREEN_BUFFER_INFO csbi;
+		DWORD dwConSize;
+
+		// Get the number of character cells in the current buffer. 
+
+		if (!GetConsoleScreenBufferInfo(hConsole, &csbi))
+		{
+			return;
+		}
+
+		dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
+
+		// Fill the entire screen with blanks.
+
+		if (!FillConsoleOutputCharacter(hConsole,        // Handle to console screen buffer 
+			(TCHAR) ' ',     // Character to write to the buffer
+			dwConSize,       // Number of cells to write 
+			coordScreen,     // Coordinates of first cell 
+			&cCharsWritten))// Receive number of characters written
+		{
+			return;
+		}
+
+		// Get the current text attribute.
+		if (!GetConsoleScreenBufferInfo(hConsole, &csbi))
+		{
+			return;
+		}
+
+		// Set the buffer's attributes accordingly.
+
+		if (!FillConsoleOutputAttribute(hConsole,         // Handle to console screen buffer 
+			csbi.wAttributes, // Character attributes to use
+			dwConSize,        // Number of cells to set attribute 
+			coordScreen,      // Coordinates of first cell 
+			&cCharsWritten)) // Receive number of characters written
+		{
+			return;
+		}
+
+		// Put the cursor at its home coordinates.
+
+		SetConsoleCursorPosition(hConsole, coordScreen);
+	}
+
 	void ConsoleGameEngine::GameThread()
 	{
 		// Create user resources before thread
@@ -627,6 +681,7 @@ namespace GameEngine
 		{
 			// User has permitter destory, so exit
 			delete[] m_bufScreen;
+			// cls(CloseHandler);
 			SetConsoleActiveScreenBuffer(m_OriginalConsole);
 			m_GameFinished.notify_one();
 		}
@@ -652,15 +707,16 @@ namespace GameEngine
 		// This is called is seprate OS thread
 		// Only allowed to exit when the game is done cleaning up
 		// Otherwise!!! process is killed before OnUserDestory() is done
-		if (evt == CTRL_CLOSE_EVENT)
+		if (evt == CTRL_CLOSE_EVENT || evt == CTRL_BREAK_EVENT || evt == CTRL_SHUTDOWN_EVENT || evt == CTRL_LOGOFF_EVENT)
 		{
 			m_bAtomicActive = false;
 
 			// Wait for thread to be exited
 			std::unique_lock<std::mutex> ul(m_GameMu);
 			m_GameFinished.wait(ul);
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 }

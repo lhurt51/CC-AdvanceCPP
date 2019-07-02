@@ -67,7 +67,11 @@ namespace GameEngine
 	{
 		FILE* f = nullptr;
 		_wfopen_s(&f, sFile.c_str(), L"wb");
-		if (f == nullptr) return false;
+		if (f == nullptr)
+		{
+			fclose(f);
+			return false;
+		}
 
 		int size = nWidth * nHeight;
 
@@ -77,7 +81,6 @@ namespace GameEngine
 		fwrite(m_Glyphs, sizeof(short), size, f);
 
 		fclose(f);
-
 		return true;
 	}
 
@@ -90,7 +93,11 @@ namespace GameEngine
 
 		FILE* f = nullptr;
 		_wfopen_s(&f, sFile.c_str(), L"rb");
-		if (f == nullptr) return false;
+		if (f == nullptr)
+		{
+			fclose(f);
+			return false;
+		}
 
 		std::fread(&nWidth, sizeof(int), 1, f);
 		std::fread(&nHeight, sizeof(int), 1, f);

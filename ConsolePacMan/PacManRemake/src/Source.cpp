@@ -31,9 +31,9 @@
 
 int main()
 {
-	PacManGame game;
-	game.ConstructConsole({ 160, 100 }, { 8, 8 });
-	game.Start();
-
+	PacManGame* game = new PacManGame();
+	game->ConstructConsole({ 160, 100 }, { 8, 8 });
+	game->Start();
+	delete game;
 	return 0;
  }

@@ -132,12 +132,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\GameEngine.h" />
+    <ClInclude Include="src\GameEngine\Application.h" />
     <ClInclude Include="src\GameEngine\ConsoleGameEngine.h" />
+    <ClInclude Include="src\GameEngine\Core.h" />
+    <ClInclude Include="src\GameEngine\EntryPoint.h" />
     <ClInclude Include="src\GameEngine\Math\Vector.h" />
     <ClInclude Include="src\GameEngine\Sprite.h" />
     <ClInclude Include="src\gepch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameEngine\Application.cpp" />
     <ClCompile Include="src\GameEngine\ConsoleGameEngine.cpp" />
     <ClCompile Include="src\GameEngine\Math\Vector.cpp" />
     <ClCompile Include="src\GameEngine\Math\Vector2D-impl.cpp" />
