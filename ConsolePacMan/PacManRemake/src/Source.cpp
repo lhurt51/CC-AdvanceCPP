@@ -32,7 +32,7 @@
 int main()
 {
 	PacManGame* game = new PacManGame();
-	game->ConstructConsole({ 160, 100 }, { 8, 8 });
+	game->ConstructConsole({ 160, 60 }, { 8, 16 });
 	game->Start();
 	delete game;
 	return 0;

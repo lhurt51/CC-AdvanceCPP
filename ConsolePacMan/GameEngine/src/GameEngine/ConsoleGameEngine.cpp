@@ -493,10 +493,11 @@ namespace GameEngine
 	{
 		// Staring the game thread
 		m_bAtomicActive = true;
-		std::thread t = std::thread(&ConsoleGameEngine::GameThread, this);
+		//std::thread t = std::thread(&ConsoleGameEngine::GameThread, this);
 
 		// Wait for threa to be exited
-		t.join();
+		//t.join();
+		GameThread();
 	}
 
 	int ConsoleGameEngine::ScreenWidth()

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 
 // MUST REVISE THIS SPRITE CLASS TO ALLOW FOR BETTER
@@ -69,8 +70,10 @@ namespace GameEngine
 		short SampleGlyph(float x, float y);
 		short SampleColor(float x, float y);
 
-		bool Save(std::wstring sFile);
-		bool Load(std::wstring sFile);
+		bool Save(const std::wstring sFile);
+		bool Load(const std::wstring sFile);
+		bool Saveb(std::wstring sFile);
+		bool Loadb(std::wstring sFile);
 
 	private:
 
@@ -87,5 +90,7 @@ namespace GameEngine
 		short* m_Colors = nullptr;
 
 	};
+
+	std::vector<std::string>	SplitStr(const std::string& s, char const delimiter);
 }
 

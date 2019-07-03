@@ -18,7 +18,7 @@ protected:
 
 private:
 
-	//GameEngine::Sprite m_Sprite;
+	GameEngine::Sprite* m_Sprite;
 
 	float m_fPlayerX;
 	float m_fPlayerY;
