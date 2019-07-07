@@ -10,7 +10,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameEngine.h" />
+    <ClInclude Include="src\GameEngine\Application.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameEngine\ConsoleGameEngine.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Core.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\EntryPoint.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Log.h">
       <Filter>GameEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Math\Vector.h">
@@ -20,12 +32,15 @@
       <Filter>GameEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\gepch.h" />
-    <ClInclude Include="src\GameEngine\EntryPoint.h" />
-    <ClInclude Include="src\GameEngine\Core.h" />
-    <ClInclude Include="src\GameEngine\Application.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameEngine\Application.cpp">
+      <Filter>GameEngine</Filter>
+    </ClCompile>
     <ClCompile Include="src\GameEngine\ConsoleGameEngine.cpp">
+      <Filter>GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Log.cpp">
       <Filter>GameEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Math\Vector.cpp">
@@ -38,6 +53,5 @@
       <Filter>GameEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\gepch.cpp" />
-    <ClCompile Include="src\GameEngine\Application.cpp" />
   </ItemGroup>
 </Project>

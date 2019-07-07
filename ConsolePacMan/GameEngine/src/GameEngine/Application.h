@@ -4,20 +4,19 @@
 
 namespace GameEngine
 {
-	/*
 	class Application
 	{
 	public:
 
 		Application();
-		virtual ~Application();
+		virtual ~Application() = default;
 
 		void Run();
 
-		void OnEvent(Event& e);
+		// void OnEvent(Event& e);
 
-		void PushLayer(Layer* layer);
-		void PushOverlay(Layer* layer);
+		// void PushLayer(Layer* layer);
+		// void PushOverlay(Layer* layer);
 
 		// inline Window& GetWindow() { return *m_Window; }
 
@@ -28,9 +27,18 @@ namespace GameEngine
 
 	private:
 
-		bool OnWindowClose(WindowCloseEvent& e)
+		// bool OnWindowClose(WindowCloseEvent& e);
+
+		bool m_Running = true;
+
+	private:
+
+		static Application* s_Instance;
 
 	};
-	*/
+
+	// To be defined externally
+	Application* CreateApplication();
+
 }
 

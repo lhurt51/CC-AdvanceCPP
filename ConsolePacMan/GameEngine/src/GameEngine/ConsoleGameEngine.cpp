@@ -6,6 +6,15 @@
 #include <stdlib.h>
 #include <windows.h>
 
+/*
+// https://msdn.microsoft.com/fr-fr/library/windows/desktop/ms686016.aspx
+[DllImport("Kernel32")]
+private static extern bool SetConsoleCtrlHandler(SetConsoleCtrlEventHandler handler, bool add);
+
+// https://msdn.microsoft.com/fr-fr/library/windows/desktop/ms683242.aspx
+private delegate bool SetConsoleCtrlEventHandler(CtrlType sig);
+*/
+
 namespace GameEngine
 {
 
@@ -639,6 +648,16 @@ namespace GameEngine
 					}
 					break;
 				}
+				case KEY_EVENT:
+				{
+					switch (inBuf[i].Event.KeyEvent.wVirtualKeyCode)
+					{
+						/* if escape key is pressed*/
+					case VK_ESCAPE:
+						return;
+					}
+					break;
+				}
 				default:
 					// No need to process anything
 					break;
@@ -708,6 +727,28 @@ namespace GameEngine
 		// This is called is seprate OS thread
 		// Only allowed to exit when the game is done cleaning up
 		// Otherwise!!! process is killed before OnUserDestory() is done
+
+		switch (evt)
+		{
+		case CTRL_C_EVENT:
+		case CTRL_CLOSE_EVENT:
+		case CTRL_BREAK_EVENT:
+		case CTRL_SHUTDOWN_EVENT:
+		case CTRL_LOGOFF_EVENT:
+		{
+			m_bAtomicActive = false;
+
+			// Wait for thread to be exited
+			std::unique_lock<std::mutex> ul(m_GameMu);
+			m_GameFinished.wait(ul);
+			return true;
+		}
+		default:
+			return false;
+		}
+		return false;
+
+		/*
 		if (evt == CTRL_CLOSE_EVENT || evt == CTRL_BREAK_EVENT || evt == CTRL_SHUTDOWN_EVENT || evt == CTRL_LOGOFF_EVENT)
 		{
 			m_bAtomicActive = false;
@@ -718,6 +759,7 @@ namespace GameEngine
 			return true;
 		}
 		return false;
+		*/
 	}
 
 }

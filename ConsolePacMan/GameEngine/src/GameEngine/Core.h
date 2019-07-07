@@ -7,8 +7,8 @@
 
 // Assert define to disable the asserts on release
 #ifdef GE_ENABLE_ASSERTS
-	#define GE_ASSERT(x, ...) { if (!(x)) { std::err << "Assertion Failed: " << __VA_ARGS__ << std::endl; __debugbreak(); } }
-	#define GE_CORE_ASSERT(x, ...) { if (!(x)) { std::err << "Assertion Failed: " << __VA_ARGS__ << std::endl; __debugbreak(); } }
+	#define GE_ASSERT(x, ...) { if (!(x)) { std::cerr << "Assertion Failed: " << __VA_ARGS__ << std::endl; __debugbreak(); } }
+	#define GE_CORE_ASSERT(x, ...) { if (!(x)) { std::cerr << "Assertion Failed: " << __VA_ARGS__ << std::endl; __debugbreak(); } }
 #else
 	#define GE_ASSERT(x, ...)
 	#define GE_CORE_ASSERT(x, ...)

@@ -12,11 +12,11 @@ workspace "ConsolePacMan"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
--- IncludeDir = {}
+IncludeDir = {}
 -- IncludeDir["GLFW"] = "GhostEngine/vendor/GLFW/include"
 -- IncludeDir["Glad"] = "GhostEngine/vendor/Glad/include"
 -- IncludeDir["ImGui"] = "GhostEngine/vendor/imgui"
--- IncludeDir["Glm"] = "GhostEngine/vendor/glm"
+IncludeDir["Glm"] = "GhostEngine/vendor/glm"
 
 -- group "Dependencies"
 	-- include "GhostEngine/vendor/GLFW"
@@ -55,11 +55,11 @@ project "GameEngine"
 	includedirs
 	{
 		"%{prj.name}/src",
-		--"%{prj.name}/Vendor/spdlog/include",
+		"%{prj.name}/Vendor/spdlog/include",
 		--"%{IncludeDir.Glad}",
 		--"%{IncludeDir.GLFW}",
 		--"%{IncludeDir.ImGui}",
-		--"%{IncludeDir.Glm}"
+		"%{IncludeDir.Glm}"
 	}
 
 	links
@@ -115,11 +115,10 @@ project "PacManRemake"
 
 	includedirs
 	{
-		--"GameEngine/vendor/spdlog/include",
+		"GameEngine/vendor/spdlog/include",
 		"GameEngine/src",
-		"%{prj.name}/res/"
 		--"GameEngine/vendor",
-		--"%{IncludeDir.Glm}"
+		"%{IncludeDir.Glm}"
 	}
 
 	links

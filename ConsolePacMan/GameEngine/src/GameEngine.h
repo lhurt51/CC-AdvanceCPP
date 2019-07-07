@@ -1,10 +1,11 @@
 #pragma once
 
+// -------- Used For New Applications ------------
+#include "GameEngine/Application.h"
+#include "GameEngine/Log.h"
+
 // ------------- Math Includes -------------------
 #include "GameEngine/Math/Vector.h"
-
-// -------- Used For New Applications ------------
-#include "GameEngine/ConsoleGameEngine.h"
 
 // -------- Including User Input info ------------
 
