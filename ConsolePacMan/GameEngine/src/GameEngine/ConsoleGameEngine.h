@@ -98,7 +98,7 @@ namespace GameEngine
 		CHAR_INFO* m_bufScreen;
 		std::wstring m_AppName;
 		HANDLE m_OriginalConsole;
-		CONSOLE_SCREEN_BUFFER_INFO m_OriginalConsoleInfo;
+		CONSOLE_SCREEN_BUFFER_INFOEX m_OriginalConsoleInfo;
 		CONSOLE_FONT_INFOEX m_OriginalFontInfo;
 		HANDLE m_Console;
 		HANDLE m_ConsoleIn;

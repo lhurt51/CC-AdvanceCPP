@@ -32,6 +32,10 @@
       <Filter>GameEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\gepch.h" />
+    <ClInclude Include="src\GameEngine\Events\Event.h" />
+    <ClInclude Include="src\GameEngine\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\GameEngine\Events\KeyEvent.h" />
+    <ClInclude Include="src\GameEngine\Events\MouseEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">

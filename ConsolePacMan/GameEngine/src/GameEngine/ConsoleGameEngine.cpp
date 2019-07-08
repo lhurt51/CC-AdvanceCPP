@@ -28,8 +28,9 @@ namespace GameEngine
 		m_ScreenHeight = 30;
 
 		m_OriginalConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		GetConsoleScreenBufferInfo(m_OriginalConsole, &m_OriginalConsoleInfo);
+		GetConsoleScreenBufferInfoEx(m_OriginalConsole, &m_OriginalConsoleInfo);
 		GetCurrentConsoleFontEx(m_OriginalConsole, false, &m_OriginalFontInfo);
+
 		m_Console = GetStdHandle(STD_OUTPUT_HANDLE);
 		m_ConsoleIn = GetStdHandle(STD_INPUT_HANDLE);
 
@@ -48,7 +49,9 @@ namespace GameEngine
 	{
 		system("cls");
 		SetConsoleActiveScreenBuffer(m_OriginalConsole);
-		delete[] m_bufScreen;
+		SetConsoleScreenBufferInfoEx(m_OriginalConsole, &m_OriginalConsoleInfo);
+		SetCurrentConsoleFontEx(m_Console, false, &m_OriginalFontInfo);
+		if (m_bufScreen) delete[] m_bufScreen;
 	}
 
 	int ConsoleGameEngine::ConstructConsole(const Vector2D<int>& winDem, const Vector2D<int>& fontSize)
@@ -650,14 +653,63 @@ namespace GameEngine
 				}
 				case KEY_EVENT:
 				{
-					switch (inBuf[i].Event.KeyEvent.wVirtualKeyCode)
-					{
-						/* if escape key is pressed*/
-					case VK_ESCAPE:
-						return;
-					}
+					case WM_KEYDOWN:
+						break;
+					case WM_KEYUP:
+						switch (inBuf[i].Event.KeyEvent.wVirtualKeyCode)
+						{
+							/* if escape key is pressed*/
+						case VK_ESCAPE:
+							return;
+
+						case VK_LEFT:
+							// Process the LEFT ARROW key. 
+							break;
+
+						case VK_RIGHT:
+							// Process the RIGHT ARROW key. 
+							break;
+
+						case VK_UP:
+							// Process the UP ARROW key. 
+							break;
+
+						case VK_DOWN:
+							// Process the DOWN ARROW key. 
+							break;
+
+						case VK_HOME:
+							// Process the HOME key. 
+
+							break;
+
+						case VK_END:
+							// Process the END key. 
+							break;
+
+						case VK_INSERT:
+							// Process the INS key. 
+							break;
+
+						case VK_DELETE:
+							// Process the DEL key. 
+							break;
+
+						case VK_F2:
+							// Process the F2 key. 
+							break;
+
+							// Process other non-character keystrokes. 
+						default:
+							break;
+						}
 					break;
 				}
+				case WINDOW_BUFFER_SIZE_EVENT:
+					// TODO: Handle window buffer resize
+					WINDOW_BUFFER_SIZE_RECORD wbsr = inBuf[i].Event.WindowBufferSizeEvent;
+					// GE_DEBUG_INFO("Console screen buffer is {0} columns by {1} rows.", wbsr.dwSize.X, wbsr.dwSize.Y);
+					break;
 				default:
 					// No need to process anything
 					break;
@@ -703,6 +755,8 @@ namespace GameEngine
 			delete[] m_bufScreen;
 			// cls(CloseHandler);
 			SetConsoleActiveScreenBuffer(m_OriginalConsole);
+			SetConsoleScreenBufferInfoEx(m_OriginalConsole, &m_OriginalConsoleInfo);
+			SetCurrentConsoleFontEx(m_Console, false, &m_OriginalFontInfo);
 			m_GameFinished.notify_one();
 		}
 		else
@@ -718,6 +772,8 @@ namespace GameEngine
 		wchar_t buf[256];
 		FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), buf, 256, NULL);
 		SetConsoleActiveScreenBuffer(m_OriginalConsole);
+		SetConsoleScreenBufferInfoEx(m_OriginalConsole, &m_OriginalConsoleInfo);
+		SetCurrentConsoleFontEx(m_Console, false, &m_OriginalFontInfo);
 		wprintf(L"Error: %s\n\t%s\n", msg, buf);
 		return 0;
 	}
@@ -730,11 +786,11 @@ namespace GameEngine
 
 		switch (evt)
 		{
-		case CTRL_C_EVENT:
-		case CTRL_CLOSE_EVENT:
 		case CTRL_BREAK_EVENT:
 		case CTRL_SHUTDOWN_EVENT:
 		case CTRL_LOGOFF_EVENT:
+		// case CTRL_C_EVENT:
+		case CTRL_CLOSE_EVENT:
 		{
 			m_bAtomicActive = false;
 
@@ -749,7 +805,7 @@ namespace GameEngine
 		return false;
 
 		/*
-		if (evt == CTRL_CLOSE_EVENT || evt == CTRL_BREAK_EVENT || evt == CTRL_SHUTDOWN_EVENT || evt == CTRL_LOGOFF_EVENT)
+		if (evt == CTRL_CLOSE_EVENT)
 		{
 			m_bAtomicActive = false;
 
