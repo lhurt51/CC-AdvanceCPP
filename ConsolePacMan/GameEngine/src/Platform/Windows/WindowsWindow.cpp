@@ -7,6 +7,7 @@
 
 namespace GameEngine
 {
+	WindowsWindow::WindowData WindowsWindow::m_Data;
 
 	Window* Window::Create(const WindowProps& props)
 	{
@@ -71,14 +72,15 @@ namespace GameEngine
 			}
 			case KEY_EVENT:
 			{
-			case WM_KEYDOWN:
-				break;
-			case WM_KEYUP:
 				switch (inBuf[i].Event.KeyEvent.wVirtualKeyCode)
 				{
 					/* if escape key is pressed*/
 				case VK_ESCAPE:
+				{
+					WindowCloseEvent event;
+					m_Data.EventCallback(event);
 					return;
+				}
 
 				case VK_LEFT:
 					// Process the LEFT ARROW key. 
@@ -124,10 +126,12 @@ namespace GameEngine
 				break;
 			}
 			case WINDOW_BUFFER_SIZE_EVENT:
+			{
 				// TODO: Handle window buffer resize
 				WINDOW_BUFFER_SIZE_RECORD wbsr = inBuf[i].Event.WindowBufferSizeEvent;
 				GE_CORE_INFO("Console screen buffer is {0} columns by {1} rows.", wbsr.dwSize.X, wbsr.dwSize.Y);
 				break;
+			}
 			default:
 				// No need to process anything
 				break;
@@ -135,9 +139,9 @@ namespace GameEngine
 		}
 
 		// Update title & present screen buffer
-		std::wstring appName = std::wstring(m_Data.Title.begin(), m_Data.Title.begin());
+		std::wstring appName = std::wstring(m_Data.Title.begin(), m_Data.Title.end());
 		wchar_t s[256];
-		swprintf_s(s, 256, L"github.com/lhurt51 - Console Game Engine - %s - FPS: %3.2f", appName.c_str(), 1.0f / fElapsedTime);
+		swprintf_s(s, 256, L"github.com/lhurt51 - Console - %s - FPS: %3.2f", appName.c_str(), 1.0f / fElapsedTime);
 		SetConsoleTitle((wchar_t*)s);
 		WriteConsoleOutput(m_Console, m_bufScreen, { (short)m_ScreenWidth, (short)m_ScreenHeight }, { 0, 0 }, &m_WindowRect);
 	}
@@ -214,17 +218,37 @@ namespace GameEngine
 		int size = m_ScreenWidth * m_ScreenHeight;
 		m_bufScreen = new CHAR_INFO[size];
 		memset(m_bufScreen, 0, sizeof(CHAR_INFO) * size);
+
+		SetConsoleCtrlHandler(CloseHandler, TRUE);
 	}
 
 	void WindowsWindow::ShutDown()
 	{
 		system("cls");
-		/*
 		SetConsoleActiveScreenBuffer(m_OriginalConsole);
 		SetConsoleScreenBufferInfoEx(m_OriginalConsole, &m_OriginalConsoleInfo);
 		SetCurrentConsoleFontEx(m_Console, false, &m_OriginalFontInfo);
 		if (m_bufScreen) delete[] m_bufScreen;
-		*/
+	}
+
+	BOOL WindowsWindow::CloseHandler(DWORD evt)
+	{
+		switch (evt)
+		{
+		// case CTRL_C_EVENT:
+		case CTRL_BREAK_EVENT:
+		case CTRL_SHUTDOWN_EVENT:
+		case CTRL_LOGOFF_EVENT:
+		case CTRL_CLOSE_EVENT:
+		{
+			WindowCloseEvent event;
+			m_Data.EventCallback(event);
+			return true;
+		}
+		default:
+			return false;
+		}
+		return false;
 	}
 
 }

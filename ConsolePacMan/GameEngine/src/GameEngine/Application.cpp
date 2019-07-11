@@ -25,7 +25,8 @@ namespace GameEngine
 
 	void Application::OnEvent(Event& e)
 	{
-
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<WindowCloseEvent>(GE_BIND_EVENT_FN(Application::OnWindowClose));
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)

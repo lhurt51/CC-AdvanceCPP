@@ -23,9 +23,10 @@ namespace GameEngine
 
 	private:
 
-		void WindowsWindow::Error(const wchar_t* msg);
+		void Error(const wchar_t* msg);
 		virtual void Init(const WindowProps& props);
 		virtual void ShutDown();
+		static BOOL CloseHandler(DWORD evt);
 
 	private:
 
@@ -51,7 +52,7 @@ namespace GameEngine
 			EventCallbackFn EventCallback;
 		};
 
-		WindowData m_Data;
+		static WindowData m_Data;
 
 	};
 }
