@@ -19,6 +19,9 @@
 #include <atomic>
 #include <condition_variable>
 
+// Including our log functions for everything
+#include "GameEngine/Log.h"
+
 #ifndef UNICODE
 #error Please enable UNICODE for your compiler! VS: Project Properties -> General -> Character Set -> Use Unicode.
 #endif

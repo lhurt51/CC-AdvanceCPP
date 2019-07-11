@@ -3,6 +3,7 @@
 #include "Core.h"
 
 #include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
 
 // Spdlog wrapper for easy threaded logging
 namespace GameEngine
