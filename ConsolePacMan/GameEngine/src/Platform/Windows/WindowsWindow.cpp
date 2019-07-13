@@ -83,7 +83,7 @@ namespace GameEngine
 				}
 
 				case VK_LEFT:
-					// Process the LEFT ARROW key. 
+					// Process the LEFT ARROW key.
 					break;
 
 				case VK_RIGHT:
@@ -146,14 +146,13 @@ namespace GameEngine
 		WriteConsoleOutput(m_Console, m_bufScreen, { (short)m_ScreenWidth, (short)m_ScreenHeight }, { 0, 0 }, &m_WindowRect);
 	}
 
-	void WindowsWindow::Error(const wchar_t* msg)
+	void WindowsWindow::Error(const std::wstring& msg)
 	{
 		wchar_t buf[256];
 		FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), buf, 256, NULL);
-		SetConsoleActiveScreenBuffer(m_OriginalConsole);
-		SetConsoleScreenBufferInfoEx(m_OriginalConsole, &m_OriginalConsoleInfo);
-		SetCurrentConsoleFontEx(m_Console, false, &m_OriginalFontInfo);
-		// GE_CORE_ASSERT(false, "Error: {0}\n\t{1}\n", msg, buf);
+		std::wstring newBuf(buf);
+		ShutDown();
+		GE_CORE_ASSERT(nullptr, "Error: {0}", std::string(msg.begin(), msg.end()), std::string(newBuf.begin(), newBuf.end()));
 	}
 
 	void WindowsWindow::Init(const WindowProps& props)
@@ -166,6 +165,12 @@ namespace GameEngine
 
 		if (m_Console == INVALID_HANDLE_VALUE)
 			return Error(L"Bad Handle");
+
+		ShowCursor(FALSE);
+		POINT p;
+		GetCursorPos(&p);
+		ScreenToClient(GetConsoleWindow(), &p);
+		GE_CORE_TRACE("Current Cursor Pos ({0}, {1})", p.x, p.y);
 
 		m_ScreenWidth = props.Width;
 		m_ScreenHeight = props.Height;
@@ -248,7 +253,6 @@ namespace GameEngine
 		default:
 			return false;
 		}
-		return false;
 	}
 
 }

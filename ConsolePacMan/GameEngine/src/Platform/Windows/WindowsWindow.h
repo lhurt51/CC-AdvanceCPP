@@ -23,7 +23,7 @@ namespace GameEngine
 
 	private:
 
-		void Error(const wchar_t* msg);
+		void Error(const std::wstring& msg);
 		virtual void Init(const WindowProps& props);
 		virtual void ShutDown();
 		static BOOL CloseHandler(DWORD evt);
