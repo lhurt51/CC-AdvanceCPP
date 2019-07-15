@@ -19,7 +19,7 @@ namespace GameEngine
 		// Window attributes
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 
-		inline void* GetNativeWindow() const override { return m_Console; }
+		inline void* GetNativeWindow() const override { return GetConsoleWindow(); }
 
 	private:
 

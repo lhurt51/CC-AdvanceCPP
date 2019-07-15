@@ -1,6 +1,9 @@
 #pragma once
 
 #include "GameEngine/Core.h"
+#include "GameEngine/Events/Event.h"
+//#include "GameEngine/Events/KeyEvent.h"
+//#include "GameEngine/Events/MouseEvent.h"
 
 namespace GameEngine
 {

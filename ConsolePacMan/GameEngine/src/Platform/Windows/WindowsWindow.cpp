@@ -19,12 +19,12 @@ namespace GameEngine
 		// m_ScreenWidth = 160;
 		// m_ScreenHeight = 60;
 
-		m_OriginalConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		GetConsoleScreenBufferInfoEx(m_OriginalConsole, &m_OriginalConsoleInfo);
-		GetCurrentConsoleFontEx(m_OriginalConsole, false, &m_OriginalFontInfo);
+		//m_OriginalConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		//GetConsoleScreenBufferInfoEx(m_OriginalConsole, &m_OriginalConsoleInfo);
+		//GetCurrentConsoleFontEx(m_OriginalConsole, false, &m_OriginalFontInfo);
 
-		m_Console = GetStdHandle(STD_OUTPUT_HANDLE);
-		m_ConsoleIn = GetStdHandle(STD_INPUT_HANDLE);
+		//m_Console = GetStdHandle(STD_OUTPUT_HANDLE);
+		//m_ConsoleIn = GetStdHandle(STD_INPUT_HANDLE);
 
 		/*
 		std::memset(m_KeyNewState, 0, 256 * sizeof(short));
@@ -54,6 +54,7 @@ namespace GameEngine
 		float fElapsedTime = elapsedTime.count();
 
 		// Handle Mouse Input - Check for window events
+		/*
 		INPUT_RECORD inBuf[32];
 		DWORD events = 0;
 		GetNumberOfConsoleInputEvents(m_ConsoleIn, &events);
@@ -74,7 +75,7 @@ namespace GameEngine
 			{
 				switch (inBuf[i].Event.KeyEvent.wVirtualKeyCode)
 				{
-					/* if escape key is pressed*/
+					/* if escape key is pressed *\/
 				case VK_ESCAPE:
 				{
 					WindowCloseEvent event;
@@ -137,6 +138,7 @@ namespace GameEngine
 				break;
 			}
 		}
+		*/
 
 		// Update title & present screen buffer
 		std::wstring appName = std::wstring(m_Data.Title.begin(), m_Data.Title.end());
@@ -163,77 +165,71 @@ namespace GameEngine
 
 		GE_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
-		if (m_Console == INVALID_HANDLE_VALUE)
-			return Error(L"Bad Handle");
+		//if (m_Console == INVALID_HANDLE_VALUE)
+		//	return Error(L"Bad Handle");
 
-		ShowCursor(FALSE);
-		POINT p;
-		GetCursorPos(&p);
-		ScreenToClient(GetConsoleWindow(), &p);
-		GE_CORE_TRACE("Current Cursor Pos ({0}, {1})", p.x, p.y);
-
-		m_ScreenWidth = props.Width;
-		m_ScreenHeight = props.Height;
+		//m_ScreenWidth = props.Width;
+		//m_ScreenHeight = props.Height;
 
 		// Interesting work around for the console set screen buffer size thanks to Jx9 and OneLoneCoder
-		m_WindowRect = { 0, 0, 1, 1 };
-		SetConsoleWindowInfo(m_Console, TRUE, &m_WindowRect);
+		//m_WindowRect = { 0, 0, 1, 1 };
+		//SetConsoleWindowInfo(m_Console, TRUE, &m_WindowRect);
 
 		// Set the size of the screen buffer
-		COORD coord = { (short)m_ScreenWidth, (short)m_ScreenHeight };
-		if (!SetConsoleScreenBufferSize(m_Console, coord))
-			Error(L"SetConsoleScreenBufferSize");
+		//COORD coord = { (short)m_ScreenWidth, (short)m_ScreenHeight };
+		//if (!SetConsoleScreenBufferSize(m_Console, coord))
+		//	Error(L"SetConsoleScreenBufferSize");
 
 		// Assign screen buffer to the console
-		if (!SetConsoleActiveScreenBuffer(m_Console))
-			return Error(L"SetConsoleActiveScreenBuffer");
+		//if (!SetConsoleActiveScreenBuffer(m_Console))
+		//	return Error(L"SetConsoleActiveScreenBuffer");
 
 		// Set font size now that the screen buffer has been assigned
-		CONSOLE_FONT_INFOEX cfi;
-		cfi.cbSize = sizeof(cfi);
-		cfi.nFont = 0;
-		cfi.dwFontSize.X = 8;
-		cfi.dwFontSize.Y = 16;
-		cfi.FontFamily = FF_DONTCARE;
-		cfi.FontWeight = FW_NORMAL;
+		//CONSOLE_FONT_INFOEX cfi;
+		//cfi.cbSize = sizeof(cfi);
+		//cfi.nFont = 0;
+		//cfi.dwFontSize.X = 8;
+		//cfi.dwFontSize.Y = 16;
+		//cfi.FontFamily = FF_DONTCARE;
+		//cfi.FontWeight = FW_NORMAL;
 
-		wcscpy_s(cfi.FaceName, L"Consolas");
-		if (!SetCurrentConsoleFontEx(m_Console, false, &cfi))
-			return Error(L"SetCurrentConsoleFontEx");
+		//wcscpy_s(cfi.FaceName, L"Consolas");
+		//if (!SetCurrentConsoleFontEx(m_Console, false, &cfi))
+		//	return Error(L"SetCurrentConsoleFontEx");
 		// Get screen buffer onfo. Then check the maximum allowed window size.
 		// Throw error if the window has exceeded max deminsions
-		CONSOLE_SCREEN_BUFFER_INFO csbi;
-		if (!GetConsoleScreenBufferInfo(m_Console, &csbi))
-			return Error(L"GetConsoleScreenBufferInfo");
-		if (m_ScreenHeight > csbi.dwMaximumWindowSize.Y)
-			return Error(L"Screen/Font Height Too Big");
-		if (m_ScreenWidth > csbi.dwMaximumWindowSize.X)
-			return Error(L"Screen/Font Width Too Big");
+		//CONSOLE_SCREEN_BUFFER_INFO csbi;
+		//if (!GetConsoleScreenBufferInfo(m_Console, &csbi))
+		//	return Error(L"GetConsoleScreenBufferInfo");
+		//if (m_ScreenHeight > csbi.dwMaximumWindowSize.Y)
+		//	return Error(L"Screen/Font Height Too Big");
+		//if (m_ScreenWidth > csbi.dwMaximumWindowSize.X)
+		//	return Error(L"Screen/Font Width Too Big");
 
 		// Set Physical Console Window Size
-		m_WindowRect = { 0, 0, (short)m_ScreenWidth - 1, (short)m_ScreenHeight - 1 };
-		if (!SetConsoleWindowInfo(m_Console, TRUE, &m_WindowRect))
-			return Error(L"SetConsoleWindowInfo");
+		//m_WindowRect = { 0, 0, (short)m_ScreenWidth - 1, (short)m_ScreenHeight - 1 };
+		//if (!SetConsoleWindowInfo(m_Console, TRUE, &m_WindowRect))
+		//	return Error(L"SetConsoleWindowInfo");
 
 		// Set flags for mouse input
-		if (!SetConsoleMode(m_ConsoleIn, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT))
-			return Error(L"SetConsoleMode");
+		//if (!SetConsoleMode(m_ConsoleIn, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT))
+		//	return Error(L"SetConsoleMode");
 
 		// Allocate memory for screen buffer
-		int size = m_ScreenWidth * m_ScreenHeight;
-		m_bufScreen = new CHAR_INFO[size];
-		memset(m_bufScreen, 0, sizeof(CHAR_INFO) * size);
+		//int size = m_ScreenWidth * m_ScreenHeight;
+		//m_bufScreen = new CHAR_INFO[size];
+		//memset(m_bufScreen, 0, sizeof(CHAR_INFO) * size);
 
 		SetConsoleCtrlHandler(CloseHandler, TRUE);
 	}
 
 	void WindowsWindow::ShutDown()
 	{
-		system("cls");
-		SetConsoleActiveScreenBuffer(m_OriginalConsole);
-		SetConsoleScreenBufferInfoEx(m_OriginalConsole, &m_OriginalConsoleInfo);
-		SetCurrentConsoleFontEx(m_Console, false, &m_OriginalFontInfo);
-		if (m_bufScreen) delete[] m_bufScreen;
+		//system("cls");
+		//SetConsoleActiveScreenBuffer(m_OriginalConsole);
+		//SetConsoleScreenBufferInfoEx(m_OriginalConsole, &m_OriginalConsoleInfo);
+		//SetCurrentConsoleFontEx(m_Console, false, &m_OriginalFontInfo);
+		//if (m_bufScreen) delete[] m_bufScreen;
 	}
 
 	BOOL WindowsWindow::CloseHandler(DWORD evt)

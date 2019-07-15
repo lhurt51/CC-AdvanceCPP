@@ -1,8 +1,9 @@
 #pragma once
+
 #include "gepch.h"
 
-#include "Core.h"
-#include "Events/Event.h"
+#include "GameEngine/Core.h"
+#include "GameEngine/Events/Event.h"
 
 namespace GameEngine
 {
