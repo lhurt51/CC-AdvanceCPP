@@ -12,7 +12,7 @@ namespace GameEngine
 
 	bool WindowsInput::IsKeyPressedImpl(int keycode)
 	{
-		if (GetAsyncKeyState(keycode) & MSB > 0)
+		if (GetAsyncKeyState(keycode))
 			return true;
 		return false;
 	}
@@ -20,7 +20,7 @@ namespace GameEngine
 	bool WindowsInput::IsMouseButtonPressedImpl(int button)
 	{
 		// TODO: Fix the mouse button input
-		if (GetAsyncKeyState(button) & MSB > 0)
+		if (GetAsyncKeyState(button))
 			return true;
 		return false;
 	}

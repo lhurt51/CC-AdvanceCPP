@@ -10,7 +10,6 @@ public:
 	ExampleLayer()
 		: Layer("Example")
 	{
-		
 	}
 
 	void OnUpdate() override
@@ -38,7 +37,9 @@ public:
 			GE_TRACE("Key pressed left!");
 
 		if (GameEngine::Input::IsMouseButtonPressed(GE_MOUSE_BUTTON_LEFT))
-			GE_TRACE("Key pressed left!");
+			GE_TRACE("Mouse button left pressed!");
+		if (GameEngine::Input::IsMouseButtonPressed(GE_MOUSE_BUTTON_RIGHT))
+			GE_TRACE("Mouse button right pressed!");
 
 		/*
 		GE_TRACE("Delta Time: {0}s ({1}ms)", ts, ts.GetMilliseconds());
@@ -95,10 +96,7 @@ public:
 		PushLayer(new ExampleLayer());
 	}
 
-	virtual ~PacManApp()
-	{
-
-	}
+	virtual ~PacManApp() = default;
 
 };
 

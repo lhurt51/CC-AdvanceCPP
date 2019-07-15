@@ -24,7 +24,7 @@ namespace GameEngine
 		//GetCurrentConsoleFontEx(m_OriginalConsole, false, &m_OriginalFontInfo);
 
 		//m_Console = GetStdHandle(STD_OUTPUT_HANDLE);
-		//m_ConsoleIn = GetStdHandle(STD_INPUT_HANDLE);
+		m_ConsoleIn = GetStdHandle(STD_INPUT_HANDLE);
 
 		/*
 		std::memset(m_KeyNewState, 0, 256 * sizeof(short));
@@ -54,7 +54,6 @@ namespace GameEngine
 		float fElapsedTime = elapsedTime.count();
 
 		// Handle Mouse Input - Check for window events
-		/*
 		INPUT_RECORD inBuf[32];
 		DWORD events = 0;
 		GetNumberOfConsoleInputEvents(m_ConsoleIn, &events);
@@ -75,50 +74,13 @@ namespace GameEngine
 			{
 				switch (inBuf[i].Event.KeyEvent.wVirtualKeyCode)
 				{
-					/* if escape key is pressed *\/
+					/* if escape key is pressed */
 				case VK_ESCAPE:
 				{
 					WindowCloseEvent event;
 					m_Data.EventCallback(event);
 					return;
 				}
-
-				case VK_LEFT:
-					// Process the LEFT ARROW key.
-					break;
-
-				case VK_RIGHT:
-					// Process the RIGHT ARROW key. 
-					break;
-
-				case VK_UP:
-					// Process the UP ARROW key. 
-					break;
-
-				case VK_DOWN:
-					// Process the DOWN ARROW key. 
-					break;
-
-				case VK_HOME:
-					// Process the HOME key. 
-
-					break;
-
-				case VK_END:
-					// Process the END key. 
-					break;
-
-				case VK_INSERT:
-					// Process the INS key. 
-					break;
-
-				case VK_DELETE:
-					// Process the DEL key. 
-					break;
-
-				case VK_F2:
-					// Process the F2 key. 
-					break;
 
 					// Process other non-character keystrokes. 
 				default:
@@ -138,7 +100,6 @@ namespace GameEngine
 				break;
 			}
 		}
-		*/
 
 		// Update title & present screen buffer
 		std::wstring appName = std::wstring(m_Data.Title.begin(), m_Data.Title.end());
@@ -212,8 +173,8 @@ namespace GameEngine
 		//	return Error(L"SetConsoleWindowInfo");
 
 		// Set flags for mouse input
-		//if (!SetConsoleMode(m_ConsoleIn, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT))
-		//	return Error(L"SetConsoleMode");
+		if (!SetConsoleMode(m_ConsoleIn, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT))
+			return Error(L"SetConsoleMode");
 
 		// Allocate memory for screen buffer
 		//int size = m_ScreenWidth * m_ScreenHeight;
