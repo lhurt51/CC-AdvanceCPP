@@ -1,6 +1,8 @@
 #include "gepch.h"
 #include "Application.h"
 
+#include <chrono>
+
 namespace GameEngine
 {
 
@@ -19,8 +21,19 @@ namespace GameEngine
 	{
 		while (m_Running)
 		{
+			auto t1 = std::chrono::high_resolution_clock::now().time_since_epoch();
+			float time = std::chrono::duration_cast<std::chrono::milliseconds>(t1).count();
+			TimeStep timeStep = time - m_LastFrameTime;
+			while (timeStep < 0.016)
+			{
+				auto t1 = std::chrono::high_resolution_clock::now().time_since_epoch();
+				float time = std::chrono::duration_cast<std::chrono::milliseconds>(t1).count();
+				timeStep = time - m_LastFrameTime;
+			}
+			m_LastFrameTime = time;
+
 			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
+				layer->OnUpdate(timeStep);
 
 			m_Window->OnUpdate();
 		}

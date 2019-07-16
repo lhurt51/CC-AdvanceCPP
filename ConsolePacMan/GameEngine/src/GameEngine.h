@@ -9,7 +9,7 @@
 // #include "GameEngine/Math/Vector.h"
 
 // Time step for delta time in on update
-// #include "GhostEngine/Core/TimeStep.h"
+#include "GameEngine/Core/TimeStep.h"
 
 // -------- Including User Input info ------------
 #include "GameEngine/KeyCodes.h"

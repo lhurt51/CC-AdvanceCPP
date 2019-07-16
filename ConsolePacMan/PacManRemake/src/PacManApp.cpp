@@ -12,7 +12,7 @@ public:
 	{
 	}
 
-	void OnUpdate() override
+	void OnUpdate(GameEngine::TimeStep ts) override
 	{
 		/* Rendering Settup TODO
 		** RenderCommand::SetClearColor();
@@ -33,6 +33,9 @@ public:
 		** Renderer::Flush();
 		*/
 
+		GE_TRACE("Delta Time: {0}s ({1}ms)", ts, ts.GetMilliseconds());
+
+		/*
 		if (GameEngine::Input::IsKeyPressed(GE_KEY_LEFT))
 			GE_TRACE("Key pressed left!");
 
@@ -40,24 +43,6 @@ public:
 			GE_TRACE("Mouse button left pressed!");
 		if (GameEngine::Input::IsMouseButtonPressed(GE_MOUSE_BUTTON_RIGHT))
 			GE_TRACE("Mouse button right pressed!");
-
-		/*
-		GE_TRACE("Delta Time: {0}s ({1}ms)", ts, ts.GetMilliseconds());
-
-		if (GameEngine::Input::IsKeyPressed(GE_KEY_LEFT))
-			m_CameraPos.x += m_CameraMoveSpeed * ts;
-		else if (GameEngine::Input::IsKeyPressed(GE_KEY_RIGHT))
-			m_CameraPos.x -= m_CameraMoveSpeed * ts;
-
-		if (GameEngine::Input::IsKeyPressed(GE_KEY_UP))
-			m_CameraPos.y -= m_CameraMoveSpeed * ts;
-		else if (GameEngine::Input::IsKeyPressed(GE_KEY_DOWN))
-			m_CameraPos.y += m_CameraMoveSpeed * ts;
-
-		if (GameEngine::Input::IsKeyPressed(GE_KEY_Q))
-			m_CameraRotation -= m_CameraRotSpeed * ts;
-		else if (GameEngine::Input::IsKeyPressed(GE_KEY_E))
-			m_CameraRotation += m_CameraRotSpeed * ts;
 		*/
 
 	}
@@ -71,17 +56,15 @@ public:
 
 	bool OnKeyPressedEvent(GameEngine::KeyPressedEvent& event)
 	{
-		/*
-		--- Raw Input handling (Only updates every key press) ---
+		// --- Raw Input handling (Only updates every key press) ---
 		if (event.GetKeyCode() == GE_KEY_LEFT)
-			m_CameraPos.x -= m_CameraSpeed;
+			GE_TRACE("Key left pressed!");
 		if (event.GetKeyCode() == GE_KEY_RIGHT)
-			m_CameraPos.x += m_CameraSpeed;
+			GE_TRACE("Key right pressed!");
 		if (event.GetKeyCode() == GE_KEY_UP)
-			m_CameraPos.y += m_CameraSpeed;
+			GE_TRACE("Key up pressed!");
 		if (event.GetKeyCode() == GE_KEY_DOWN)
-			m_CameraPos.y -= m_CameraSpeed;
-		*/
+			GE_TRACE("Key down pressed!");
 
 		return false;
 	}

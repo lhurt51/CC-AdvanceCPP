@@ -19,27 +19,33 @@ namespace GameEngine
 		// Window attributes
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 
-		inline void* GetNativeWindow() const override { return GetConsoleWindow(); }
+		inline void* GetNativeWindow() const override { return m_Win; }
 
 	private:
 
 		void Error(const std::wstring& msg);
 		virtual void Init(const WindowProps& props);
 		virtual void ShutDown();
-		static BOOL CloseHandler(DWORD evt);
+		static BOOL WINAPI CloseHandler(DWORD evt);
+
+		VOID WINAPI KeyEventProc(KEY_EVENT_RECORD ker);
+		VOID WINAPI MouseEventProc(MOUSE_EVENT_RECORD mer);
+		VOID WINAPI ResizeEventProc(WINDOW_BUFFER_SIZE_RECORD wbsr);
 
 	private:
 
-		int m_ScreenWidth;
-		int m_ScreenHeight;
 		CHAR_INFO* m_bufScreen;
 
+		HWND m_Win;
+
 		HANDLE m_OriginalConsole;
-		CONSOLE_SCREEN_BUFFER_INFOEX m_OriginalConsoleInfo;
-		CONSOLE_FONT_INFOEX m_OriginalFontInfo;
+		// CONSOLE_SCREEN_BUFFER_INFO m_OriginalConsoleInfo;
+		// CONSOLE_FONT_INFO m_OriginalFontInfo;
+		DWORD fdwSaveOldMode;
 
 		HANDLE m_Console;
 		HANDLE m_ConsoleIn;
+
 		SMALL_RECT m_WindowRect;
 
 		bool m_bConsoleInFocus = true;

@@ -10,6 +10,12 @@
     <Filter Include="GameEngine\Math">
       <UniqueIdentifier>{CEE1FBE6-3A6D-69AB-437E-EC9FAF88C5AB}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameEngine.h" />
@@ -40,29 +46,50 @@
     <ClInclude Include="src\GameEngine\Input.h">
       <Filter>GameEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\KeyCodes.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Layer.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\LayerStack.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameEngine\Log.h">
       <Filter>GameEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Math\Vector.h">
       <Filter>GameEngine\Math</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\MouseButtonCodes.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameEngine\Sprite.h">
       <Filter>GameEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\Window.h">
+      <Filter>GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\gepch.h" />
-    <ClInclude Include="src\GameEngine\Window.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
-    <ClInclude Include="src\GameEngine\Layer.h" />
-    <ClInclude Include="src\GameEngine\LayerStack.h" />
-    <ClInclude Include="src\GameEngine\MouseButtonCodes.h" />
-    <ClInclude Include="src\GameEngine\KeyCodes.h" />
+    <ClInclude Include="src\GameEngine\Core\TimeStep.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">
       <Filter>GameEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\ConsoleGameEngine.cpp">
+      <Filter>GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Layer.cpp">
+      <Filter>GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\LayerStack.cpp">
       <Filter>GameEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Log.cpp">
@@ -77,10 +104,12 @@
     <ClCompile Include="src\GameEngine\Sprite.cpp">
       <Filter>GameEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\gepch.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
-    <ClCompile Include="src\GameEngine\Layer.cpp" />
-    <ClCompile Include="src\GameEngine\LayerStack.cpp" />
   </ItemGroup>
 </Project>

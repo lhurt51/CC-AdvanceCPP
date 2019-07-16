@@ -131,42 +131,43 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\GameEngine\LayerStack.h" />
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\GameEngine\Application.h" />
     <ClInclude Include="src\GameEngine\ConsoleGameEngine.h" />
     <ClInclude Include="src\GameEngine\Core.h" />
+    <ClInclude Include="src\GameEngine\Core\TimeStep.h" />
     <ClInclude Include="src\GameEngine\EntryPoint.h" />
     <ClInclude Include="src\GameEngine\Events\ApplicationEvent.h" />
     <ClInclude Include="src\GameEngine\Events\Event.h" />
     <ClInclude Include="src\GameEngine\Events\KeyEvent.h" />
     <ClInclude Include="src\GameEngine\Events\MouseEvent.h" />
     <ClInclude Include="src\GameEngine\Input.h" />
+    <ClInclude Include="src\GameEngine\KeyCodes.h" />
     <ClInclude Include="src\GameEngine\Layer.h" />
+    <ClInclude Include="src\GameEngine\LayerStack.h" />
     <ClInclude Include="src\GameEngine\Log.h" />
     <ClInclude Include="src\GameEngine\Math\Vector.h" />
     <ClInclude Include="src\GameEngine\MouseButtonCodes.h" />
     <ClInclude Include="src\GameEngine\Sprite.h" />
     <ClInclude Include="src\GameEngine\Window.h" />
-    <ClInclude Include="src\gepch.h" />
-    <ClInclude Include="src\GameEngine\KeyCodes.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\gepch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\GameEngine\LayerStack.cpp" />
     <ClCompile Include="src\GameEngine\Application.cpp" />
     <ClCompile Include="src\GameEngine\ConsoleGameEngine.cpp" />
     <ClCompile Include="src\GameEngine\Layer.cpp" />
+    <ClCompile Include="src\GameEngine\LayerStack.cpp" />
     <ClCompile Include="src\GameEngine\Log.cpp" />
     <ClCompile Include="src\GameEngine\Math\Vector.cpp" />
     <ClCompile Include="src\GameEngine\Math\Vector2D-impl.cpp" />
     <ClCompile Include="src\GameEngine\Sprite.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\gepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
