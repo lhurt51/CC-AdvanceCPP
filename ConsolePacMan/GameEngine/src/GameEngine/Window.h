@@ -39,6 +39,8 @@ namespace GameEngine
 
 		// Returns the platform specific window (Not entirely nessicary)
 		virtual void* GetNativeWindow() const = 0;
+		// Returns the windows info
+		virtual const void* GetWindowInfo() const = 0;
 
 		static Window* Create(const WindowProps& props = WindowProps());
 

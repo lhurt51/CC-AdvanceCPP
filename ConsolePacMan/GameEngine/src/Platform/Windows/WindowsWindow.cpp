@@ -85,7 +85,7 @@ namespace GameEngine
 		wchar_t s[256];
 		swprintf_s(s, 256, L"github.com/lhurt51 - Console - %s - FPS: %3.2f", appName.c_str(), 1.0f / fElapsedTime);
 		SetConsoleTitle((wchar_t*)s);
-		// WriteConsoleOutput(m_Console, m_bufScreen, { (short)m_ScreenWidth, (short)m_ScreenHeight }, { 0, 0 }, &m_WindowRect);
+		// WriteConsoleOutput(m_Console, m_bufScreen, { (short)m_Data.Width, (short)m_Data.Height }, { 0, 0 }, &m_WindowRect);
 	}
 
 	/* Should check errors this way eventually! (First need to find more efficient wstring conversion)
@@ -171,8 +171,8 @@ namespace GameEngine
 
 		// Allocate memory for screen buffer
 		int size = m_Data.Width * m_Data.Height;
-		m_bufScreen = new CHAR_INFO[size];
-		memset(m_bufScreen, 0, sizeof(CHAR_INFO) * size);
+		m_Data.m_bufScreen = new CHAR_INFO[size];
+		memset(m_Data.m_bufScreen, 0, sizeof(CHAR_INFO) * size);
 
 		SetConsoleCtrlHandler((PHANDLER_ROUTINE)CloseHandler, TRUE);
 	}
@@ -180,7 +180,7 @@ namespace GameEngine
 	void WindowsWindow::ShutDown()
 	{
 		//system("cls");
-		if (m_bufScreen) delete[] m_bufScreen;
+		if (m_Data.m_bufScreen) delete[] m_Data.m_bufScreen;
 		if (!SetConsoleActiveScreenBuffer(m_OriginalConsole))
 			GE_CORE_ASSERT(nullptr, "Windows Window: Shutdown(): Setting current Active Console");
 		/*

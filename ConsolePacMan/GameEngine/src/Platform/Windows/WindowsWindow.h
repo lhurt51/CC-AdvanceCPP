@@ -20,10 +20,11 @@ namespace GameEngine
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 
 		inline void* GetNativeWindow() const override { return m_Win; }
+		inline const void* GetWindowInfo() const override { return &WindowsWindow::m_Data; }
 
 	private:
 
-		void Error(const std::wstring& msg);
+		//void Error(const std::wstring& msg);
 		virtual void Init(const WindowProps& props);
 		virtual void ShutDown();
 		static BOOL WINAPI CloseHandler(DWORD evt);
@@ -34,13 +35,12 @@ namespace GameEngine
 
 	private:
 
-		CHAR_INFO* m_bufScreen;
-
 		HWND m_Win;
 
 		HANDLE m_OriginalConsole;
 		// CONSOLE_SCREEN_BUFFER_INFO m_OriginalConsoleInfo;
 		// CONSOLE_FONT_INFO m_OriginalFontInfo;
+		SMALL_RECT m_OldWindowRect;
 		DWORD fdwSaveOldMode;
 
 		HANDLE m_Console;
@@ -54,6 +54,7 @@ namespace GameEngine
 		{
 			std::string Title;
 			unsigned int Width, Height;
+			CHAR_INFO* m_bufScreen;
 
 			EventCallbackFn EventCallback;
 		};
