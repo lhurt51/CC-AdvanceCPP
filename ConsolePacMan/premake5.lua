@@ -16,7 +16,7 @@ IncludeDir = {}
 -- IncludeDir["GLFW"] = "GhostEngine/vendor/GLFW/include"
 -- IncludeDir["Glad"] = "GhostEngine/vendor/Glad/include"
 -- IncludeDir["ImGui"] = "GhostEngine/vendor/imgui"
-IncludeDir["Glm"] = "GhostEngine/vendor/glm"
+IncludeDir["Glm"] = "GameEngine/vendor/glm"
 
 -- group "Dependencies"
 	-- include "GhostEngine/vendor/GLFW"
@@ -42,9 +42,9 @@ project "GameEngine"
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.hpp",
 		"%{prj.name}/src/**.c",
-		"%{prj.name}/src/**.cpp"
-		-- "%{prj.name}/Vendor/glm/glm/**.hpp",
-		-- "%{prj.name}/Vendor/glm/glm/**.inl"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
 	
 	defines
@@ -56,10 +56,10 @@ project "GameEngine"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/Vendor/spdlog/include",
+		"%{IncludeDir.Glm}"
 		--"%{IncludeDir.Glad}",
 		--"%{IncludeDir.GLFW}",
 		--"%{IncludeDir.ImGui}",
-		"%{IncludeDir.Glm}"
 	}
 
 	links
@@ -117,7 +117,7 @@ project "PacManRemake"
 	{
 		"GameEngine/vendor/spdlog/include",
 		"GameEngine/src",
-		--"GameEngine/vendor",
+		"GameEngine/vendor",
 		"%{IncludeDir.Glm}"
 	}
 
