@@ -24,6 +24,10 @@ namespace GameEngine
 		virtual void DrawPartialSprite(const glm::vec2& pos, const Sprite& sprite, const glm::vec2& opos, const glm::vec2& size) override;
 		virtual void DrawWireFrameModel(const std::vector<glm::vec2>& vecModelCoordinates, const glm::vec2& pos, float r, float s, short col, short c) override;
 
+	private:
+
+		void Clip(glm::vec2& pos);
+
 	};
 }
 

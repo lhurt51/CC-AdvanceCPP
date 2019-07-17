@@ -33,6 +33,17 @@ namespace GameEngine
 		VOID WINAPI MouseEventProc(MOUSE_EVENT_RECORD mer);
 		VOID WINAPI ResizeEventProc(WINDOW_BUFFER_SIZE_RECORD wbsr);
 
+	public:
+
+		struct WindowData
+		{
+			std::string Title;
+			unsigned int Width, Height;
+			CHAR_INFO* m_bufScreen;
+
+			EventCallbackFn EventCallback;
+		};
+
 	private:
 
 		HWND m_Win;
@@ -49,15 +60,6 @@ namespace GameEngine
 		SMALL_RECT m_WindowRect;
 
 		bool m_bConsoleInFocus = true;
-
-		struct WindowData
-		{
-			std::string Title;
-			unsigned int Width, Height;
-			CHAR_INFO* m_bufScreen;
-
-			EventCallbackFn EventCallback;
-		};
 
 		static WindowData m_Data;
 

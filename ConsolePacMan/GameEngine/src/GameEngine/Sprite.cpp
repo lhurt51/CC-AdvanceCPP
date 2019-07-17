@@ -27,7 +27,7 @@ namespace GameEngine
 			m_Colors[y * nWidth + x] = c;
 	}
 
-	short Sprite::GetGlyph(int x, int y)
+	short Sprite::GetGlyph(int x, int y) const
 	{
 		if (x < 0 || x >= nWidth || y < 0 || y >= nHeight)
 			return L' ';
@@ -35,7 +35,7 @@ namespace GameEngine
 			return m_Glyphs[y * nWidth + x];
 	}
 
-	short Sprite::GetColor(int x, int y)
+	short Sprite::GetColor(int x, int y) const
 	{
 		if (x < 0 || x >= nWidth || y < 0 || y >= nHeight)
 			return FG_BLACK;

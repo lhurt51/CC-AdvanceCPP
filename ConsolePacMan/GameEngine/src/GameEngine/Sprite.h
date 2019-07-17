@@ -64,8 +64,8 @@ namespace GameEngine
 		void SetGlyph(int x, int y, short c);
 		void SetColor(int x, int y, short c);
 
-		short GetGlyph(int x, int y);
-		short GetColor(int x, int y);
+		short GetGlyph(int x, int y) const;
+		short GetColor(int x, int y) const;
 
 		short SampleGlyph(float x, float y);
 		short SampleColor(float x, float y);
