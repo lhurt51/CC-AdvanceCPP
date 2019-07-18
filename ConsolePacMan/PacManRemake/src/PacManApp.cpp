@@ -35,7 +35,7 @@ public:
 		*/
 
 		GameEngine::RenderCommand::Clear();
-		GameEngine::RenderCommand::DrawString({ 20, 20 }, L"Hello World", 0x0001);
+		GameEngine::RenderCommand::DrawString({ 20, 20 }, L"Hello World", GameEngine::FG_DARK_GREY);
 
 		// GE_TRACE("Delta Time: {0}s ({1}ms)", ts, ts.GetMilliseconds());
 

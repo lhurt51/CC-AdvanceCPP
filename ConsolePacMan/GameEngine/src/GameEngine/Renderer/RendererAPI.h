@@ -4,6 +4,8 @@
 
 #include "GameEngine/Sprite.h"
 
+#include "RendererColors.h"
+
 namespace GameEngine
 {
 	class RendererAPI
