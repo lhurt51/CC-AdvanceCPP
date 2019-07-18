@@ -1209,6 +1209,8 @@
     <ClInclude Include="src\GameEngine\Renderer\Renderer.h" />
     <ClInclude Include="src\Platform\ConsoleRender\ConsoleRendererAPI.h" />
     <ClInclude Include="src\GameEngine\Renderer\RendererColors.h" />
+    <ClInclude Include="src\GameEngine\Core\ECS\GameObject.h" />
+    <ClInclude Include="src\GameEngine\Core\ECS\Component.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">
@@ -1243,5 +1245,6 @@
     </ClCompile>
     <ClCompile Include="src\GameEngine\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Platform\ConsoleRender\ConsoleRendererAPI.cpp" />
+    <ClCompile Include="src\GameEngine\Core\ECS\GameObject.cpp" />
   </ItemGroup>
 </Project>

@@ -34,8 +34,19 @@ public:
 		** Renderer::Flush();
 		*/
 
+		// The input is in units/sec
+		if (GameEngine::Input::IsKeyPressed(GE_KEY_A))
+			m_Pos.x -= 20 * ts;
+		else if (GameEngine::Input::IsKeyPressed(GE_KEY_D))
+			m_Pos.x += 20 * ts;
+
+		if (GameEngine::Input::IsKeyPressed(GE_KEY_W))
+			m_Pos.y -= 20 * ts;
+		else if (GameEngine::Input::IsKeyPressed(GE_KEY_S))
+			m_Pos.y += 20 * ts;
+
 		GameEngine::RenderCommand::Clear();
-		GameEngine::RenderCommand::DrawString({ 20, 20 }, L"Hello World", GameEngine::FG_DARK_GREY);
+		GameEngine::RenderCommand::DrawString(m_Pos, L"Hello World", GameEngine::FG_DARK_GREY);
 
 		// GE_TRACE("Delta Time: {0}s ({1}ms)", ts, ts.GetMilliseconds());
 
@@ -55,12 +66,12 @@ public:
 	{
 		GameEngine::EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<GameEngine::KeyPressedEvent>(GE_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent));
-
 	}
 
 	bool OnKeyPressedEvent(GameEngine::KeyPressedEvent& event)
 	{
 		// --- Raw Input handling (Only updates every key press) ---
+		/*
 		if (event.GetKeyCode() == GE_KEY_LEFT)
 			GE_TRACE("Key left pressed!");
 		if (event.GetKeyCode() == GE_KEY_RIGHT)
@@ -69,9 +80,15 @@ public:
 			GE_TRACE("Key up pressed!");
 		if (event.GetKeyCode() == GE_KEY_DOWN)
 			GE_TRACE("Key down pressed!");
+		*/
 
 		return false;
 	}
+
+private:
+
+	glm::vec2 m_Pos = { 0, 0 };
+
 };
 
 class PacManApp : public GameEngine::Application

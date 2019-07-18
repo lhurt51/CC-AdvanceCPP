@@ -134,6 +134,8 @@
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\GameEngine\Application.h" />
     <ClInclude Include="src\GameEngine\Core.h" />
+    <ClInclude Include="src\GameEngine\Core\ECS\Component.h" />
+    <ClInclude Include="src\GameEngine\Core\ECS\GameObject.h" />
     <ClInclude Include="src\GameEngine\Core\TimeStep.h" />
     <ClInclude Include="src\GameEngine\EntryPoint.h" />
     <ClInclude Include="src\GameEngine\Events\ApplicationEvent.h" />
@@ -523,6 +525,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp" />
+    <ClCompile Include="src\GameEngine\Core\ECS\GameObject.cpp" />
     <ClCompile Include="src\GameEngine\Layer.cpp" />
     <ClCompile Include="src\GameEngine\LayerStack.cpp" />
     <ClCompile Include="src\GameEngine\Log.cpp" />

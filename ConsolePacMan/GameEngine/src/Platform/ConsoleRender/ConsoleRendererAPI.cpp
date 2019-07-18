@@ -14,14 +14,14 @@ namespace GameEngine
 
 	void ConsoleRendererAPI::Clear()
 	{
-		const WindowsWindow::WindowData* data = (const WindowsWindow::WindowData*)Application::Get().GetWindow().GetWindowInfo();
+		WindowsWindow::WindowData* data = (WindowsWindow::WindowData*)Application::Get().GetWindow().GetWindowInfo();
 		Fill({ 0, 0 }, { data->Width, data->Height }, L' ', 0x0080);
 	}
 
 	void ConsoleRendererAPI::DrawChar(const glm::vec2& pos, short c, short col)
 	{
-		const WindowsWindow::WindowData* data = (const WindowsWindow::WindowData*)Application::Get().GetWindow().GetWindowInfo();
-		if (pos.x >= 0 && pos.x <  data->Width && pos.y >= 0 && pos.y < data->Height)
+		WindowsWindow::WindowData* data = (WindowsWindow::WindowData*)Application::Get().GetWindow().GetWindowInfo();
+		if (pos.x >= 0 && pos.x < data->Width && pos.y >= 0 && pos.y < data->Height)
 		{
 			data->m_bufScreen[(int)(pos.y * data->Width + pos.x)].Char.UnicodeChar = c;
 			data->m_bufScreen[(int)(pos.y * data->Width + pos.x)].Attributes = col;
@@ -41,17 +41,17 @@ namespace GameEngine
 
 	void ConsoleRendererAPI::DrawString(const glm::vec2& pos, std::wstring c, short col)
 	{
-		const WindowsWindow::WindowData* data = (const WindowsWindow::WindowData*)Application::Get().GetWindow().GetWindowInfo();
+		WindowsWindow::WindowData* data = (WindowsWindow::WindowData*)Application::Get().GetWindow().GetWindowInfo();
 		for (size_t i = 0; i < c.size(); i++)
 		{
-			data->m_bufScreen[(int)(pos.y * data->Width + pos.x + i)].Char.UnicodeChar = c[i];
-			data->m_bufScreen[(int)(pos.y * data->Width + pos.x + i)].Attributes = col;
+			data->m_bufScreen[(int)(pos.y) * data->Width + (int)(pos.x) + i].Char.UnicodeChar = c[i];
+			data->m_bufScreen[(int)(pos.y) * data->Width + (int)(pos.x) + i].Attributes = col;
 		}
 	}
 
 	void ConsoleRendererAPI::DrawStringAlpha(const glm::vec2& pos, std::wstring c, short col)
 	{
-		const WindowsWindow::WindowData* data = (const WindowsWindow::WindowData*)Application::Get().GetWindow().GetWindowInfo();
+		WindowsWindow::WindowData* data = (WindowsWindow::WindowData*)Application::Get().GetWindow().GetWindowInfo();
 		for (size_t i = 0; i < c.size(); i++)
 		{
 			if (c[i] != L' ')
