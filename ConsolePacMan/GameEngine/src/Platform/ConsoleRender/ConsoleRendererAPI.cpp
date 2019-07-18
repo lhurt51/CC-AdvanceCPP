@@ -7,7 +7,7 @@
 namespace GameEngine
 {
 
-	void ConsoleRendererAPI::SetClearColor(const glm::vec4& color)
+	void ConsoleRendererAPI::SetClearColor(COLOR color)
 	{
 		m_Color = color;
 	}
@@ -15,7 +15,7 @@ namespace GameEngine
 	void ConsoleRendererAPI::Clear()
 	{
 		WindowsWindow::WindowData* data = (WindowsWindow::WindowData*)Application::Get().GetWindow().GetWindowInfo();
-		Fill({ 0, 0 }, { data->Width, data->Height }, L' ', 0x0080);
+		Fill({ 0, 0 }, { data->Width, data->Height }, L' ', m_Color);
 	}
 
 	void ConsoleRendererAPI::DrawChar(const glm::vec2& pos, short c, short col)
@@ -23,8 +23,8 @@ namespace GameEngine
 		WindowsWindow::WindowData* data = (WindowsWindow::WindowData*)Application::Get().GetWindow().GetWindowInfo();
 		if (pos.x >= 0 && pos.x < data->Width && pos.y >= 0 && pos.y < data->Height)
 		{
-			data->m_bufScreen[(int)(pos.y * data->Width + pos.x)].Char.UnicodeChar = c;
-			data->m_bufScreen[(int)(pos.y * data->Width + pos.x)].Attributes = col;
+			data->m_bufScreen[(int)(pos.y) * data->Width + (int)(pos.x)].Char.UnicodeChar = c;
+			data->m_bufScreen[(int)(pos.y) * data->Width + (int)(pos.x)].Attributes = col;
 		}
 	}
 
@@ -56,8 +56,8 @@ namespace GameEngine
 		{
 			if (c[i] != L' ')
 			{
-				data->m_bufScreen [(int)(pos.y * data->Width + pos.x + i)].Char.UnicodeChar = c[i];
-				data->m_bufScreen [(int)(pos.y * data->Width + pos.x + i)].Attributes = col;
+				data->m_bufScreen [(int)(pos.y) * data->Width + (int)(pos.x) + i].Char.UnicodeChar = c[i];
+				data->m_bufScreen [(int)(pos.y) * data->Width + (int)(pos.x) + i].Attributes = col;
 			}
 		}
 	}

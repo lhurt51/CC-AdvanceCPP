@@ -8,7 +8,7 @@ namespace GameEngine
 	{
 	public:
 
-		virtual void SetClearColor(const glm::vec4& color) override;
+		virtual void SetClearColor(COLOR color) override;
 		virtual void Clear() override;
 
 		virtual void DrawChar(const glm::vec2& pos, short c, short col) override;
@@ -30,7 +30,7 @@ namespace GameEngine
 
 	private:
 
-		glm::vec4 m_Color;
+		COLOR m_Color = BG_BLACK;
 
 	};
 }

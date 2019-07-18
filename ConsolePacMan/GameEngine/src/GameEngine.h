@@ -5,8 +5,8 @@
 #include "GameEngine/Layer.h"
 #include "GameEngine/Log.h"
 
-// ------------- Math Includes -------------------
-// #include "GameEngine/Math/Vector.h"
+// ------------- Sprite Includes -----------------
+#include "GameEngine/Sprite.h"
 
 // Time step for delta time in on update
 #include "GameEngine/Core/TimeStep.h"

@@ -10,17 +10,20 @@
     <Filter Include="src\GameEngine\Core">
       <UniqueIdentifier>{64C85E01-D029-3C0F-5997-82C1C5F772CE}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GameEngine\Core\ECS">
+      <UniqueIdentifier>{AE4EAFAA-1A86-F741-2390-5B658F461E3B}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\GameEngine\Events">
       <UniqueIdentifier>{F08254D9-5CEF-0FD4-25E3-A731910E323C}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\GameEngine\Math">
-      <UniqueIdentifier>{E5086401-516A-410F-DAD7-87C1463878CE}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\GameEngine\Renderer">
       <UniqueIdentifier>{B20D7C77-1E45-C40E-274F-28329305EB07}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform\ConsoleRender">
+      <UniqueIdentifier>{838F333B-6F9F-DF0B-D858-442AC487CEA4}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform\Windows">
       <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
@@ -56,6 +59,15 @@
     </ClInclude>
     <ClInclude Include="src\GameEngine\Core.h">
       <Filter>src\GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Core\ECS\Component.h">
+      <Filter>src\GameEngine\Core\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Core\ECS\GameObject.h">
+      <Filter>src\GameEngine\Core\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Core\ECS\Transform.h">
+      <Filter>src\GameEngine\Core\ECS</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Core\TimeStep.h">
       <Filter>src\GameEngine\Core</Filter>
@@ -96,7 +108,13 @@
     <ClInclude Include="src\GameEngine\Renderer\RenderCommand.h">
       <Filter>src\GameEngine\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\Renderer\Renderer.h">
+      <Filter>src\GameEngine\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameEngine\Renderer\RendererAPI.h">
+      <Filter>src\GameEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Renderer\RendererColors.h">
       <Filter>src\GameEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Sprite.h">
@@ -104,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="src\GameEngine\Window.h">
       <Filter>src\GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\ConsoleRender\ConsoleRendererAPI.h">
+      <Filter>src\Platform\ConsoleRender</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsInput.h">
       <Filter>src\Platform\Windows</Filter>
@@ -1206,15 +1227,16 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Renderer\Renderer.h" />
-    <ClInclude Include="src\Platform\ConsoleRender\ConsoleRendererAPI.h" />
-    <ClInclude Include="src\GameEngine\Renderer\RendererColors.h" />
-    <ClInclude Include="src\GameEngine\Core\ECS\GameObject.h" />
-    <ClInclude Include="src\GameEngine\Core\ECS\Component.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">
       <Filter>src\GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Core\ECS\GameObject.cpp">
+      <Filter>src\GameEngine\Core\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Core\ECS\Transform.cpp">
+      <Filter>src\GameEngine\Core\ECS</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Layer.cpp">
       <Filter>src\GameEngine</Filter>
@@ -1228,11 +1250,17 @@
     <ClCompile Include="src\GameEngine\Renderer\RenderCommand.cpp">
       <Filter>src\GameEngine\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameEngine\Renderer\Renderer.cpp">
+      <Filter>src\GameEngine\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\GameEngine\Renderer\RendererAPI.cpp">
       <Filter>src\GameEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Sprite.cpp">
       <Filter>src\GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\ConsoleRender\ConsoleRendererAPI.cpp">
+      <Filter>src\Platform\ConsoleRender</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Platform\Windows</Filter>
@@ -1243,8 +1271,5 @@
     <ClCompile Include="src\gepch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Platform\ConsoleRender\ConsoleRendererAPI.cpp" />
-    <ClCompile Include="src\GameEngine\Core\ECS\GameObject.cpp" />
   </ItemGroup>
 </Project>

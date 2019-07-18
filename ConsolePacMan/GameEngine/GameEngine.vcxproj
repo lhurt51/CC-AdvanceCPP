@@ -136,6 +136,7 @@
     <ClInclude Include="src\GameEngine\Core.h" />
     <ClInclude Include="src\GameEngine\Core\ECS\Component.h" />
     <ClInclude Include="src\GameEngine\Core\ECS\GameObject.h" />
+    <ClInclude Include="src\GameEngine\Core\ECS\Transform.h" />
     <ClInclude Include="src\GameEngine\Core\TimeStep.h" />
     <ClInclude Include="src\GameEngine\EntryPoint.h" />
     <ClInclude Include="src\GameEngine\Events\ApplicationEvent.h" />
@@ -526,6 +527,7 @@
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp" />
     <ClCompile Include="src\GameEngine\Core\ECS\GameObject.cpp" />
+    <ClCompile Include="src\GameEngine\Core\ECS\Transform.cpp" />
     <ClCompile Include="src\GameEngine\Layer.cpp" />
     <ClCompile Include="src\GameEngine\LayerStack.cpp" />
     <ClCompile Include="src\GameEngine\Log.cpp" />
@@ -543,4 +545,4 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-</Project>
+</Project> 

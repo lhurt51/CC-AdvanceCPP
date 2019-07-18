@@ -10,7 +10,13 @@ public:
 	ExampleLayer()
 		: Layer("Example")
 	{
-		// RenderCommand::SetClearColor(0x0080);
+		m_Board = new GameEngine::Sprite(L"res/PacManMap.scene");
+		// GameEngine::RenderCommand::SetClearColor(GameEngine::BG_DARK_GREY);
+	}
+
+	virtual ~ExampleLayer()
+	{
+		delete m_Board;
 	}
 
 	void OnUpdate(GameEngine::TimeStep ts) override
@@ -36,9 +42,9 @@ public:
 
 		// The input is in units/sec
 		if (GameEngine::Input::IsKeyPressed(GE_KEY_A))
-			m_Pos.x -= 20 * ts;
+			m_Pos.x -= 12 * ts;
 		else if (GameEngine::Input::IsKeyPressed(GE_KEY_D))
-			m_Pos.x += 20 * ts;
+			m_Pos.x += 12 * ts;
 
 		if (GameEngine::Input::IsKeyPressed(GE_KEY_W))
 			m_Pos.y -= 20 * ts;
@@ -46,7 +52,8 @@ public:
 			m_Pos.y += 20 * ts;
 
 		GameEngine::RenderCommand::Clear();
-		GameEngine::RenderCommand::DrawString(m_Pos, L"Hello World", GameEngine::FG_DARK_GREY);
+		GameEngine::RenderCommand::DrawSprite({ 80 - m_Board->nWidth * 0.5, 30 - m_Board->nHeight * 0.5}, *m_Board);
+		GameEngine::RenderCommand::DrawString(m_Pos, L"@", GameEngine::FG_DARK_CYAN);
 
 		// GE_TRACE("Delta Time: {0}s ({1}ms)", ts, ts.GetMilliseconds());
 
@@ -62,9 +69,9 @@ public:
 
 	}
 
-	void OnEvent(GameEngine::Event& event) override
+	void OnEvent(GameEngine::Event& e) override
 	{
-		GameEngine::EventDispatcher dispatcher(event);
+		GameEngine::EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<GameEngine::KeyPressedEvent>(GE_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent));
 	}
 
@@ -87,7 +94,8 @@ public:
 
 private:
 
-	glm::vec2 m_Pos = { 0, 0 };
+	GameEngine::Sprite* m_Board;
+	glm::vec2 m_Pos = { 61, 25 };
 
 };
 
