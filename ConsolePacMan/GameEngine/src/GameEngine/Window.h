@@ -4,6 +4,7 @@
 
 #include "GameEngine/Core.h"
 #include "GameEngine/Events/Event.h"
+#include "GameEngine/Core/TimeStep.h"
 
 namespace GameEngine
 {
@@ -29,7 +30,7 @@ namespace GameEngine
 
 		virtual ~Window() = default;
 
-		virtual void OnUpdate() = 0;
+		virtual void OnUpdate(TimeStep ts) = 0;
 
 		virtual unsigned int GetWidth() const = 0;
 		virtual unsigned int GetHeight() const = 0;

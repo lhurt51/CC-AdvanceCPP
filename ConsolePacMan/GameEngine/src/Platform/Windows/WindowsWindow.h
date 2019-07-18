@@ -11,7 +11,7 @@ namespace GameEngine
 		WindowsWindow(const WindowProps& props);
 		virtual ~WindowsWindow();
 
-		void OnUpdate() override;
+		void OnUpdate(TimeStep ts) override;
 
 		inline unsigned int GetWidth() const override { return m_Data.Width; }
 		inline unsigned int GetHeight() const override { return m_Data.Height; }
@@ -48,16 +48,26 @@ namespace GameEngine
 
 		HWND m_Win;
 
-		HANDLE m_OriginalConsole;
-		// CONSOLE_SCREEN_BUFFER_INFO m_OriginalConsoleInfo;
-		// CONSOLE_FONT_INFO m_OriginalFontInfo;
-		SMALL_RECT m_OldWindowRect;
-		DWORD fdwSaveOldMode;
-
-		HANDLE m_Console;
-		HANDLE m_ConsoleIn;
-
-		SMALL_RECT m_WindowRect;
+		struct WinInfo
+		{
+		public:
+			// Handle to console Output
+			HANDLE HConsole;
+			// Window Rect to print to
+			SMALL_RECT WindowRect;
+			// Handle to console Input
+			HANDLE HConsoleIn;
+			// Input mode
+			DWORD WindowMode;
+			// Unused info for consoles
+			// CONSOLE_SCREEN_BUFFER_INFO m_OriginalConsoleInfo;
+			// CONSOLE_FONT_INFO m_OriginalFontInfo;
+		};
+		
+		// Storing Old WinInfo
+		WinInfo m_OldWinInfo;
+		// Storing New WinInfo
+		WinInfo m_NewWinInfo;
 
 		bool m_bConsoleInFocus = true;
 

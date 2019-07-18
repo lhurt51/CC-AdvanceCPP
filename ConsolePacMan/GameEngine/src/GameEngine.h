@@ -17,6 +17,10 @@
 #include "GameEngine/Input.h"
 #include "GameEngine/Events/KeyEvent.h"
 
+// ----- Main Rendering Includes -----
+#include "GameEngine/Renderer/Renderer.h"
+#include "GameEngine/Renderer/RenderCommand.h"
+
 // -------------- Entry Point --------------------
 #include "GameEngine/EntryPoint.h"
 // -----------------------------------------------

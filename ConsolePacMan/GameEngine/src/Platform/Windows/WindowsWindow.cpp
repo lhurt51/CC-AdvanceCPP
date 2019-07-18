@@ -16,13 +16,19 @@ namespace GameEngine
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
-		m_OriginalConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		// Initializing the old handle
+		m_OldWinInfo.HConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-		m_Console = GetStdHandle(STD_OUTPUT_HANDLE);
-		m_ConsoleIn = GetStdHandle(STD_INPUT_HANDLE);
+		// Copying current input & output handles
+		m_NewWinInfo.HConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		m_NewWinInfo.HConsoleIn = GetStdHandle(STD_INPUT_HANDLE);
+
+		// Setting the window handle for mouse input
 		m_Win = GetConsoleWindow();
 
 		/*
+		- Idea of how to implement input polling
+
 		std::memset(m_KeyNewState, 0, 256 * sizeof(short));
 		std::memset(m_KeyOldState, 0, 256 * sizeof(short));
 		std::memset(m_Keys, 0, 256 * sizeof(sKeyState));
@@ -30,6 +36,7 @@ namespace GameEngine
 		m_MousePosX = 0;
 		m_MousePosY = 0;
 		*/
+
 		Init(props);
 	}
 
@@ -38,23 +45,14 @@ namespace GameEngine
 		ShutDown();
 	}
 
-	void WindowsWindow::OnUpdate()
+	void WindowsWindow::OnUpdate(TimeStep ts)
 	{
-		static auto tp1 = std::chrono::system_clock::now();
-		static auto tp2 = std::chrono::system_clock::now();
-
-		// Handle game timing
-		tp2 = std::chrono::system_clock::now();
-		std::chrono::duration<float> elapsedTime = tp2 - tp1;
-		tp1 = tp2;
-		float fElapsedTime = elapsedTime.count();
-
 		// Handle Mouse Input - Check for window events
 		INPUT_RECORD inBuf[32];
 		DWORD events = 0;
-		GetNumberOfConsoleInputEvents(m_ConsoleIn, &events);
+		GetNumberOfConsoleInputEvents(m_NewWinInfo.HConsoleIn, &events);
 		if (events > 0)
-			ReadConsoleInput(m_ConsoleIn, inBuf, events, &events);
+			ReadConsoleInput(m_NewWinInfo.HConsoleIn, inBuf, events, &events);
 
 		// Handle events - we only care about mouse clicks and movement for now
 		for (DWORD i = 0; i < events; i++)
@@ -83,9 +81,9 @@ namespace GameEngine
 		// Update title & present screen buffer
 		std::wstring appName = std::wstring(m_Data.Title.begin(), m_Data.Title.end());
 		wchar_t s[256];
-		swprintf_s(s, 256, L"github.com/lhurt51 - Console - %s - FPS: %3.2f", appName.c_str(), 1.0f / fElapsedTime);
+		swprintf_s(s, 256, L"github.com/lhurt51 - Console - %s - FPS: %3.2f", appName.c_str(), 1.0f / ts);
 		SetConsoleTitle((wchar_t*)s);
-		// WriteConsoleOutput(m_Console, m_bufScreen, { (short)m_Data.Width, (short)m_Data.Height }, { 0, 0 }, &m_WindowRect);
+		WriteConsoleOutput(m_NewWinInfo.HConsole, m_Data.m_bufScreen, { (short)m_Data.Width, (short)m_Data.Height }, { 0, 0 }, &m_NewWinInfo.WindowRect);
 	}
 
 	/* Should check errors this way eventually! (First need to find more efficient wstring conversion)
@@ -107,7 +105,7 @@ namespace GameEngine
 
 		GE_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
-		if (m_OriginalConsole == INVALID_HANDLE_VALUE)
+		if (m_OldWinInfo.HConsole == INVALID_HANDLE_VALUE)
 			GE_CORE_ASSERT(nullptr, "Windows Window:Init(): Current Console handle invalid");
 		/*
 		if (!GetConsoleScreenBufferInfo(m_OriginalConsole, &m_OriginalConsoleInfo))
@@ -115,27 +113,27 @@ namespace GameEngine
 		if (!GetCurrentConsoleFont(m_OriginalConsole, false, &m_OriginalFontInfo))
 			GE_CORE_ASSERT(nullptr, "Windows Window: Getting current Console Font Info");
 		*/
-		if (!GetConsoleMode(m_ConsoleIn, &fdwSaveOldMode))
+		if (!GetConsoleMode(m_NewWinInfo.HConsoleIn, &m_OldWinInfo.WindowMode))
 			GE_CORE_ASSERT(nullptr, "Windows Window: Init(): Getting current Console Mode");
 
 
-		if (m_Console == INVALID_HANDLE_VALUE)
+		if (m_NewWinInfo.HConsole == INVALID_HANDLE_VALUE)
 			GE_CORE_ASSERT(nullptr, "Windows Window: Init(): New Console handle invalid");
 
 		// Interesting work around for the console set screen buffer size thanks to Jx9 and OneLoneCoder
-		m_WindowRect = { 0, 0, (short)m_Data.Width - 1, (short)m_Data.Height - 1 };
-		SetConsoleWindowInfo(m_Console, TRUE, &m_WindowRect);
+		m_NewWinInfo.WindowRect = { 0, 0, (short)m_Data.Width - 1, (short)m_Data.Height - 1 };
+		SetConsoleWindowInfo(m_NewWinInfo.HConsole, TRUE, &m_NewWinInfo.WindowRect);
 
 		// Set the size of the screen buffer
 		COORD coord = { (short)m_Data.Width, (short)m_Data.Height };
-		if (!SetConsoleScreenBufferSize(m_Console, coord))
+		if (!SetConsoleScreenBufferSize(m_NewWinInfo.HConsole, coord))
 			GE_CORE_ASSERT(nullptr, "Windows Window: Init(): New Console set Console Screen Buffer");
 
 		// Assign screen buffer to the console
-		if (!SetConsoleActiveScreenBuffer(m_Console))
+		if (!SetConsoleActiveScreenBuffer(m_NewWinInfo.HConsole))
 			GE_CORE_ASSERT(nullptr, "Windows Window: Init(): New Console set Console Active Screen Buffer");
 
-		/* Currently not in use
+		/* Currently not in use because no need to override Font!
 		// Set font size now that the screen buffer has been assigned
 		CONSOLE_FONT_INFOEX cfi;
 		cfi.cbSize = sizeof(cfi);
@@ -153,7 +151,7 @@ namespace GameEngine
 		// Get screen buffer onfo. Then check the maximum allowed window size.
 		// Throw error if the window has exceeded max deminsions
 		CONSOLE_SCREEN_BUFFER_INFO csbi;
-		if (!GetConsoleScreenBufferInfo(m_Console, &csbi))
+		if (!GetConsoleScreenBufferInfo(m_NewWinInfo.HConsole, &csbi))
 			GE_CORE_ASSERT(nullptr, "Windows Window: Init(): New Console get Screen Buffer Info");
 		if (m_Data.Height > csbi.dwMaximumWindowSize.Y)
 			GE_CORE_ASSERT(nullptr, "Windows Window: Init(): New Console Screen/Font Height Too Big");
@@ -161,12 +159,12 @@ namespace GameEngine
 			GE_CORE_ASSERT(nullptr, "Windows Window: Init(): New Console Screen/Font Width Too Big");
 
 		// Set Physical Console Window Size
-		m_WindowRect = { 0, 0, (short)m_Data.Width - 1, (short)m_Data.Height - 1 };
-		if (!SetConsoleWindowInfo(m_Console, TRUE, &m_WindowRect))
+		m_NewWinInfo.WindowRect = { 0, 0, (short)m_Data.Width - 1, (short)m_Data.Height - 1 };
+		if (!SetConsoleWindowInfo(m_NewWinInfo.HConsole, TRUE, &m_NewWinInfo.WindowRect))
 			GE_CORE_ASSERT(nullptr, "Windows Window: Init(): New Console set Console Screen Buffer");
 
 		// Set flags for mouse input
-		if (!SetConsoleMode(m_ConsoleIn, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT))
+		if (!SetConsoleMode(m_NewWinInfo.HConsoleIn, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT))
 			GE_CORE_ASSERT(nullptr, "Windows Window: Init(): Setting new Console Mode");
 
 		// Allocate memory for screen buffer
@@ -174,14 +172,16 @@ namespace GameEngine
 		m_Data.m_bufScreen = new CHAR_INFO[size];
 		memset(m_Data.m_bufScreen, 0, sizeof(CHAR_INFO) * size);
 
+		// Handling window close events 
 		SetConsoleCtrlHandler((PHANDLER_ROUTINE)CloseHandler, TRUE);
 	}
 
 	void WindowsWindow::ShutDown()
 	{
-		//system("cls");
+		// Clear screen and set console back to old handlers
+		system("cls");
 		if (m_Data.m_bufScreen) delete[] m_Data.m_bufScreen;
-		if (!SetConsoleActiveScreenBuffer(m_OriginalConsole))
+		if (!SetConsoleActiveScreenBuffer(m_OldWinInfo.HConsole))
 			GE_CORE_ASSERT(nullptr, "Windows Window: Shutdown(): Setting current Active Console");
 		/*
 		if (!SetConsoleScreenBufferInfo(m_OriginalConsole, &m_OriginalConsoleInfo))
@@ -189,12 +189,13 @@ namespace GameEngine
 		if (!SetCurrentConsoleFontEx(m_OriginalConsole, false, &m_OriginalFontInfo))
 			GE_CORE_ASSERT(nullptr, "Window Shutdown: Setting current Mode");
 		*/
-		if (!SetConsoleMode(m_ConsoleIn, fdwSaveOldMode))
+		if (!SetConsoleMode(m_NewWinInfo.HConsoleIn, m_OldWinInfo.WindowMode))
 			GE_CORE_ASSERT(nullptr, "Windows Window: Shutdown(): Setting current Mode");
 	}
 
 	BOOL WINAPI WindowsWindow::CloseHandler(DWORD evt)
 	{
+		// In every case we want to call a windows close event
 		switch (evt)
 		{
 		case CTRL_BREAK_EVENT:
@@ -261,46 +262,46 @@ namespace GameEngine
 		switch (mer.dwEventFlags)
 		{
 		case 0:
-		/* How I should be polling events
-		for (int m = 0; m < 5; m++)
-			m_MouseNewState[m] = (inBuf[i].Event.MouseEvent.dwButtonState & (1 << m)) > 0;
+			/* How I should be polling events
+			for (int m = 0; m < 5; m++)
+				m_MouseNewState[m] = (inBuf[i].Event.MouseEvent.dwButtonState & (1 << m)) > 0;
 
-		for (int m = 0; m < 5; m++)
-		{
-			m_Mouse[m].bPressed = false;
-			m_Mouse[m].bReleased = false;
-
-			if (m_MouseNewState[m] != m_MouseOldState[m])
+			for (int m = 0; m < 5; m++)
 			{
-				if (m_MouseNewState[m])
+				m_Mouse[m].bPressed = false;
+				m_Mouse[m].bReleased = false;
+
+				if (m_MouseNewState[m] != m_MouseOldState[m])
 				{
-					m_Mouse[m].bPressed = true;
-						m_Mouse[m].bHeld = true;
+					if (m_MouseNewState[m])
+					{
+						m_Mouse[m].bPressed = true;
+							m_Mouse[m].bHeld = true;
+					}
+					else
+					{
+						m_Mouse[m].bReleased = true;
+						m_Mouse[m].bHeld = false;
+					}
 				}
-				else
-				{
-					m_Mouse[m].bReleased = true;
-					m_Mouse[m].bHeld = false;
-				}
+				m_MouseOldState[m] = m_MouseNewState[m];
 			}
-			m_MouseOldState[m] = m_MouseNewState[m];
-		}
-		*/
+			*/
 			if (mer.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
 			{
-				GE_CORE_INFO("left button press");
+				// GE_CORE_INFO("left button press");
 			}
 			else if (mer.dwButtonState == RIGHTMOST_BUTTON_PRESSED)
 			{
-				GE_CORE_INFO("right button press");
+				// GE_CORE_INFO("right button press");
 			}
 			break;
 		case DOUBLE_CLICK:
-			GE_CORE_INFO("double click");
+			// GE_CORE_INFO("double click");
 			break;
 		case MOUSE_MOVED:
 		{
-			/*
+			/* No need to create my own input poller
 			m_MousePosX = inBuf[i].Event.MouseEvent.dwMousePosition.X;
 			m_MousePosY = inBuf[i].Event.MouseEvent.dwMousePosition.Y;
 			*/
@@ -309,7 +310,7 @@ namespace GameEngine
 			break;
 		}
 		case MOUSE_WHEELED:
-			GE_CORE_INFO("vertical mouse wheel");
+			// GE_CORE_INFO("vertical mouse wheel");
 			break;
 		default:
 			break;
@@ -319,7 +320,7 @@ namespace GameEngine
 	VOID WINAPI WindowsWindow::ResizeEventProc(WINDOW_BUFFER_SIZE_RECORD wbsr)
 	{
 		// TODO: Handle window buffer resize
-		GE_CORE_INFO("Console screen buffer is {0} columns by {1} rows.", wbsr.dwSize.X, wbsr.dwSize.Y);
+		// GE_CORE_INFO("Console screen buffer is {0} columns by {1} rows.", wbsr.dwSize.X, wbsr.dwSize.Y);
 		WindowResizeEvent event(wbsr.dwSize.X, wbsr.dwSize.Y);
 		m_Data.EventCallback(event);
 	}

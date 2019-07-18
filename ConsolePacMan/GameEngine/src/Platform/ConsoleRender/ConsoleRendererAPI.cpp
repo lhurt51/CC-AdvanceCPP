@@ -9,10 +9,13 @@ namespace GameEngine
 
 	void ConsoleRendererAPI::SetClearColor(const glm::vec4& color)
 	{
+		m_Color = color;
 	}
 
 	void ConsoleRendererAPI::Clear()
 	{
+		const WindowsWindow::WindowData* data = (const WindowsWindow::WindowData*)Application::Get().GetWindow().GetWindowInfo();
+		Fill({ 0, 0 }, { data->Width, data->Height }, L' ', 0x0080);
 	}
 
 	void ConsoleRendererAPI::DrawChar(const glm::vec2& pos, short c, short col)

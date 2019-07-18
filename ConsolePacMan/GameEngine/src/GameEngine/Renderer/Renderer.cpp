@@ -18,7 +18,7 @@ namespace GameEngine
 
 	void Renderer::Submit(const Sprite& sprite)
 	{
-		// RenderCommand::DrawSprite({ 0, 0 }, sprite);
+		RenderCommand::DrawSprite({ 0, 0 }, sprite);
 	}
 
 }

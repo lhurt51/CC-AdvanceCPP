@@ -10,6 +10,7 @@ public:
 	ExampleLayer()
 		: Layer("Example")
 	{
+		// RenderCommand::SetClearColor(0x0080);
 	}
 
 	void OnUpdate(GameEngine::TimeStep ts) override
@@ -33,7 +34,10 @@ public:
 		** Renderer::Flush();
 		*/
 
-		GE_TRACE("Delta Time: {0}s ({1}ms)", ts, ts.GetMilliseconds());
+		GameEngine::RenderCommand::Clear();
+		GameEngine::RenderCommand::DrawString({ 20, 20 }, L"Hello World", 0x0001);
+
+		// GE_TRACE("Delta Time: {0}s ({1}ms)", ts, ts.GetMilliseconds());
 
 		/*
 		if (GameEngine::Input::IsKeyPressed(GE_KEY_LEFT))

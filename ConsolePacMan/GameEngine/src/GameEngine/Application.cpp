@@ -2,6 +2,7 @@
 #include "Application.h"
 
 #include <chrono>
+#include <thread>
 
 namespace GameEngine
 {
@@ -24,10 +25,10 @@ namespace GameEngine
 			auto t1 = std::chrono::high_resolution_clock::now().time_since_epoch();
 			float time = std::chrono::duration_cast<std::chrono::milliseconds>(t1).count();
 			TimeStep timeStep = time - m_LastFrameTime;
-			while (timeStep < 0.016)
+			while (timeStep <= 0.011)
 			{
-				auto t1 = std::chrono::high_resolution_clock::now().time_since_epoch();
-				float time = std::chrono::duration_cast<std::chrono::milliseconds>(t1).count();
+				t1 = std::chrono::high_resolution_clock::now().time_since_epoch();
+				time = std::chrono::duration_cast<std::chrono::milliseconds>(t1).count();
 				timeStep = time - m_LastFrameTime;
 			}
 			m_LastFrameTime = time;
@@ -35,7 +36,7 @@ namespace GameEngine
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate(timeStep);
 
-			m_Window->OnUpdate();
+			m_Window->OnUpdate(timeStep);
 		}
 	}
 

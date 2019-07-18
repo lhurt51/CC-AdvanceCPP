@@ -28,6 +28,10 @@ namespace GameEngine
 
 		void Clip(glm::vec2& pos);
 
+	private:
+
+		glm::vec4 m_Color;
+
 	};
 }
 
