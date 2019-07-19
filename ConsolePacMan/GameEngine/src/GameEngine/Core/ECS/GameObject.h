@@ -10,6 +10,7 @@
 namespace GameEngine
 {
 
+	/*
 	class Component;
 
 	class GameObject
@@ -42,5 +43,6 @@ namespace GameEngine
 		Transform m_Transform;
 
 	};
+	*/
 }
 

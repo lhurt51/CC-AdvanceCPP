@@ -6,6 +6,7 @@
 
 namespace GameEngine
 {
+	/*
 	class Component
 	{
 	public:
@@ -27,4 +28,5 @@ namespace GameEngine
 		GameObject* m_Parent;
 
 	};
+	*/
 }

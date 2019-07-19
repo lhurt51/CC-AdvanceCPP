@@ -6,6 +6,7 @@
 namespace GameEngine
 {
 
+	/*
 	GameObject::~GameObject()
 	{
 		for (unsigned int i = 0; i < m_Components.size(); i++)
@@ -58,7 +59,7 @@ namespace GameEngine
 		{
 			m_Components[i]->OnEvent(e);
 		}
-		*/
+		*\/
 	}
 
 	void GameObject::OnUpdateAll(TimeStep ts)
@@ -73,7 +74,8 @@ namespace GameEngine
 		{
 			m_Components[i]->OnUpdate(ts);
 		}
-		*/
+		*\/
 	}
+	*/
 
 }

@@ -4,6 +4,8 @@
 
 namespace GameEngine
 {
+
+	/*
 	class Transform
 	{
 	public:
@@ -57,4 +59,6 @@ namespace GameEngine
 		mutable bool m_InitializedOldStuff;
 
 	};
+	*/
+
 }

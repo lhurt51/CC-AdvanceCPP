@@ -4,6 +4,7 @@
 namespace GameEngine
 {
 
+	/*
 	glm::mat4 Transform::GetTransformation() const
 	{
 		// Not rotation or scaling yet
@@ -51,5 +52,5 @@ namespace GameEngine
 
 		return m_ParentMat;
 	}
-
+	*/
 }
