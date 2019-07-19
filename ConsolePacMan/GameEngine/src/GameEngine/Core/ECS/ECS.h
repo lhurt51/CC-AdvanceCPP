@@ -132,7 +132,58 @@ namespace GameEngine
 	{
 	public:
 
+		inline void Update(TimeStep ts)
+		{
+			for (auto& ent : m_Entities) ent->Update(ts);
+		}
 
+		inline void OnEvent(Event& e)
+		{
+			for (auto& ent : m_Entities) ent->OnEvent(e);
+		}
+
+		inline void OnDraw()
+		{
+			for (auto& ent : m_Entities) ent->OnDraw();
+		}
+
+		void Refresh()
+		{
+			for (auto i(0u); i < maxGroups; i++)
+			{
+				auto& v(m_GroupedEntities[i]);
+				v.erase(
+					std::remove_if(std::begin(v), std::end(v),
+						[i](Entity* mEntity)
+						{
+							return !mEntity->IsActive() || !mEntity->HasGroup(i);
+						}), std::end(v));
+			}
+
+			m_Entities.erase(std::remove_if(std::begin(m_Entities), std::end(m_Entities),
+				[](const std::unique_ptr<Entity>& mEntity)
+				{
+					return !mEntity->IsActive();
+				}), std::end(m_Entities));
+		}
+
+		inline void AddToGroup(Entity* entity, Group group)
+		{
+			m_GroupedEntities[group].emplace_back(entity);
+		}
+
+		inline std::vector<Entity*>& GetGroup(Group group)
+		{
+			return m_GroupedEntities[group];
+		}
+
+		Entity& AddEntity()
+		{
+			Entity* e = new Entity(*this);
+			std::unique_ptr<Entity> uPtr{ e };
+			m_Entities.emplace_back(std::move(uPtr));
+			return *e;
+		}
 
 	private:
 
