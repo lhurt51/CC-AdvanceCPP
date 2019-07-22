@@ -7,6 +7,8 @@
 #include "Events/ApplicationEvent.h"
 #include "Core/TimeStep.h"
 
+#include "Managers/AssetManager.h"
+
 namespace GameEngine
 {
 	class Application
@@ -40,6 +42,10 @@ namespace GameEngine
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 		float m_LastFrameTime = 0.0f;
+
+	public:
+
+		AssetManager* m_Assets;
 
 	private:
 

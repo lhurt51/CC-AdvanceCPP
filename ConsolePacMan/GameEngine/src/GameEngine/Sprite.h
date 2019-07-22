@@ -17,7 +17,19 @@ namespace GameEngine
 		Sprite() = default;
 		Sprite(int w, int h) { Create(w, h); }
 		Sprite(std::wstring sFile) { if (!Load(sFile)) Create(8, 8); }
+		Sprite(const Sprite& src) { if (this != &src) { *this = src; } }
 		~Sprite();
+
+		inline Sprite& operator=(const Sprite& rhs)
+		{
+			if (this != &rhs)
+			{
+				this->nHeight = rhs.nHeight;
+				this->nWidth = rhs.nWidth;
+				this->m_Glyphs = rhs.m_Glyphs;
+				this->m_Colors = rhs.m_Colors;
+			}
+		}
 
 		void SetGlyph(int x, int y, short c);
 		void SetColor(int x, int y, short c);

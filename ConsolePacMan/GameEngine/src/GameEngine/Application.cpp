@@ -7,12 +7,17 @@
 namespace GameEngine
 {
 
+	Manager ECSManager;
+
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
 	{
 		GE_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
+
+		m_Assets = new AssetManager(&ECSManager);
+		GE_CORE_ASSERT(m_Assets, "Failed to create assets manager!");
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(GE_BIND_EVENT_FN(Application::OnEvent));

@@ -60,13 +60,7 @@
     <ClInclude Include="src\GameEngine\Core.h">
       <Filter>src\GameEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\ECS\Component.h">
-      <Filter>src\GameEngine\Core\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\ECS\GameObject.h">
-      <Filter>src\GameEngine\Core\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\ECS\Transform.h">
+    <ClInclude Include="src\GameEngine\Core\ECS\ECS.h">
       <Filter>src\GameEngine\Core\ECS</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Core\TimeStep.h">
@@ -1227,17 +1221,15 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\ECS\ECS.h" />
+    <ClInclude Include="src\GameEngine\Managers\AssetManager.h" />
+    <ClInclude Include="src\GameEngine\Managers\SpriteManager.h" />
+    <ClInclude Include="src\GameEngine\Core\ECS\Components.h" />
+    <ClInclude Include="src\GameEngine\Core\ECS\Components\TransformComponent.h" />
+    <ClInclude Include="src\GameEngine\Core\ECS\Components\SpriteComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">
       <Filter>src\GameEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\ECS\GameObject.cpp">
-      <Filter>src\GameEngine\Core\ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\ECS\Transform.cpp">
-      <Filter>src\GameEngine\Core\ECS</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Layer.cpp">
       <Filter>src\GameEngine</Filter>
@@ -1272,5 +1264,7 @@
     <ClCompile Include="src\gepch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameEngine\Managers\AssetManager.cpp" />
+    <ClCompile Include="src\GameEngine\Managers\SpriteManager.cpp" />
   </ItemGroup>
 </Project>

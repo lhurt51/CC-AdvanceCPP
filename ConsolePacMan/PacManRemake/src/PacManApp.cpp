@@ -8,16 +8,12 @@ class ExampleLayer : public GameEngine::Layer
 public:
 
 	ExampleLayer()
-		: Layer("Example")
+		: Layer("Example"), m_Board(GameEngine::Application::Get().m_Assets->GetSprite("Map"))
 	{
-		m_Board = new GameEngine::Sprite(L"res/PacManMap.scene");
 		// GameEngine::RenderCommand::SetClearColor(GameEngine::BG_DARK_GREY);
 	}
 
-	virtual ~ExampleLayer()
-	{
-		delete m_Board;
-	}
+	virtual ~ExampleLayer() = default;
 
 	void OnUpdate(GameEngine::TimeStep ts) override
 	{
@@ -42,17 +38,17 @@ public:
 
 		// The input is in units/sec
 		if (GameEngine::Input::IsKeyPressed(GE_KEY_A))
-			m_Pos.x -= 12 * ts;
+			m_Pos.x -= 18 * ts;
 		else if (GameEngine::Input::IsKeyPressed(GE_KEY_D))
-			m_Pos.x += 12 * ts;
+			m_Pos.x += 18 * ts;
 
 		if (GameEngine::Input::IsKeyPressed(GE_KEY_W))
-			m_Pos.y -= 20 * ts;
+			m_Pos.y -= 13 * ts;
 		else if (GameEngine::Input::IsKeyPressed(GE_KEY_S))
-			m_Pos.y += 20 * ts;
+			m_Pos.y += 13 * ts;
 
 		GameEngine::RenderCommand::Clear();
-		GameEngine::RenderCommand::DrawSprite({ 80 - m_Board->nWidth * 0.5, 30 - m_Board->nHeight * 0.5}, *m_Board);
+		GameEngine::RenderCommand::DrawSprite({ 80 - m_Board.nWidth * 0.5, 30 - m_Board.nHeight * 0.5}, m_Board);
 		GameEngine::RenderCommand::DrawString(m_Pos, L"@", GameEngine::FG_DARK_CYAN);
 
 		// GE_TRACE("Delta Time: {0}s ({1}ms)", ts, ts.GetMilliseconds());
@@ -94,8 +90,26 @@ public:
 
 private:
 
-	GameEngine::Sprite* m_Board;
+	GameEngine::Sprite& m_Board;
 	glm::vec2 m_Pos = { 61, 25 };
+
+};
+
+// Simple overlay to print out app info
+class ExampleOverlay : public GameEngine::Layer
+{
+public:
+
+	ExampleOverlay()
+		: Layer("ExampleOverlay")
+	{}
+
+	virtual ~ExampleOverlay() = default;
+
+	void OnUpdate(GameEngine::TimeStep ts) override
+	{
+		GameEngine::RenderCommand::DrawString({ 1, 1 }, std::wstring(L"Delta Time: " + std::to_wstring(ts) + L"s (" + std::to_wstring(ts.GetMilliseconds()) + L"ms)"), GameEngine::FG_DARK_CYAN);
+	}
 
 };
 
@@ -105,7 +119,11 @@ public:
 
 	PacManApp()
 	{
+		// Load all assets used and store them in a map
+		GameEngine::Application::Get().m_Assets->AddSprite("Map", L"res/PacManMap.scene");
+
 		PushLayer(new ExampleLayer());
+		PushOverlay(new ExampleOverlay());
 	}
 
 	virtual ~PacManApp() = default;
