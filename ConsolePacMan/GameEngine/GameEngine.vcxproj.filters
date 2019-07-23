@@ -1226,6 +1226,7 @@
     <ClInclude Include="src\GameEngine\Core\ECS\Components.h" />
     <ClInclude Include="src\GameEngine\Core\ECS\Components\TransformComponent.h" />
     <ClInclude Include="src\GameEngine\Core\ECS\Components\SpriteComponent.h" />
+    <ClInclude Include="src\GameEngine\Core\ECS\Components\KeyboardController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">

@@ -4,6 +4,7 @@
 #include "GameEngine/Events/ApplicationEvent.h"
 #include "GameEngine/Events/KeyEvent.h"
 #include "GameEngine/Events/MouseEvent.h"
+#include "GameEngine/KeyCodes.h"
 
 namespace GameEngine
 {
@@ -249,7 +250,7 @@ namespace GameEngine
 			KeyReleasedEvent event(ker.wVirtualKeyCode);
 			m_Data.EventCallback(event);
 		}
-		if (ker.wVirtualKeyCode == VK_ESCAPE)
+		if (ker.wVirtualKeyCode == GE_KEY_ESCAPE)
 		{
 			GE_CORE_INFO("Window Close Event");
 			WindowCloseEvent event;

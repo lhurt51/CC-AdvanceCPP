@@ -38,6 +38,9 @@ namespace GameEngine
 			}
 			m_LastFrameTime = time;
 
+			ECSManager.Refresh();
+			ECSManager.Update(timeStep);
+
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate(timeStep);
 
@@ -49,6 +52,8 @@ namespace GameEngine
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(GE_BIND_EVENT_FN(Application::OnWindowClose));
+
+		ECSManager.OnEvent(e);
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{

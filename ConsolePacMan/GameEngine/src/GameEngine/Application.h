@@ -11,6 +11,14 @@
 
 namespace GameEngine
 {
+	enum EntityGroupLabels : std::size_t
+	{
+		GroupMap,
+		GroupPlayers,
+		GroupEnemies,
+		GroupColliders
+	};
+
 	class Application
 	{
 	public:

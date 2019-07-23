@@ -2,6 +2,7 @@
 
 #include "gepch.h"
 
+#include "GameEngine/Core.h"
 #include "GameEngine/Core/TimeStep.h"
 #include "GameEngine/Events/Event.h"
 
@@ -180,7 +181,7 @@ namespace GameEngine
 		Entity& AddEntity()
 		{
 			Entity* e = new Entity(*this);
-			std::unique_ptr<Entity> uPtr{ e };
+			std::unique_ptr<Entity> uPtr{ e }; // e = std::make_unique<Entity>(*this);
 			m_Entities.emplace_back(std::move(uPtr));
 			return *e;
 		}
