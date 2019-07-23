@@ -18,7 +18,8 @@ namespace GameEngine
 	{
 	public:
 
-		static Sprite* LoadSprite(std::wstring fileName);
+		static void SpriteManager::Create(size_t width, size_t height, SpriteInfo& spriteInfo);
+		static SpriteInfo* LoadSprite(std::wstring fileName);
 		static void Draw(const SpriteInfo& sprite);
 
 	};
