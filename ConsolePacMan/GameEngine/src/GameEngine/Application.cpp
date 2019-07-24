@@ -7,8 +7,14 @@
 namespace GameEngine
 {
 
+	// Creating a Predefine for getting the time in ms
+	using Clock = std::chrono::high_resolution_clock;
+	#define TimeNowInMs std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now().time_since_epoch()).count();
+
+	// Creating a stack ECSmanager
 	Manager ECSManager;
 
+	// Creating a singleton class
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
@@ -27,13 +33,11 @@ namespace GameEngine
 	{
 		while (m_Running)
 		{
-			auto t1 = std::chrono::high_resolution_clock::now().time_since_epoch();
-			float time = std::chrono::duration_cast<std::chrono::milliseconds>(t1).count();
+			float time = TimeNowInMs;
 			TimeStep timeStep = time - m_LastFrameTime;
 			while (timeStep <= 0.011)
 			{
-				t1 = std::chrono::high_resolution_clock::now().time_since_epoch();
-				time = std::chrono::duration_cast<std::chrono::milliseconds>(t1).count();
+				time = TimeNowInMs;
 				timeStep = time - m_LastFrameTime;
 			}
 			m_LastFrameTime = time;
@@ -45,6 +49,8 @@ namespace GameEngine
 				layer->OnUpdate(timeStep);
 
 			m_Window->OnUpdate(timeStep);
+
+			ECSManager.OnDraw();
 		}
 	}
 

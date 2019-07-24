@@ -80,9 +80,8 @@ namespace GameEngine
 		}
 
 		// Update title & present screen buffer
-		std::wstring appName = std::wstring(m_Data.Title.begin(), m_Data.Title.end());
 		wchar_t s[256];
-		swprintf_s(s, 256, L"github.com/lhurt51 - Console - %s - FPS: %3.2f", appName.c_str(), 1.0f / ts);
+		swprintf_s(s, 256, L"github.com/lhurt51 - Console - %s - FPS: %3.2f", std::wstring(m_Data.Title.begin(), m_Data.Title.end()).c_str(), 1.0f / ts);
 		SetConsoleTitle((wchar_t*)s);
 		WriteConsoleOutput(m_NewWinInfo.HConsole, m_Data.m_bufScreen, { (short)m_Data.Width, (short)m_Data.Height }, { 0, 0 }, &m_NewWinInfo.WindowRect);
 	}

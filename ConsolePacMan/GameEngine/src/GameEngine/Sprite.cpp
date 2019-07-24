@@ -186,6 +186,7 @@ namespace GameEngine
 		}
 	}
 
+	/*
 	// Global function to help me split strings
 	std::vector<std::string>	SplitStr(const std::string& s, char const delimiter)
 	{
@@ -197,5 +198,6 @@ namespace GameEngine
 			tokens.push_back(token);
 		return tokens;
 	}
+	*/
 
 }
