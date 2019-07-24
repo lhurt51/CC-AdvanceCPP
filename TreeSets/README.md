@@ -1,8 +1,9 @@
 # Tree Sets
 
-tree sets and Initializer Lists
-Since C++11, the STL collections support initialization from a list of values, like this:
+## Tree sets and Initializer Lists
+- Since C++11, the STL collections support initialization from a list of values, like this:
 
+```
 // Initialize a vector of 7 integer values
 vector<int> v = {1, 1, 2, 3, 5, 8, 13};
 
@@ -12,9 +13,12 @@ You can add list-initialization like this to your own classes by using the std::
 
 TreeSet s1 = {2, 3, 5};
 TreeSet s2{2, 3, 5};
-TreeSet Iteration
-In-order tree traversal is not terribly difficult to implement, but it is made more complicated by the standard C++ iterator abstraction, which allows one to access the current element, or advance to the next element. Your TreeSet class will need to provide functionality similar to the C++ iterator abstraction, like this:
+```
 
+## TreeSet Iteration
+- In-order tree traversal is not terribly difficult to implement, but it is made more complicated by the standard C++ iterator abstraction, which allows one to access the current element, or advance to the next element. Your TreeSet class will need to provide functionality similar to the C++ iterator abstraction, like this:
+
+```
 TreeSet s{3, 5, 2, 1};
 
 TreeSet::iterator it = s.begin();
@@ -22,6 +26,10 @@ while (it != s.end()) {
     cout << ' ' << *it;
     it++;  // or ++it;
 }
+``
+
+## Requirements
+
 This should print out the result "1 2 3 5"; in other words, the values are traversed in increasing order.
 
 TreeSetIter Functionality
