@@ -11,7 +11,7 @@ namespace GameEngine
 		static void BeginScene(); // Todo: take in scene parameters (Camera)
 		static void EndScene();
 
-		static void Submit(const Sprite& sprite);
+		static void Submit(const SpriteInfo& sprite);
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 

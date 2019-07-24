@@ -111,9 +111,6 @@
     <ClInclude Include="src\GameEngine\Renderer\RendererColors.h">
       <Filter>src\GameEngine\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Sprite.h">
-      <Filter>src\GameEngine</Filter>
-    </ClInclude>
     <ClInclude Include="src\GameEngine\Window.h">
       <Filter>src\GameEngine</Filter>
     </ClInclude>
@@ -1249,9 +1246,6 @@
     </ClCompile>
     <ClCompile Include="src\GameEngine\Renderer\RendererAPI.cpp">
       <Filter>src\GameEngine\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameEngine\Sprite.cpp">
-      <Filter>src\GameEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\ConsoleRender\ConsoleRendererAPI.cpp">
       <Filter>src\Platform\ConsoleRender</Filter>

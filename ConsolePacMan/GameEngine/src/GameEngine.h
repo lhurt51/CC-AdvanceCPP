@@ -5,21 +5,19 @@
 #include "GameEngine/Layer.h"
 #include "GameEngine/Log.h"
 
-// ------------- Sprite Includes -----------------
-#include "GameEngine/Sprite.h"
-
-// Time step for delta time in on update
+// -------- Time Step for Delta Time -------------
 #include "GameEngine/Core/TimeStep.h"
 
-// -------- Including User Input info ------------
+// -------- Including User Input Info ------------
 #include "GameEngine/KeyCodes.h"
 #include "GameEngine/MouseButtonCodes.h"
 #include "GameEngine/Input.h"
-#include "GameEngine/Events/KeyEvent.h"
 
-// ----- Main Rendering Includes -----
+// -------- Main Rendering Includes --------------
 #include "GameEngine/Renderer/Renderer.h"
 #include "GameEngine/Renderer/RenderCommand.h"
+
+// -------- Prebuild Components & Entities -------
 
 // -------------- Entry Point --------------------
 #include "GameEngine/EntryPoint.h"

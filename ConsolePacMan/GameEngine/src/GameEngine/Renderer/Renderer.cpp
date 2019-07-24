@@ -16,7 +16,7 @@ namespace GameEngine
 		// RenderCommand::Flush
 	}
 
-	void Renderer::Submit(const Sprite& sprite)
+	void Renderer::Submit(const SpriteInfo& sprite)
 	{
 		RenderCommand::DrawSprite({ 0, 0 }, sprite);
 	}

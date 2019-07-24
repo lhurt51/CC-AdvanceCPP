@@ -48,7 +48,7 @@ public:
 			m_Pos.y += 13 * ts;
 
 		GameEngine::RenderCommand::Clear();
-		GameEngine::RenderCommand::DrawSprite({ 80 - m_Board.nWidth * 0.5, 30 - m_Board.nHeight * 0.5}, m_Board);
+		GameEngine::RenderCommand::DrawSprite({ 80 - m_Board.size.x * 0.5, 30 - m_Board.size.y * 0.5}, m_Board);
 		GameEngine::RenderCommand::DrawString(m_Pos, L"@", GameEngine::FG_DARK_CYAN);
 
 		// GE_TRACE("Delta Time: {0}s ({1}ms)", ts, ts.GetMilliseconds());
@@ -90,7 +90,7 @@ public:
 
 private:
 
-	GameEngine::Sprite& m_Board;
+	GameEngine::SpriteInfo& m_Board;
 	glm::vec2 m_Pos = { 61, 25 };
 
 };

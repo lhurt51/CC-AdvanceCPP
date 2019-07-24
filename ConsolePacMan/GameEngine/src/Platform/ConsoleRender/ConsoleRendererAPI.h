@@ -20,8 +20,8 @@ namespace GameEngine
 		virtual void FillTriangle(const glm::vec2& p1, const glm::vec2& p2, const glm::vec2& p3, short c, short col) override;
 		virtual void DrawCircle(const glm::vec2& pos, int r, short c, short col) override;
 		virtual void FillCircle(const glm::vec2& pos, int r, short c, short col) override;
-		virtual void DrawSprite(const glm::vec2& pos, const Sprite& sprite) override;
-		virtual void DrawPartialSprite(const glm::vec2& pos, const Sprite& sprite, const glm::vec2& opos, const glm::vec2& size) override;
+		virtual void DrawSprite(const glm::vec2& pos, const SpriteInfo& sprite) override;
+		virtual void DrawPartialSprite(const glm::vec2& pos, const SpriteInfo& sprite, const glm::vec2& opos, const glm::vec2& size) override;
 		virtual void DrawWireFrameModel(const std::vector<glm::vec2>& vecModelCoordinates, const glm::vec2& pos, float r, float s, short col, short c) override;
 
 	private:

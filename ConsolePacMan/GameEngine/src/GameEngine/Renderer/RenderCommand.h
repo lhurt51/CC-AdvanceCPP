@@ -63,12 +63,12 @@ namespace GameEngine
 			s_RendererAPI->FillCircle(pos, r, c, col);
 		}
 
-		inline static void DrawSprite(const glm::vec2& pos, const Sprite& sprite)
+		inline static void DrawSprite(const glm::vec2& pos, const SpriteInfo& sprite)
 		{
 			s_RendererAPI->DrawSprite(pos, sprite);
 		}
 
-		inline static void DrawPartialSprite(const glm::vec2& pos, const Sprite& sprite, const glm::vec2& opos, const glm::vec2& size)
+		inline static void DrawPartialSprite(const glm::vec2& pos, const SpriteInfo& sprite, const glm::vec2& opos, const glm::vec2& size)
 		{
 			s_RendererAPI->DrawPartialSprite(pos, sprite, opos, size);
 		}

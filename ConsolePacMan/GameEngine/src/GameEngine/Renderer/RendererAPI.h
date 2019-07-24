@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include "GameEngine/Sprite.h"
+#include "GameEngine/Managers/SpriteManager.h"
 
 #include "RendererColors.h"
 
@@ -33,8 +33,8 @@ namespace GameEngine
 		virtual void FillTriangle(const glm::vec2& p1, const glm::vec2& p2, const glm::vec2& p3, short c, short col) = 0;
 		virtual void DrawCircle(const glm::vec2& pos, int r, short c, short col) = 0;
 		virtual void FillCircle(const glm::vec2& pos, int r, short c, short col) = 0;
-		virtual void DrawSprite(const glm::vec2& pos, const Sprite& sprite) = 0;
-		virtual void DrawPartialSprite(const glm::vec2& pos, const Sprite& sprite, const glm::vec2& opos, const glm::vec2& size) = 0;
+		virtual void DrawSprite(const glm::vec2& pos, const SpriteInfo& sprite) = 0;
+		virtual void DrawPartialSprite(const glm::vec2& pos, const SpriteInfo& sprite, const glm::vec2& opos, const glm::vec2& size) = 0;
 		virtual void DrawWireFrameModel(const std::vector<glm::vec2>& vecModelCoordinates, const glm::vec2& pos, float r, float s, short col, short c) = 0;
 		
 

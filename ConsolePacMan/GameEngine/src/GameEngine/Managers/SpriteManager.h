@@ -31,6 +31,9 @@ namespace GameEngine
 	public:
 
 		static SpriteInfo* LoadSprite(std::wstring fileName);
+		static bool SaveSprite(std::wstring fileName, const SpriteInfo& spriteInfo);
+		static SpriteInfo* LoadBSprite(std::wstring fileName);
+		static bool SaveBSprite(std::wstring fileName, const SpriteInfo& spriteInfo);
 		static void Draw(const SpriteInfo& sprite);
 
 	};

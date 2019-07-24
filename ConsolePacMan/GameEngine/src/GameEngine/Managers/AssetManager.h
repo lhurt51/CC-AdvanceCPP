@@ -2,7 +2,7 @@
 
 #include "GameEngine/Core.h"
 #include "GameEngine/Core/ECS/ECS.h"
-#include "GameEngine/Sprite.h"
+#include "SpriteManager.h"
 
 #include <map>
 
@@ -17,12 +17,12 @@ namespace GameEngine
 		~AssetManager() = default;
 
 		void AddSprite(const std::string& id, const std::wstring& path);
-		Sprite& GetSprite(const std::string& id);
+		SpriteInfo& GetSprite(const std::string& id);
 
 	private:
 
 		Manager* m_Manager;
-		std::map<std::string, Sprite*> m_Sprites;
+		std::map<std::string, SpriteInfo*> m_Sprites;
 
 	};
 }

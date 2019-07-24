@@ -52,6 +52,7 @@
 - [ ] Basic Transform Component
 - [ ] Scene Component
 - [ ] Sprite Component
+- [ ] Health/Life Component
 - [ ] Player Entity
 - [ ] Enemy/AI Entity
 

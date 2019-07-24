@@ -337,19 +337,19 @@ namespace GameEngine
 		}
 	}
 
-	void ConsoleRendererAPI::DrawSprite(const glm::vec2& pos, const Sprite& sprite)
+	void ConsoleRendererAPI::DrawSprite(const glm::vec2& pos, const SpriteInfo& sprite)
 	{
-		for (int i = 0; i < sprite.nWidth; i++)
+		for (int i = 0; i < sprite.size.x; i++)
 		{
-			for (int j = 0; j < sprite.nHeight; j++)
+			for (int j = 0; j < sprite.size.y; j++)
 			{
 				if (sprite.GetGlyph(i, j) != L' ')
-					DrawChar({ pos.x + i, pos.y + j }, sprite.GetGlyph(i, j), sprite.GetColor(i, j));
+					DrawChar({ (int)(pos.x) + i, (int)(pos.y) + j }, sprite.GetGlyph(i, j), sprite.GetColor(i, j));
 			}
 		}
 	}
 
-	void ConsoleRendererAPI::DrawPartialSprite(const glm::vec2& pos, const Sprite& sprite, const glm::vec2& opos, const glm::vec2& size)
+	void ConsoleRendererAPI::DrawPartialSprite(const glm::vec2& pos, const SpriteInfo& sprite, const glm::vec2& opos, const glm::vec2& size)
 	{
 	}
 
