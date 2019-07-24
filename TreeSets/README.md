@@ -9,7 +9,8 @@ vector<int> v = {1, 1, 2, 3, 5, 8, 13};
 
 // This syntax also works:
 vector<int> v{1, 1, 2, 3, 5, 8, 13};
-You can add list-initialization like this to your own classes by using the std::initializer_list<T> type, declared in the <initializer_list> C++ standard header file. Just make a constructor that takes an initializer-list of values of the appropriate type, and you will also be able to initialize your tree-set like this:
+
+// You can add list-initialization like this to your own classes by using the std::initializer_list<T> type, declared in the <initializer_list> C++ standard header file. Just make a constructor that takes an initializer-list of values of the appropriate type, and you will also be able to initialize your tree-set like this:
 
 TreeSet s1 = {2, 3, 5};
 TreeSet s2{2, 3, 5};
@@ -26,7 +27,7 @@ while (it != s.end()) {
     cout << ' ' << *it;
     it++;  // or ++it;
 }
-``
+```
 
 ## Requirements
 
@@ -83,4 +84,4 @@ Note: A more generalized data structure would also provide - and -= operators, e
 
 Note: the stream-output operator must not output a "\n" character, or any whitespace.
 
-An empty set would be output as: "[]"
+- An empty set would be output as: "[]"
