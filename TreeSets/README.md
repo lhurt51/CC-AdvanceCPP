@@ -1,7 +1,7 @@
 # Tree Sets
 
 ## Tree sets and Initializer Lists
-- Since C++11, the STL collections support initialization from a list of values, like this:
+Since C++11, the STL collections support initialization from a list of values, like this:
 
 ```
 // Initialize a vector of 7 integer values
@@ -17,7 +17,7 @@ TreeSet s2{2, 3, 5};
 ```
 
 ## TreeSet Iteration
-- In-order tree traversal is not terribly difficult to implement, but it is made more complicated by the standard C++ iterator abstraction, which allows one to access the current element, or advance to the next element. Your TreeSet class will need to provide functionality similar to the C++ iterator abstraction, like this:
+In-order tree traversal is not terribly difficult to implement, but it is made more complicated by the standard C++ iterator abstraction, which allows one to access the current element, or advance to the next element. Your TreeSet class will need to provide functionality similar to the C++ iterator abstraction, like this:
 
 ```
 TreeSet s{3, 5, 2, 1};
@@ -70,18 +70,18 @@ Once the iteration is complete, many other tree-set features become straightforw
 
 - TreeSet TreeSet::plus(const TreeSet &s) const - compute the set-union of this set and the provided set s, returning a separate set containing the result.
 
-Note: This is called plus() and not union() because union is a C++ keyword.
+> **Note:** This is called plus() and not union() because union is a C++ keyword.
 
-Note: A more generalized data structure would also provide + and += operators, etc. We are not requiring these operations because it starts to get tedious to implement and test all these operations. However, feel free to provide them if you wish.
+> **Note:** A more generalized data structure would also provide + and += operators, etc. We are not requiring these operations because it starts to get tedious to implement and test all these operations. However, feel free to provide them if you wish.
 
 - TreeSet TreeSet::intersect(const TreeSet &s) const - compute the set-intersection of this set and the provided set s, returning a separate set containing the result.
 
 - TreeSet TreeSet::minus(const TreeSet &s) const - compute the set-difference of this set and the provided set s, returning a separate set containing the result.
 
-Note: A more generalized data structure would also provide - and -= operators, etc. We are not requiring these operations because it starts to get tedious to implement and test all these operations. However, feel free to provide them if you wish.
+> **Note:** A more generalized data structure would also provide - and -= operators, etc. We are not requiring these operations because it starts to get tedious to implement and test all these operations. However, feel free to provide them if you wish.
 
 - A stream-output operator << for your TreeSet type, which outputs the contents of the set in this format: "[1,2,3,4]"
 
-Note: the stream-output operator must not output a "\n" character, or any whitespace.
+> **Note:** the stream-output operator must not output a "\n" character, or any whitespace.
 
 - An empty set would be output as: "[]"
