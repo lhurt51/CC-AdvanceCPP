@@ -1,4 +1,5 @@
 #pragma once
+#include "gepch.h"
 
 #include "GameEngine/Core/ECS/Components.h"
 #include "GameEngine/Managers/AssetManager.h"
@@ -14,7 +15,7 @@ namespace GameEngine
 		SpriteComponent(std::string id) { SetSprite(id); }
 		~SpriteComponent() = default;
 
-		void SetSprite(std::string id) { m_Sprite = Application::Get().m_Assets->GetSprite(id); }
+		void SetSprite(std::string id) { sprite = Application::Get().m_Assets->GetSprite(id); }
 
 		void Init() override
 		{
@@ -32,13 +33,16 @@ namespace GameEngine
 
 		void OnDraw() override
 		{
-			SpriteManager::Draw(m_Transform->position, m_Sprite);
+			SpriteManager::Draw(m_Transform->position, sprite);
 		}
+
+	public:
+
+		SpriteInfo sprite;
 
 	private:
 
 		TransformComponent* m_Transform;
-		SpriteInfo m_Sprite;
 
 	};
 }

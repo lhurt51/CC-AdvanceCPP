@@ -103,14 +103,15 @@ namespace GameEngine
 
 			while (std::getline(myfile, line))
 			{
-				if (lineNum == 0 && line.size() < 2) break;
 				if (lineNum == 0)
 				{
+					if (line.size() < 3) { GE_CORE_ASSERT(nullptr, "File '{0}' does not have width and height!", std::string(fileName.begin(), fileName.end())); break; }
 					std::vector<std::string> components = SplitStr(line, ' ');
 					spriteInfo->Init(std::stoi(components[0]), std::stoi(components[1]));
 				}
 				else if (lineNum <= (size_t)(spriteInfo->size.y + 1))
 				{
+					if (line.size() < spriteInfo->size.x) { GE_CORE_ASSERT(nullptr, "File '{0}' line does not match width!", std::string(fileName.begin(), fileName.end())); break; }
 					size_t cNum = 0;
 					for (char const& c : line)
 					{
@@ -120,6 +121,7 @@ namespace GameEngine
 				else if (lineNum <= (size_t)(spriteInfo->size.y * 2 + 1))
 				{
 					size_t cNum = 0;
+					if (line.size() < spriteInfo->size.x) { GE_CORE_ASSERT(nullptr, "File '{0}' line does not match width!", std::string(fileName.begin(), fileName.end())); break; }
 					for (char const& c : line)
 					{
 						spriteInfo->colors[(lineNum / 2 - 1) * (int)spriteInfo->size.x + cNum++] = c;

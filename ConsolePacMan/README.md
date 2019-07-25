@@ -45,11 +45,11 @@
 
 ### Managers
 - [x] Asset Manager
-- [ ] Sprite Manager
+- [x] Sprite Manager
 - [ ] Scene Manager
 
 ### Components/Entities
-- [ ] Basic Transform Component
+- [x] Basic Transform Component
 - [ ] Scene Component
 - [ ] Sprite Component
 - [ ] Health/Life Component

@@ -13,8 +13,14 @@
     <Filter Include="src\GameEngine\Core\ECS">
       <UniqueIdentifier>{AE4EAFAA-1A86-F741-2390-5B658F461E3B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GameEngine\Core\ECS\Components">
+      <UniqueIdentifier>{03EB5808-EF26-5C72-5839-74694494048D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\GameEngine\Events">
       <UniqueIdentifier>{F08254D9-5CEF-0FD4-25E3-A731910E323C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GameEngine\Managers">
+      <UniqueIdentifier>{E98B14A6-55C3-5C3D-5ECD-C060CA838336}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\GameEngine\Renderer">
       <UniqueIdentifier>{B20D7C77-1E45-C40E-274F-28329305EB07}</UniqueIdentifier>
@@ -60,6 +66,18 @@
     <ClInclude Include="src\GameEngine\Core.h">
       <Filter>src\GameEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\Core\ECS\Components.h">
+      <Filter>src\GameEngine\Core\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Core\ECS\Components\KeyboardController.h">
+      <Filter>src\GameEngine\Core\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Core\ECS\Components\SpriteComponent.h">
+      <Filter>src\GameEngine\Core\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Core\ECS\Components\TransformComponent.h">
+      <Filter>src\GameEngine\Core\ECS\Components</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameEngine\Core\ECS\ECS.h">
       <Filter>src\GameEngine\Core\ECS</Filter>
     </ClInclude>
@@ -95,6 +113,12 @@
     </ClInclude>
     <ClInclude Include="src\GameEngine\Log.h">
       <Filter>src\GameEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Managers\AssetManager.h">
+      <Filter>src\GameEngine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Managers\SpriteManager.h">
+      <Filter>src\GameEngine\Managers</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\MouseButtonCodes.h">
       <Filter>src\GameEngine</Filter>
@@ -1218,12 +1242,6 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Managers\AssetManager.h" />
-    <ClInclude Include="src\GameEngine\Managers\SpriteManager.h" />
-    <ClInclude Include="src\GameEngine\Core\ECS\Components.h" />
-    <ClInclude Include="src\GameEngine\Core\ECS\Components\TransformComponent.h" />
-    <ClInclude Include="src\GameEngine\Core\ECS\Components\SpriteComponent.h" />
-    <ClInclude Include="src\GameEngine\Core\ECS\Components\KeyboardController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">
@@ -1237,6 +1255,12 @@
     </ClCompile>
     <ClCompile Include="src\GameEngine\Log.cpp">
       <Filter>src\GameEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Managers\AssetManager.cpp">
+      <Filter>src\GameEngine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Managers\SpriteManager.cpp">
+      <Filter>src\GameEngine\Managers</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Renderer\RenderCommand.cpp">
       <Filter>src\GameEngine\Renderer</Filter>
@@ -1259,7 +1283,5 @@
     <ClCompile Include="src\gepch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Managers\AssetManager.cpp" />
-    <ClCompile Include="src\GameEngine\Managers\SpriteManager.cpp" />
   </ItemGroup>
 </Project>

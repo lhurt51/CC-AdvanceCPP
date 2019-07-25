@@ -8,12 +8,19 @@ class ExampleLayer : public GameEngine::Layer
 public:
 
 	ExampleLayer()
-		: Layer("Example"), m_Board(GameEngine::Application::Get().m_Assets->GetSprite("Map"))
-	{
-		// GameEngine::RenderCommand::SetClearColor(GameEngine::BG_DARK_GREY);
-	}
+		: Layer("Example"), board(GameEngine::Application::Get().m_Assets->GetManager().AddEntity())
+	{}
 
 	virtual ~ExampleLayer() = default;
+
+	virtual void OnAttach() override
+	{
+		board.AddComponent<GameEngine::TransformComponent>();
+		board.AddComponent<GameEngine::SpriteComponent>("Map");
+		board.AddComponent<GameEngine::KeyboardController>();
+		auto& spriteSize = board.GetComponent<GameEngine::SpriteComponent>().sprite.size;
+		board.GetComponent<GameEngine::TransformComponent>().position = { 80 - spriteSize.x * 0.5, 30 - spriteSize.y * 0.5 };
+	}
 
 	void OnUpdate(GameEngine::TimeStep ts) override
 	{
@@ -38,30 +45,19 @@ public:
 
 		// The input is in units/sec
 		if (GameEngine::Input::IsKeyPressed(GE_KEY_A))
-			m_Pos.x -= 18 * ts;
+			m_Pos.x -= 10 * ts;
 		else if (GameEngine::Input::IsKeyPressed(GE_KEY_D))
-			m_Pos.x += 18 * ts;
+			m_Pos.x += 10 * ts;
 
 		if (GameEngine::Input::IsKeyPressed(GE_KEY_W))
-			m_Pos.y -= 13 * ts;
+			m_Pos.y -= 10 * ts;
 		else if (GameEngine::Input::IsKeyPressed(GE_KEY_S))
-			m_Pos.y += 13 * ts;
+			m_Pos.y += 10 * ts;
 
+		// GameEngine::RenderCommand::SetClearColor(GameEngine::BG_BLACK);
 		GameEngine::RenderCommand::Clear();
-		GameEngine::RenderCommand::DrawSprite({ 80 - m_Board.size.x * 0.5, 30 - m_Board.size.y * 0.5}, m_Board);
+		board.OnDraw();
 		GameEngine::RenderCommand::DrawString(m_Pos, L"@", GameEngine::FG_DARK_CYAN);
-
-		// GE_TRACE("Delta Time: {0}s ({1}ms)", ts, ts.GetMilliseconds());
-
-		/*
-		if (GameEngine::Input::IsKeyPressed(GE_KEY_LEFT))
-			GE_TRACE("Key pressed left!");
-
-		if (GameEngine::Input::IsMouseButtonPressed(GE_MOUSE_BUTTON_LEFT))
-			GE_TRACE("Mouse button left pressed!");
-		if (GameEngine::Input::IsMouseButtonPressed(GE_MOUSE_BUTTON_RIGHT))
-			GE_TRACE("Mouse button right pressed!");
-		*/
 
 	}
 
@@ -90,7 +86,7 @@ public:
 
 private:
 
-	GameEngine::SpriteInfo& m_Board;
+	GameEngine::Entity& board;
 	glm::vec2 m_Pos = { 61, 25 };
 
 };

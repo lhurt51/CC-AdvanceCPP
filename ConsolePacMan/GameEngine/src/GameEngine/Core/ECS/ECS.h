@@ -1,5 +1,4 @@
 #pragma once
-
 #include "gepch.h"
 
 #include "GameEngine/Core.h"
@@ -90,7 +89,7 @@ namespace GameEngine
 
 		inline void Destroy() { m_bIsActive = false; }
 
-		inline void AddGroup(Group group); // { m_GroupBitSet[group] = true; m_Manager.addToGroup(this, group); }
+		inline void AddGroup(Group group); // { m_GroupBitSet[group] = true; m_Manager.AddToGroup(this, group); }
 		inline bool HasGroup(Group group) const { return m_GroupBitSet[group]; }
 		inline void DeleteGroup(Group group) { m_GroupBitSet[group] = false; }
 

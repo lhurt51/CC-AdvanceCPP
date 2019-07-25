@@ -35,7 +35,7 @@ namespace GameEngine
 		{
 			float time = TimeNowInMs;
 			TimeStep timeStep = time - m_LastFrameTime;
-			while (timeStep <= 0.011)
+			while (timeStep <= 0.010)
 			{
 				time = TimeNowInMs;
 				timeStep = time - m_LastFrameTime;
@@ -48,9 +48,10 @@ namespace GameEngine
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate(timeStep);
 
-			m_Window->OnUpdate(timeStep);
+			// Not really nessicary messes with draw order
+			// ECSManager.OnDraw();
 
-			ECSManager.OnDraw();
+			m_Window->OnUpdate(timeStep);
 		}
 	}
 

@@ -19,6 +19,8 @@ namespace GameEngine
 		void AddSprite(const std::string& id, const std::wstring& path);
 		SpriteInfo& GetSprite(const std::string& id);
 
+		inline Manager& GetManager() const { return *m_Manager; }
+
 	private:
 
 		Manager* m_Manager;

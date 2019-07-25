@@ -1,4 +1,5 @@
 #pragma once
+#include "gepch.h"
 
 #include "GameEngine/Core/ECS/Components.h"
 #include "GameEngine/Events/KeyEvent.h"
@@ -14,12 +15,12 @@ namespace GameEngine
 		{
 			if (!m_Entity->HasComponent<TransformComponent>())
 				m_Entity->AddComponent<TransformComponent>();
-			transform = &m_Entity->GetComponent<TransformComponent>();
+			m_Transform = &m_Entity->GetComponent<TransformComponent>();
 		}
 
 		void OnEvent(Event& e) override
 		{
-			GameEngine::EventDispatcher dispatcher(e);
+			EventDispatcher dispatcher(e);
 			dispatcher.Dispatch<KeyPressedEvent>(GE_BIND_EVENT_FN(KeyboardController::OnKeyPressedEvent));
 			dispatcher.Dispatch<KeyReleasedEvent>(GE_BIND_EVENT_FN(KeyboardController::OnKeyReleasedEvent));
 		}
@@ -27,32 +28,36 @@ namespace GameEngine
 		bool OnKeyPressedEvent(KeyPressedEvent& event)
 		{
 			if (event.GetKeyCode() == GE_KEY_W)
-				transform->velocity.y = -1;
+				m_Transform->velocity.y = -1;
 			else if (event.GetKeyCode() == GE_KEY_S)
-				transform->velocity.y = 1;
+				m_Transform->velocity.y = 1;
 
 			if (event.GetKeyCode() == GE_KEY_A)
-				transform->velocity.x = -1;
+				m_Transform->velocity.x = -1;
 			else if (event.GetKeyCode() == GE_KEY_D)
-				transform->velocity.x = 1;
+				m_Transform->velocity.x = 1;
+
+			return false;
 		}
 
 		bool OnKeyReleasedEvent(KeyReleasedEvent& event)
 		{
 			if (event.GetKeyCode() == GE_KEY_W)
-				transform->velocity.y = 0;
+				m_Transform->velocity.y = 0;
 			else if (event.GetKeyCode() == GE_KEY_S)
-				transform->velocity.y = 0;
+				m_Transform->velocity.y = 0;
 
 			if (event.GetKeyCode() == GE_KEY_A)
-				transform->velocity.x = 0;
+				m_Transform->velocity.x = 0;
 			else if (event.GetKeyCode() == GE_KEY_D)
-				transform->velocity.x = 0;
+				m_Transform->velocity.x = 0;
+
+			return false;
 		}
 
-	public:
+	private:
 
-		TransformComponent* transform;
+		TransformComponent* m_Transform;
 
 	};
 }

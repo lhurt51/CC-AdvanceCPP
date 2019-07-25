@@ -1,14 +1,14 @@
 #pragma once
 
 #include "Core.h"
+#include "Core/TimeStep.h"
 #include "Window.h"
 #include "LayerStack.h"
+#include "Managers/AssetManager.h"
+// All Events Just for the Includes
 #include "Events/KeyEvent.h"
 #include "Events/MouseEvent.h"
 #include "Events/ApplicationEvent.h"
-#include "Core/TimeStep.h"
-
-#include "Managers/AssetManager.h"
 
 namespace GameEngine
 {
@@ -45,16 +45,17 @@ namespace GameEngine
 
 		bool OnWindowClose(WindowCloseEvent& e);
 
+
+	public:
+
+		AssetManager* m_Assets;
+
 	private:
 
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 		float m_LastFrameTime = 0.0f;
-
-	public:
-
-		AssetManager* m_Assets;
 
 	private:
 
