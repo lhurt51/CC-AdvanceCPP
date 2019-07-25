@@ -1,6 +1,7 @@
 #include "gepch.h"
 #include "WindowsWindow.h"
 
+#include "GameEngine/Application.h"
 #include "GameEngine/Events/ApplicationEvent.h"
 #include "GameEngine/Events/KeyEvent.h"
 #include "GameEngine/Events/MouseEvent.h"
@@ -8,7 +9,6 @@
 
 namespace GameEngine
 {
-	WindowsWindow::WindowData WindowsWindow::m_Data;
 
 	Window* Window::Create(const WindowProps& props)
 	{
@@ -204,7 +204,8 @@ namespace GameEngine
 		case CTRL_CLOSE_EVENT:
 		{
 			WindowCloseEvent event;
-			m_Data.EventCallback(event);
+			WindowsWindow::WindowData* data = (WindowsWindow::WindowData*)Application::Get().GetWindow().GetWindowInfo();
+			data->EventCallback(event);
 			return true;
 		}
 		default:

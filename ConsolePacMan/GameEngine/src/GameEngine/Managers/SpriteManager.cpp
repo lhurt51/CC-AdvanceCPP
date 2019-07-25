@@ -3,6 +3,8 @@
 
 #include <fstream>
 
+#include "GameEngine/Renderer/RenderCommand.h"
+
 namespace GameEngine
 {
 
@@ -184,9 +186,9 @@ namespace GameEngine
 		return true;
 	}
 
-	void SpriteManager::Draw(const SpriteInfo& sprite)
+	void SpriteManager::Draw(const glm::vec2& pos, const SpriteInfo& sprite)
 	{
-
+		GameEngine::RenderCommand::DrawSprite(pos, sprite);
 	}
 
 }

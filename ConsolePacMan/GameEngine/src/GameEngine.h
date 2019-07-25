@@ -18,6 +18,7 @@
 #include "GameEngine/Renderer/RenderCommand.h"
 
 // -------- Prebuild Components & Entities -------
+#include "GameEngine/Core/ECS/Components.h"
 
 // -------------- Entry Point --------------------
 #include "GameEngine/EntryPoint.h"

@@ -4,8 +4,6 @@
 #include "GameEngine/Managers/AssetManager.h"
 #include "GameEngine/Application.h"
 
-#include "GameEngine/Sprite.h"
-
 namespace GameEngine
 {
 	class SpriteComponent : public Component
@@ -29,18 +27,18 @@ namespace GameEngine
 
 		void Update(TimeStep ts) override
 		{
-
+			// Animations
 		}
 
 		void OnDraw() override
 		{
-			// SpriteManager::Draw(transform, spriteInfo)
+			SpriteManager::Draw(m_Transform->position, m_Sprite);
 		}
 
 	private:
 
 		TransformComponent* m_Transform;
-		Sprite m_Sprite;
+		SpriteInfo m_Sprite;
 
 	};
 }

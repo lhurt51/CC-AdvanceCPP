@@ -20,7 +20,7 @@ namespace GameEngine
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 
 		inline const void* GetNativeWindow() const override { return m_Win; }
-		inline void* GetWindowInfo() const override { return &WindowsWindow::m_Data; }
+		inline void* GetWindowInfo() const override { return (void*)&m_Data; }
 
 	private:
 
@@ -71,7 +71,7 @@ namespace GameEngine
 
 		bool m_bConsoleInFocus = true;
 
-		static WindowData m_Data;
+		WindowData m_Data;
 
 	};
 }
