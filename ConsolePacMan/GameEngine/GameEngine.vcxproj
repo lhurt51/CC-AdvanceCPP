@@ -153,6 +153,7 @@
     <ClInclude Include="src\GameEngine\LayerStack.h" />
     <ClInclude Include="src\GameEngine\Log.h" />
     <ClInclude Include="src\GameEngine\Managers\AssetManager.h" />
+    <ClInclude Include="src\GameEngine\Managers\SceneManager.h" />
     <ClInclude Include="src\GameEngine\Managers\SpriteManager.h" />
     <ClInclude Include="src\GameEngine\MouseButtonCodes.h" />
     <ClInclude Include="src\GameEngine\Renderer\RenderCommand.h" />
@@ -536,6 +537,7 @@
     <ClCompile Include="src\GameEngine\LayerStack.cpp" />
     <ClCompile Include="src\GameEngine\Log.cpp" />
     <ClCompile Include="src\GameEngine\Managers\AssetManager.cpp" />
+    <ClCompile Include="src\GameEngine\Managers\SceneManager.cpp" />
     <ClCompile Include="src\GameEngine\Managers\SpriteManager.cpp" />
     <ClCompile Include="src\GameEngine\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\GameEngine\Renderer\Renderer.cpp" />
