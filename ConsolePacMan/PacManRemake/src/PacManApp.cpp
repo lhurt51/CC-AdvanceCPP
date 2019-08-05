@@ -8,7 +8,7 @@ class ExampleLayer : public GameEngine::Layer
 public:
 
 	ExampleLayer()
-		: Layer("Example"), board(GameEngine::Application::Get().m_Assets->GetManager().AddEntity())
+		: Layer("Example"), board(GameEngine::Application::Get().m_Assets->GetManager().AddEntity()), player(GameEngine::Application::Get().m_Assets->GetManager().AddEntity()), collider(GameEngine::Application::Get().m_Assets->GetManager().AddEntity())
 	{}
 
 	virtual ~ExampleLayer() = default;
@@ -17,9 +17,24 @@ public:
 	{
 		board.AddComponent<GameEngine::TransformComponent>();
 		board.AddComponent<GameEngine::SpriteComponent>("Map");
-		board.AddComponent<GameEngine::KeyboardController>();
 		auto& spriteSize = board.GetComponent<GameEngine::SpriteComponent>().sprite.size;
 		board.GetComponent<GameEngine::TransformComponent>().position = { 80 - spriteSize.x * 0.5, 30 - spriteSize.y * 0.5 };
+
+		glm::vec2 playerPos = { 61, 25 };
+		player.AddComponent<GameEngine::TransformComponent>(playerPos);
+		player.AddComponent<GameEngine::SpriteComponent>("Sprite");
+		player.AddComponent<GameEngine::KeyboardController>();
+		player.GetComponent<GameEngine::SpriteComponent>().sprite.SetColor(0, 0, GameEngine::FG_DARK_YELLOW);
+		player.AddComponent<GameEngine::ColliderComponent>("player");
+		player.AddGroup(GameEngine::GroupPlayers);
+
+		glm::vec2 colPos = { 59, 25 };
+		glm::vec2 colSize = { 1, 1 };
+		collider.AddComponent<GameEngine::TransformComponent>(colPos);
+		collider.AddComponent<GameEngine::SpriteComponent>("Sprite");
+		collider.GetComponent<GameEngine::SpriteComponent>().sprite.SetColor(0, 0, GameEngine::FG_CYAN);
+		collider.AddComponent<GameEngine::ColliderComponent>("terrain", colPos, colSize);
+		collider.AddGroup(GameEngine::GroupColliders);
 	}
 
 	void OnUpdate(GameEngine::TimeStep ts) override
@@ -44,6 +59,7 @@ public:
 		*/
 
 		// The input is in units/sec
+		/*
 		if (GameEngine::Input::IsKeyPressed(GE_KEY_A))
 			m_Pos.x -= 10 * ts;
 		else if (GameEngine::Input::IsKeyPressed(GE_KEY_D))
@@ -53,12 +69,29 @@ public:
 			m_Pos.y -= 10 * ts;
 		else if (GameEngine::Input::IsKeyPressed(GE_KEY_S))
 			m_Pos.y += 10 * ts;
+		*/
+
+		auto& lastPlayerCol = player.GetComponent<GameEngine::ColliderComponent>();
+		auto& colliders = GameEngine::Application::Get().m_Assets->GetManager().GetGroup(GameEngine::GroupColliders);
+
+		for (auto& c : colliders)
+		{
+			GameEngine::ColliderComponent cCol = c->GetComponent<GameEngine::ColliderComponent>();
+
+			if (GameEngine::Collision::AABB(cCol, lastPlayerCol))
+			{
+				player.GetComponent<GameEngine::TransformComponent>().position = lastPlayerPos;
+			}
+		}
+
 
 		// GameEngine::RenderCommand::SetClearColor(GameEngine::BG_BLACK);
 		GameEngine::RenderCommand::Clear();
 		board.OnDraw();
-		GameEngine::RenderCommand::DrawString(m_Pos, L"@", GameEngine::FG_DARK_CYAN);
+		player.OnDraw();
+		collider.OnDraw();
 
+		lastPlayerPos = player.GetComponent<GameEngine::TransformComponent>().position;
 	}
 
 	void OnEvent(GameEngine::Event& e) override
@@ -87,7 +120,11 @@ public:
 private:
 
 	GameEngine::Entity& board;
-	glm::vec2 m_Pos = { 61, 25 };
+	GameEngine::Entity& player;
+	GameEngine::Entity& collider;
+
+	glm::vec2 lastPlayerPos;
+	// GameEngine::ColliderComponent lastPlayerCol;
 
 };
 
@@ -117,6 +154,7 @@ public:
 	{
 		// Load all assets used and store them in a map
 		GameEngine::Application::Get().m_Assets->AddSprite("Map", L"res/PacManMap.scene");
+		GameEngine::Application::Get().m_Assets->AddSprite("Sprite", L"res/PacManSprite.sprite");
 
 		PushLayer(new ExampleLayer());
 		PushOverlay(new ExampleOverlay());

@@ -14,8 +14,8 @@ namespace GameEngine
 
 		TransformComponent(float inSpeed = 10.0f)
 		{
-			position = { 0 };
-			scale = { 1 };
+			position = { 0.0f };
+			scale = { 1.0f };
 			rotation = 0.0f;
 			speed = inSpeed;
 		}
@@ -23,7 +23,7 @@ namespace GameEngine
 		TransformComponent(const glm::vec2& pos, float inSpeed = 10.0f)
 		{
 			position = pos;
-			scale = { 1 };
+			scale = { 1.0f };
 			rotation = 0.0f;
 			speed = inSpeed;
 		}

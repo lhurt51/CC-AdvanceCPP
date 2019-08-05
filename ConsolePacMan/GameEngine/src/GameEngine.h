@@ -20,6 +20,9 @@
 // -------- Prebuild Components & Entities -------
 #include "GameEngine/Core/ECS/Components.h"
 
+// ---------- Collision Handling -----------------
+#include "GameEngine/Collision.h"
+
 // -------------- Entry Point --------------------
 #include "GameEngine/EntryPoint.h"
 // -----------------------------------------------

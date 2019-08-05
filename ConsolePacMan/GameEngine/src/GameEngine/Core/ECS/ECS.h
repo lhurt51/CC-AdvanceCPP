@@ -192,4 +192,10 @@ namespace GameEngine
 
 	};
 
+	void Entity::AddGroup(Group group)
+	{
+		m_GroupBitSet[group] = true;
+		m_Manager.AddToGroup(this, group);
+	}
+
 }

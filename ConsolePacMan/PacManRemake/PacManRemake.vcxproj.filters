@@ -16,4 +16,7 @@
       <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\PacManSprite.sprite" />
+  </ItemGroup>
 </Project>

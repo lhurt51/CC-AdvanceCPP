@@ -133,8 +133,10 @@
   <ItemGroup>
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\GameEngine\Application.h" />
+    <ClInclude Include="src\GameEngine\Collision.h" />
     <ClInclude Include="src\GameEngine\Core.h" />
     <ClInclude Include="src\GameEngine\Core\ECS\Components.h" />
+    <ClInclude Include="src\GameEngine\Core\ECS\Components\ColliderComponent.h" />
     <ClInclude Include="src\GameEngine\Core\ECS\Components\KeyboardController.h" />
     <ClInclude Include="src\GameEngine\Core\ECS\Components\SpriteComponent.h" />
     <ClInclude Include="src\GameEngine\Core\ECS\Components\TransformComponent.h" />
@@ -529,6 +531,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp" />
+    <ClCompile Include="src\GameEngine\Collision.cpp" />
     <ClCompile Include="src\GameEngine\Layer.cpp" />
     <ClCompile Include="src\GameEngine\LayerStack.cpp" />
     <ClCompile Include="src\GameEngine\Log.cpp" />
@@ -547,4 +550,4 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-</Project> 
+</Project>
