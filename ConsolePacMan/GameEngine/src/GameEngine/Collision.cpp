@@ -5,6 +5,7 @@
 
 namespace GameEngine
 {
+	// Not currently running AABB collision it is just point collision for now
 	bool Collision::AABB(const glm::vec2& pos1, const glm::vec2& size1, const glm::vec2& pos2, const glm::vec2& size2)
 	{
 		if ((int)(pos1.x) == (int)(pos2.x) &&

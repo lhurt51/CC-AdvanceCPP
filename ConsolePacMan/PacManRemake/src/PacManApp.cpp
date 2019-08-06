@@ -18,7 +18,10 @@ public:
 		board.AddComponent<GameEngine::TransformComponent>();
 		board.AddComponent<GameEngine::SpriteComponent>("Map");
 		auto& spriteSize = board.GetComponent<GameEngine::SpriteComponent>().sprite.size;
-		board.GetComponent<GameEngine::TransformComponent>().position = { 80 - spriteSize.x * 0.5, 30 - spriteSize.y * 0.5 };
+		glm::vec2 newPos = { 80 - spriteSize.x * 0.5, 30 - spriteSize.y * 0.5 };
+		board.GetComponent<GameEngine::TransformComponent>().position = newPos;
+
+		GameEngine::SceneManager::LoadScene("Map", newPos);
 
 		glm::vec2 playerPos = { 61, 25 };
 		player.AddComponent<GameEngine::TransformComponent>(playerPos);

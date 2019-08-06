@@ -23,6 +23,9 @@
 // ---------- Collision Handling -----------------
 #include "GameEngine/Collision.h"
 
+// ------------- Scene Manager -------------------
+#include "GameEngine/Managers/SceneManager.h"
+
 // -------------- Entry Point --------------------
 #include "GameEngine/EntryPoint.h"
 // -----------------------------------------------
