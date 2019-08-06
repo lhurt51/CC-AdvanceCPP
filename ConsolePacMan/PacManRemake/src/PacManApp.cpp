@@ -30,14 +30,6 @@ public:
 		player.GetComponent<GameEngine::SpriteComponent>().sprite.SetColor(0, 0, GameEngine::FG_DARK_YELLOW);
 		player.AddComponent<GameEngine::ColliderComponent>("player");
 		player.AddGroup(GameEngine::GroupPlayers);
-
-		glm::vec2 colPos = { 59, 25 };
-		glm::vec2 colSize = { 1, 1 };
-		collider.AddComponent<GameEngine::TransformComponent>(colPos);
-		collider.AddComponent<GameEngine::SpriteComponent>("Sprite");
-		collider.GetComponent<GameEngine::SpriteComponent>().sprite.SetColor(0, 0, GameEngine::FG_CYAN);
-		collider.AddComponent<GameEngine::ColliderComponent>("terrain", colPos, colSize);
-		collider.AddGroup(GameEngine::GroupColliders);
 	}
 
 	void OnUpdate(GameEngine::TimeStep ts) override
