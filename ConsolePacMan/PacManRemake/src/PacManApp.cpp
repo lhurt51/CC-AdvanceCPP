@@ -7,8 +7,12 @@ class ExampleLayer : public GameEngine::Layer
 {
 public:
 
-	ExampleLayer()
-		: Layer("Example"), board(GameEngine::Application::Get().m_Assets->GetManager().AddEntity()), player(GameEngine::Application::Get().m_Assets->GetManager().AddEntity()), collider(GameEngine::Application::Get().m_Assets->GetManager().AddEntity())
+	ExampleLayer() : Layer("Example"),
+		board(GameEngine::Application::Get().m_Assets->GetManager().AddEntity()),
+		player(GameEngine::Application::Get().m_Assets->GetManager().AddEntity()),
+		ai1(GameEngine::Application::Get().m_Assets->GetManager().AddEntity()),
+		ai2(GameEngine::Application::Get().m_Assets->GetManager().AddEntity()),
+		ai3(GameEngine::Application::Get().m_Assets->GetManager().AddEntity())
 	{}
 
 	virtual ~ExampleLayer() = default;
@@ -17,19 +21,37 @@ public:
 	{
 		board.AddComponent<GameEngine::TransformComponent>();
 		board.AddComponent<GameEngine::SpriteComponent>("Map");
+
 		auto& spriteSize = board.GetComponent<GameEngine::SpriteComponent>().sprite.size;
 		glm::vec2 newPos = { 80 - spriteSize.x * 0.5, 30 - spriteSize.y * 0.5 };
 		board.GetComponent<GameEngine::TransformComponent>().position = newPos;
-
 		GameEngine::SceneManager::LoadScene("Map", newPos);
 
 		glm::vec2 playerPos = { 61, 25 };
 		player.AddComponent<GameEngine::TransformComponent>(playerPos);
-		player.AddComponent<GameEngine::SpriteComponent>("Sprite");
+		player.AddComponent<GameEngine::SpriteComponent>("Player");
 		player.AddComponent<GameEngine::KeyboardController>();
-		player.GetComponent<GameEngine::SpriteComponent>().sprite.SetColor(0, 0, GameEngine::FG_DARK_YELLOW);
+		player.GetComponent<GameEngine::SpriteComponent>().sprite.SetColor(0, 0, GameEngine::FG_YELLOW);
 		player.AddComponent<GameEngine::ColliderComponent>("player");
 		player.AddGroup(GameEngine::GroupPlayers);
+
+		glm::vec2 enemyPos1 = { 76, 29 };
+		ai1.AddComponent<GameEngine::TransformComponent>(enemyPos1);
+		ai1.AddComponent<GameEngine::SpriteComponent>("Enemy");
+		ai1.GetComponent<GameEngine::SpriteComponent>().sprite.SetColor(0, 0, GameEngine::FG_MAGENTA);
+		ai1.AddComponent<GameEngine::ColliderComponent>("enemy");
+
+		glm::vec2 enemyPos2 = { 79, 29 };
+		ai2.AddComponent<GameEngine::TransformComponent>(enemyPos2);
+		ai2.AddComponent<GameEngine::SpriteComponent>("Enemy");
+		ai2.GetComponent<GameEngine::SpriteComponent>().sprite.SetColor(0, 0, GameEngine::FG_RED);
+		ai2.AddComponent<GameEngine::ColliderComponent>("enemy");
+
+		glm::vec2 enemyPos3 = { 82, 29 };
+		ai3.AddComponent<GameEngine::TransformComponent>(enemyPos3);
+		ai3.AddComponent<GameEngine::SpriteComponent>("Enemy");
+		ai3.GetComponent<GameEngine::SpriteComponent>().sprite.SetColor(0, 0, GameEngine::FG_GREEN);
+		ai3.AddComponent<GameEngine::ColliderComponent>("enemy");
 	}
 
 	void OnUpdate(GameEngine::TimeStep ts) override
@@ -84,7 +106,9 @@ public:
 		GameEngine::RenderCommand::Clear();
 		board.OnDraw();
 		player.OnDraw();
-		collider.OnDraw();
+		ai1.OnDraw();
+		ai2.OnDraw();
+		ai3.OnDraw();
 
 		lastPlayerPos = player.GetComponent<GameEngine::TransformComponent>().position;
 	}
@@ -116,10 +140,11 @@ private:
 
 	GameEngine::Entity& board;
 	GameEngine::Entity& player;
-	GameEngine::Entity& collider;
+	GameEngine::Entity& ai1;
+	GameEngine::Entity& ai2;
+	GameEngine::Entity& ai3;
 
 	glm::vec2 lastPlayerPos;
-	// GameEngine::ColliderComponent lastPlayerCol;
 
 };
 
@@ -149,7 +174,8 @@ public:
 	{
 		// Load all assets used and store them in a map
 		GameEngine::Application::Get().m_Assets->AddSprite("Map", L"res/PacManMap.scene");
-		GameEngine::Application::Get().m_Assets->AddSprite("Sprite", L"res/PacManSprite.sprite");
+		GameEngine::Application::Get().m_Assets->AddSprite("Player", L"res/PacManSprite.sprite");
+		GameEngine::Application::Get().m_Assets->AddSprite("Enemy", L"res/PacManEnemy.sprite");
 
 		PushLayer(new ExampleLayer());
 		PushOverlay(new ExampleOverlay());

@@ -1245,6 +1245,7 @@
     <ClInclude Include="src\GameEngine\Collision.h" />
     <ClInclude Include="src\GameEngine\Core\ECS\Components\ColliderComponent.h" />
     <ClInclude Include="src\GameEngine\Managers\SceneManager.h" />
+    <ClInclude Include="src\GameEngine\Core\ECS\Components\AIMovementComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp">

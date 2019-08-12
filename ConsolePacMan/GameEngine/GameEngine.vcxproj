@@ -136,6 +136,7 @@
     <ClInclude Include="src\GameEngine\Collision.h" />
     <ClInclude Include="src\GameEngine\Core.h" />
     <ClInclude Include="src\GameEngine\Core\ECS\Components.h" />
+    <ClInclude Include="src\GameEngine\Core\ECS\Components\AIMovementComponent.h" />
     <ClInclude Include="src\GameEngine\Core\ECS\Components\ColliderComponent.h" />
     <ClInclude Include="src\GameEngine\Core\ECS\Components\KeyboardController.h" />
     <ClInclude Include="src\GameEngine\Core\ECS\Components\SpriteComponent.h" />

@@ -35,7 +35,7 @@ namespace GameEngine
 		{
 			float time = TimeNowInMs;
 			TimeStep timeStep = time - m_LastFrameTime;
-			while (timeStep <= 0.010)
+			while (timeStep <= 0.01f)
 			{
 				time = TimeNowInMs;
 				timeStep = time - m_LastFrameTime;
