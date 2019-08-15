@@ -5,3 +5,4 @@
 #include "Components/KeyboardController.h"
 #include "Components/SpriteComponent.h"
 #include "Components/ColliderComponent.h"
+#include "Components/AIMovementComponent.h"

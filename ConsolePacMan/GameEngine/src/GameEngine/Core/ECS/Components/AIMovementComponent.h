@@ -3,6 +3,7 @@
 
 #include "GameEngine/Core/TimeStep.h"
 #include "GameEngine/Core/ECS/Components.h"
+#include "GameEngine/Managers/SceneManager.h"
 
 namespace GameEngine
 {
@@ -19,19 +20,23 @@ namespace GameEngine
 			if (!m_Entity->HasComponent<TransformComponent>())
 				m_Entity->AddComponent<TransformComponent>();
 			m_Transform = &m_Entity->GetComponent<TransformComponent>();
+			m_Transform->speed = 5.0f;
 		}
 
 		void Update(TimeStep ts) override
 		{
-			glm::vec2 targetPos = m_PlayerTransform.position;
-
+			// glm::vec2 targetPos = m_PlayerTransform.position;
+			if (bIsStage1) AIStage1();
+			else m_Transform->velocity.y = 0;
 		}
 
 	private:
 
 		void AIStage1()
 		{
-
+			if (m_Transform->velocity.y != -1.0f) m_Transform->velocity.y = -1;
+			if (SceneManager::IsPositionValid(m_Transform->position))
+				bIsStage1 = false;
 		}
 
 		void AIStage2()

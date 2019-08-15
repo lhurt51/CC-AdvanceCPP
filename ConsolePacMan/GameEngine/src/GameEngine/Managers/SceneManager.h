@@ -1,8 +1,7 @@
 #pragma once
 
-#include "GameEngine/Core/ECS/Components.h"
-
 #include <vector>
+#include <glm/glm.hpp>
 
 namespace GameEngine
 {

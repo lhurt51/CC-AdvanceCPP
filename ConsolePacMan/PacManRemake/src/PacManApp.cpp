@@ -40,18 +40,22 @@ public:
 		ai1.AddComponent<GameEngine::SpriteComponent>("Enemy");
 		ai1.GetComponent<GameEngine::SpriteComponent>().sprite.SetColor(0, 0, GameEngine::FG_MAGENTA);
 		ai1.AddComponent<GameEngine::ColliderComponent>("enemy");
+		ai1.AddGroup(GameEngine::GroupEnemies);
 
 		glm::vec2 enemyPos2 = { 79, 29 };
 		ai2.AddComponent<GameEngine::TransformComponent>(enemyPos2);
 		ai2.AddComponent<GameEngine::SpriteComponent>("Enemy");
 		ai2.GetComponent<GameEngine::SpriteComponent>().sprite.SetColor(0, 0, GameEngine::FG_RED);
+		ai2.AddComponent<GameEngine::AIMovementComponent>(player.GetComponent<GameEngine::TransformComponent>());
 		ai2.AddComponent<GameEngine::ColliderComponent>("enemy");
+		ai2.AddGroup(GameEngine::GroupEnemies);
 
 		glm::vec2 enemyPos3 = { 82, 29 };
 		ai3.AddComponent<GameEngine::TransformComponent>(enemyPos3);
 		ai3.AddComponent<GameEngine::SpriteComponent>("Enemy");
 		ai3.GetComponent<GameEngine::SpriteComponent>().sprite.SetColor(0, 0, GameEngine::FG_GREEN);
 		ai3.AddComponent<GameEngine::ColliderComponent>("enemy");
+		ai3.AddGroup(GameEngine::GroupEnemies);
 	}
 
 	void OnUpdate(GameEngine::TimeStep ts) override
