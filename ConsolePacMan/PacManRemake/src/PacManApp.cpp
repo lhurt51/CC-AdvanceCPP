@@ -39,6 +39,7 @@ public:
 		ai1.AddComponent<GameEngine::TransformComponent>(enemyPos1);
 		ai1.AddComponent<GameEngine::SpriteComponent>("Enemy");
 		ai1.GetComponent<GameEngine::SpriteComponent>().sprite.SetColor(0, 0, GameEngine::FG_MAGENTA);
+		ai1.AddComponent<GameEngine::AIMovementComponent>(player.GetComponent<GameEngine::TransformComponent>());
 		ai1.AddComponent<GameEngine::ColliderComponent>("enemy");
 		ai1.AddGroup(GameEngine::GroupEnemies);
 
@@ -54,6 +55,7 @@ public:
 		ai3.AddComponent<GameEngine::TransformComponent>(enemyPos3);
 		ai3.AddComponent<GameEngine::SpriteComponent>("Enemy");
 		ai3.GetComponent<GameEngine::SpriteComponent>().sprite.SetColor(0, 0, GameEngine::FG_GREEN);
+		ai3.AddComponent<GameEngine::AIMovementComponent>(player.GetComponent<GameEngine::TransformComponent>());
 		ai3.AddComponent<GameEngine::ColliderComponent>("enemy");
 		ai3.AddGroup(GameEngine::GroupEnemies);
 	}
